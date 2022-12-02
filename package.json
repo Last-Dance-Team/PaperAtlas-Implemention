@@ -1,0 +1,32 @@
+{
+  "name": "paperatlas-implemention",
+  "version": "1.0.0",
+  "description": "Paper atlas Senior project",
+  "main": "app.js",
+  "scripts": {
+    "test": "build test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Last-Dance-Team/PaperAtlas-Implemention.git"
+  },
+  "author": "Last Dance",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Last-Dance-Team/PaperAtlas-Implemention/issues"
+  },
+  "homepage": "https://github.com/Last-Dance-Team/PaperAtlas-Implemention#readme",
+  "dependencies": {
+    "axios": "^1.2.0",
+    "neo4j-driver": "^5.3.0",
+    "cytoscape": "^3.21.1",
+    "cytoscape-cise": "github:iVis-at-Bilkent/cytoscape.js-cise#develop",
+    "cytoscape-context-menus": "github:iVis-at-Bilkent/cytoscape.js-context-menus#unstable",
+    "cytoscape-expand-collapse": "github:iVis-at-Bilkent/cytoscape.js-expand-collapse#unstable",
+    "cytoscape-fcose": "github:iVis-at-Bilkent/cytoscape.js-fcose#unstable",
+    "cytoscape-layout-utilities": "github:iVis-at-Bilkent/cytoscape.js-layout-utilities#unstable",
+    "cytoscape-navigator": "^2.0.1",
+    "cytoscape-panzoom": "^2.5.3",
+    "cytoscape-view-utilities": "github:iVis-at-Bilkent/cytoscape.js-view-utilities#unstable"
+  }
+}
