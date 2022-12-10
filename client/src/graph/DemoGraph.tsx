@@ -4,26 +4,35 @@ import CytoscapeComponent from 'react-cytoscapejs';
 
 function DemoGraph() {
       const elements = [
-        { data: { id: 'a' } },
-        { data: { id: 'b' } },
-        { data: { id: 'ab', source: 'a', target: 'b' } }
+        { data: { id: 'a', type:'author' } },
+        { data: { id: 'b' ,type:'paper'} },
+        { data: { id: 'c', type: 'author'} },
+        { data: { id: 'ab', source: 'a', target: 'b' } },
+        { data: { id: 'ac', source: 'a', target: 'c' } },
       ]
 
       const style = [
         {
-          selector: 'node',
+          selector: 'node[type="author"]',
           style: {
-            'background-color': '#666',
-            label: 'data(id)'
+            'background-color': 'blue',
+            label: 'data(type)'
+          }
+        },
+        {
+          selector: 'node[type="paper"]',
+          style: {
+            'background-color': 'red',
+            label: 'data(type)'
           }
         },
         {
           selector: 'edge',
           style: {
             width: 3,
-            'line-color': '#ccc',
-            'target-arrow-color': '#ccc',
-            'target-arrow-shape': 'triangle'
+            'line-color': '#122',
+            'target-arrow-color': '#321',
+            'target-arrow-shape': 'circle'
           }
         }
       ]
@@ -32,7 +41,7 @@ function DemoGraph() {
 
 
 
-  return <CytoscapeComponent elements={elements}  stylesheet = {style} />;
+  return <CytoscapeComponent elements={elements} style={ { width: '600px', height: '600px' }} stylesheet = {style}  minZoom={0.5} maxZoom= {2.0}  />;
 };
 
 export default DemoGraph;
