@@ -13,6 +13,8 @@ var dbControllers = {
     let resp = await dbService.runQuery(data);
     var nodes = [];
     var edges = [];
+    var author = {};
+    var authorSet = new Set();
 
     //Process the data
     var arrayOfObjects = resp.records;
@@ -23,27 +25,27 @@ var dbControllers = {
         var field = fields[j];
         var node = {};
         var edge = {};
-        console.log("field.labels", field.labels);
-        console.log("field.type", field.type);
         if (field.labels == "Author") {
-          console.log("adding author");
-          node = {
-            data: {
-              type: "Author",
-              label: field.properties.name,
-              authorId: field.properties.authorId,
-              id: field.identity.low,
-              url: field.properties.url,
-              citationCount: field.properties.citationCount.low,
-              aliases: field.properties.aliases,
-              paperCount: field.properties.paperCount.low,
-              orhids: field.properties.orhids,
-              affiliations: field.properties.affiliations,
-              homepage: field.properties.homepage,
-              hindex: field.properties.hindex.low,
-            },
-            position: { x: 0, y: 0 },
-          };
+          if (!authorSet.has(field.properties.name)) {
+            //authorSet.add(field.properties.name);
+            node = {
+              data: {
+                type: "Author",
+                label: field.properties.name,
+                authorId: field.properties.authorId,
+                id: field.identity.low,
+                url: field.properties.url,
+                citationCount: field.properties.citationCount.low,
+                aliases: field.properties.aliases,
+                paperCount: field.properties.paperCount.low,
+                orhids: field.properties.orhids,
+                affiliations: field.properties.affiliations,
+                homepage: field.properties.homepage,
+                hindex: field.properties.hindex.low,
+              },
+              position: { x: 0, y: 0 },
+            };
+          }
         } else if (field.labels == "Paper") {
           console.log("adding paper");
           node = {
@@ -94,8 +96,8 @@ var dbControllers = {
         }
       }
     }
-    console.log("nodes", nodes);
-    console.log("edges", edges);
+    //  console.log("nodes", nodes);
+    // console.log("edges", edges);
 
     return { nodes: nodes, edges: edges };
   },
