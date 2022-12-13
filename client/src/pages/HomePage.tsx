@@ -4,7 +4,7 @@ import GraphWithLayout from '../graph/GraphWithLayout';
 
 function HomePage(){
 
-    const [layoutName, setLaYoutName] = useState(LAYOUT_NAMES.COSE_BILKENT)
+    const [layoutName, setLaYoutName] = useState(LAYOUT_NAMES.DAGRE)
     const[elements, setElements] = useState({'nodes': [],
                                               'edges': []})
 
@@ -19,7 +19,7 @@ function HomePage(){
       setElements(body)
     };
 
-    useEffect(() => {callBackendAPI()}, [])
+    //useEffect(() => {callBackendAPI()}, [])
     
     //const layoutName = LAYOUT_NAMES.COLA
 

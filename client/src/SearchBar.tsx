@@ -11,25 +11,31 @@ import Button from '@mui/material/Button';
 
 
 export default function CustomizedSelects() {
-  const [graph, setGraph] = React.useState('');
-  const [searchparameter, setsearchparameter] = React.useState('');
+  const [graphType, setGraphType] = React.useState('');
+  const [searchParameter, setSearchParameter] = React.useState('');
   const [distance, setDistance] = React.useState('');
-  const handleChange = (event: { target: { value: string } }) => {
-    setGraph(event.target.value);
+  const handleChangeGraphType = (event: { target: { value: string } }) => {
+    setGraphType(event.target.value);
+  };
+
+  const handleChangeParameter = (event: { target: { value: string } }) => {
+    setSearchParameter(event.target.value);
+  };
+
+  const handleChangeDistance= (event: { target: { value: string } }) => {
+    setDistance(event.target.value);
   };
   return (
-    <div>
-      <FormControl sx={{ m: 1 }} variant="standard">
-        <InputLabel htmlFor="demo-customized-select-native" >Graph Type</InputLabel>
+    <div className= {'search-bar-body'}>
+      <FormControl sx={{ m: 1, minWidth: 280 }}>
+        <InputLabel id="demo-simple-select-label">Graph Type</InputLabel>
         <Select
-          labelId="demo-customized-select-label"
-          id="demo-customized-select"
-          value={graph}
-          onChange={handleChange}
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={graphType}
+          label="Graph Type"
+          onChange={handleChangeGraphType}
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
           <MenuItem value={"AuthorPaper"}>Paper and Authors</MenuItem>
           <MenuItem value={"JournalPaper"}>Papers groupued by Journals</MenuItem>
           <MenuItem value={"KeyboardPaper"}>Papers and Keyboards</MenuItem>
@@ -39,44 +45,41 @@ export default function CustomizedSelects() {
         </Select>
       </FormControl>
 
-
-      <FormControl sx={{ m: 1 }} variant="standard">
-        <InputLabel htmlFor="demo-customized-select-native">Search Parameter</InputLabel>
-        <NativeSelect
-          id="demo-customized-select-native"
-          value={searchparameter}
-          onChange={handleChange}
+      <FormControl sx={{ m: 1, minWidth: 200 }}>
+        <InputLabel id="demo-simple-select-label">Search Parameter</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={searchParameter}
+          label="Search Parameter"
+          onChange={handleChangeParameter}
         >
-          <option aria-label="None" value="" />
-          <option value={"First"}>First Parameter</option>
-          <option value={"Secoond"}>Second Parameter</option>
-        </NativeSelect>
+          <MenuItem value={"AuthorPaper"}>Paper Title</MenuItem>
+          <MenuItem value={"JournalPaper"}>Author Name</MenuItem>
+          <MenuItem value={"KeyboardPaper"}>Keyword</MenuItem>
+        </Select>
       </FormControl>
-            
-      
-      <FormControl sx={{ m: 1 }} variant="standard">
-        <InputLabel htmlFor="demo-customized-select-native">Distance</InputLabel>
-        <NativeSelect
-          id="demo-customized-select-native"
+
+
+      <FormControl sx={{ m: 1, minWidth: 150 }}>
+        <InputLabel id="demo-simple-select-label">Distance</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
           value={distance}
-          onChange={handleChange}
+          label="Distance"
+          onChange={handleChangeDistance}
         >
-          <option aria-label="None" value="" />
-          <option value={"First"}>1</option>
-          <option value={"Secoond"}>2</option>
-          <option value={"Third"}>3</option>
-          <option value={"Fourth"}>4</option>
-        </NativeSelect>
+          <MenuItem value={1}>One</MenuItem>
+          <MenuItem value={2}>Two</MenuItem>
+          <MenuItem value={3}>Three</MenuItem>
+          <MenuItem value={4}>Four</MenuItem>
+          <MenuItem value={5}>Five</MenuItem>
+        </Select>
       </FormControl>
 
-      <FormControl sx={{ m: 1 }} variant="standard" >
-        <InputLabel htmlFor="demo-customized-textbox" >Search</InputLabel>
-        
-      </FormControl>
-      <FormControl sx={{ m: 1 }} variant="standard" >
         <Button variant="contained" >Search Graph</Button>
-        
-      </FormControl>
+
     </div>
   );
 }

@@ -12,10 +12,6 @@ import SearchBar from  './SearchBar'
 
 const App: React.FC = () => {
 
-
-
-  const layoutName = LAYOUT_NAMES.COLA
-
   return (
     <div>
       <h1>My Graph Visualization</h1>

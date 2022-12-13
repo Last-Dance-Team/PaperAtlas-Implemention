@@ -1,0 +1,14 @@
+.search-bar-body {
+    align-items: center;
+    margin: 20px;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.search-button {
+    display: table;
+    padding: 20px;
+    margin: auto
+}
