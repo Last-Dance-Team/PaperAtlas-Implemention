@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Cytoscape from "cytoscape";
 import CytoscapeComponent from 'react-cytoscapejs';
 
-function DemoGraph() {
+
+function DemoGraph(props:any) {
       const elements = [
         { data: { id: 'a', type:'author' } },
         { data: { id: 'b' ,type:'paper'} },
@@ -37,11 +38,10 @@ function DemoGraph() {
         }
       ]
 
+    const layout = {name: props.layoutName}
+    const element = CytoscapeComponent.normalizeElements(props.elements);
 
-
-
-
-  return <CytoscapeComponent elements={elements} style={ { width: '600px', height: '600px' }} stylesheet = {style}  minZoom={0.5} maxZoom= {2.0}  />;
+  return <CytoscapeComponent elements={element} style={ { width: '600px', height: '600px' }} stylesheet = {style}  minZoom={0.5} maxZoom= {2.0} layout = {layout} />;
 };
 
 export default DemoGraph;
