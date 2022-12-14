@@ -81,8 +81,8 @@ var dbControllers = {
                     console.log("adding edge");
                     edge = {
                         data: {
-                            source: field.start.low,
-                            taregt: field.end.low,
+                            source: String(field.start.low),
+                            taregt: String(field.end.low),
                             label: "an-author-of",
                         },
                     };
@@ -160,8 +160,8 @@ var dbControllers = {
                     console.log("adding edge");
                     edge = {
                         data: {
-                            source: field.start.low,
-                            taregt: field.end.low,
+                            source: String(field.start.low),
+                            taregt: String(field.end.low),
                             label: "a-reference-of",
                         },
                     };
