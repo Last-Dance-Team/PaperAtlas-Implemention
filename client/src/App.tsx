@@ -14,8 +14,7 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <h1>My Graph Visualization</h1>
-      <SearchBar/>
+      <h1>Paper Atlas</h1>
       <HomePage/>
     </div>
   );

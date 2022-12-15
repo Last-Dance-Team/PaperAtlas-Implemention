@@ -7,13 +7,16 @@ import Select from '@mui/material/Select';
 import NativeSelect from '@mui/material/NativeSelect';
 import InputBase from '@mui/material/InputBase';
 import Button from '@mui/material/Button';
+import { TextField } from '@mui/material';
 
 
 
-export default function CustomizedSelects() {
+export default function SearchBar(props: any) {
   const [graphType, setGraphType] = React.useState('');
   const [searchParameter, setSearchParameter] = React.useState('');
   const [distance, setDistance] = React.useState('');
+  const [word, setWord] = React.useState('');
+
   const handleChangeGraphType = (event: { target: { value: string } }) => {
     setGraphType(event.target.value);
   };
@@ -25,6 +28,16 @@ export default function CustomizedSelects() {
   const handleChangeDistance= (event: { target: { value: string } }) => {
     setDistance(event.target.value);
   };
+
+  const handleChangeWord= (event: { target: { value: string } }) => {
+    setWord(event.target.value);
+  };
+
+  const handleClick= () => {
+    props.callBackendAPI(graphType,searchParameter, word)
+  };
+
+
   return (
     <div className= {'search-bar-body'}>
       <FormControl sx={{ m: 1, minWidth: 280 }}>
@@ -36,10 +49,10 @@ export default function CustomizedSelects() {
           label="Graph Type"
           onChange={handleChangeGraphType}
         >
-          <MenuItem value={"AuthorPaper"}>Paper and Authors</MenuItem>
+          <MenuItem value={"getPaper"}>Papers and Citations</MenuItem>
+          <MenuItem value={"getAuthor"}>Paper and Authors</MenuItem>
+          <MenuItem value={"KeyboardPaper"}>Papers and Keywords</MenuItem>
           <MenuItem value={"JournalPaper"}>Papers groupued by Journals</MenuItem>
-          <MenuItem value={"KeyboardPaper"}>Papers and Keyboards</MenuItem>
-          <MenuItem value={"CitationPaper"}>Papers and Citations</MenuItem>
           <MenuItem value={"ReferencePaper"}>Common References of Papers</MenuItem>
           <MenuItem value={"AuthorCitation"}>Authors and Citations</MenuItem>
         </Select>
@@ -78,7 +91,13 @@ export default function CustomizedSelects() {
         </Select>
       </FormControl>
 
-        <Button variant="contained" >Search Graph</Button>
+    <FormControl sx={{ m: 1}}>
+      <TextField id="outlined-basic" label="Enter Search Word" variant="outlined" onChange={handleChangeWord} />
+    </FormControl>
+    
+    <FormControl sx={{ m: 2}}>
+      <Button variant="contained" onClick={handleClick} >Search Graph</Button>
+    </FormControl>
 
     </div>
   );

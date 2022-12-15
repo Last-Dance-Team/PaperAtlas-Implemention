@@ -82,7 +82,7 @@ var dbControllers = {
                     edge = {
                         data: {
                             source: String(field.start.low),
-                            taregt: String(field.end.low),
+                            target: String(field.end.low),
                             label: "an-author-of",
                         },
                     };
@@ -161,7 +161,7 @@ var dbControllers = {
                     edge = {
                         data: {
                             source: String(field.start.low),
-                            taregt: String(field.end.low),
+                            target: String(field.end.low),
                             label: "a-reference-of",
                         },
                     };
