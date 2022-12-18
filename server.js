@@ -20,9 +20,11 @@ function getAuthor(req, res) {
 }
 
 function getPaper(req, res) {
-  databaseController.searchByPaper(req.params.name).then((data) => {
-    res.json(data);
-  });
+  databaseController
+    .searchByPaper(req.params.name, req.params.lengthLimit)
+    .then((data) => {
+      res.json(data);
+    });
 }
 
 function getNeighbor(req, res) {
@@ -36,7 +38,7 @@ function getNeighbor(req, res) {
 }
 
 //Endpoints
-app.get("/getPaper/:name", getPaper);
+app.get("/getPaper/:name/:lengthLimit", getPaper);
 app.get("/getAuthor/:name", getAuthor);
 app.get("/getNeighbor/:title/:lengthLimit", getNeighbor);
 

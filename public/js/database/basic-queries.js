@@ -10,11 +10,11 @@ var basicQueries = {
             MATCH (:Author {authorId: a.authorId})-[r]-(p:Paper) 
             RETURN a,p,r`;
   },
-  getPaperAndPapers: function (paper) {
+  getPaperAndPapers: function (paper, lengthLimit) {
     return `MATCH (p:Paper) WHERE p.title CONTAINS "${paper}"
             WITH p 
             LIMIT 50  
-            MATCH (:Paper {paperId: p.paperId})-[r]-(pp:Paper) 
+            MATCH (:Paper {paperId: p.paperId})-[r*..${lengthLimit}]-(pp:Paper) 
             RETURN p,pp,r`;
   },
   getNeighborOfPaper: function (title, lengthLimit) {

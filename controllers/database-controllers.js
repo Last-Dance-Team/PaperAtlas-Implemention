@@ -101,8 +101,8 @@ var dbControllers = {
 
     return { nodes: nodes, edges: edges };
   },
-  searchByPaper: async function (paper) {
-    let query = basicQueries.getPaperAndPapers(paper);
+  searchByPaper: async function (paper, lengthLimit) {
+    let query = basicQueries.getPaperAndPapers(paper, lengthLimit);
     var queryData = { paper: paper };
     var data = { query: query, queryData: queryData };
 
