@@ -20,13 +20,22 @@ function HomePage(){
       const response = await fetch(`/${graphType}/${word}`);
       const body = await response.json();
 
+      const updatedNodes = body.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,15) + '...'
+                                  return b})
+      
+      const updatedEdges = body.edges.map((b: any) => {b.data.abbr = (b.data.label).substring(0,15) + '...'
+                                  return b})
+      const elements = {
+        'nodes': updatedNodes,
+        'edges': updatedEdges
+      }
+
       if (response.status !== 200) {
         throw Error(body.message) 
       }
 
       console.log("here")
-      console.log(body)
-      setElements(body)
+      setElements(elements)
     };
 
     useEffect(() => {}, [])

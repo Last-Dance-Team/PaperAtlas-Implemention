@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import Cytoscape from "cytoscape";
+import cytoscape from 'cytoscape';
+import jquery from 'jquery';
 import CytoscapeComponent from 'react-cytoscapejs';
+import './jquery.qtip.css'
 
+const qtip = require('cytoscape-qtip');
+
+//const jquery = require('jquery')
+
+//qtip ( Cytoscape, jquery );
+cytoscape.use(qtip)
 
 function DemoGraph(props:any) {
 
@@ -97,25 +105,26 @@ function DemoGraph(props:any) {
     {
       selector: 'node[type="Author"]',
       style: {
-        'background-color': 'blue',
-        label: 'data(label)',
+        'background-color': '#a05195',
+        label: 'data(abbr)',
 
       }
     },
     {
       selector: 'node[type="Paper"]',
       style: {
-        'background-color': 'red',
-        label: 'data(label)',
+        'background-color': '#2f4b7c',
+        label: 'data(abbr)',
       }
     },
     {
       selector: 'edge',
       style: {
+        "curve-style": "bezier",
         width: 3,
-        'line-color': '#122',
-        'target-arrow-color': '#321',
-        'target-arrow-shape': 'circle',
+        'line-color': '#777',
+        'target-arrow-color': '#777',
+        "target-arrow-shape": "triangle",
       }
     }
   ]
@@ -125,7 +134,33 @@ function DemoGraph(props:any) {
   const element = CytoscapeComponent.normalizeElements(props.elements);
 
 
-  return <CytoscapeComponent elements={element} style={ { width: '2000px', height: '1000px' }} stylesheet = {style}  minZoom={0.5} maxZoom= {2.0} layout = {layout} />;
+  return <CytoscapeComponent 
+              cy={(cy): void => {
+                cy.on("click","node", (event) => {
+                  var node = event.target;
+                  console.log(node._private.data.label);
+                });
+
+                cy.on('mouseover', 'node', function(event) {
+                  var node = event.target; // cy.target is the right choice here
+                  node.qtip({
+                    content: node._private.data.label,
+                    show: {
+                      event: "mouseover mouseenter "
+                    },
+                    hide: {
+                      event: "mouseleave mouseout"
+                    }
+                  });
+                });
+
+              }}
+              elements={element} 
+              style={ { width: '1500px', height: '1000px' }} 
+              stylesheet = {style}  
+              minZoom={0.5} 
+              maxZoom= {2.0} 
+              layout = {layout} />;
 };
 
 export default DemoGraph;
