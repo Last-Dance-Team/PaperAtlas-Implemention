@@ -3,6 +3,9 @@ import cytoscape from 'cytoscape';
 import jquery from 'jquery';
 import CytoscapeComponent from 'react-cytoscapejs';
 import './jquery.qtip.css'
+import ReactDOM from 'react-dom';
+import NodeDetails from '../NodeDetails';
+import { border } from '@mui/system';
 
 const qtip = require('cytoscape-qtip');
 
@@ -40,7 +43,7 @@ function DemoGraph(props:any) {
       
       selector: 'node[type="Author"]',
       style: {
-        'background-color': '#a05195',
+        'background-color': '#D6EAF8 ',
         
         
         content:'data(abbr)',
@@ -53,7 +56,7 @@ function DemoGraph(props:any) {
     {
       selector: 'node[type="Paper"]',
       style: {
-        'background-color': '#2f4b7c',
+        'background-color': '#D1F2EB',
         
         content:'data(abbr)',
         'text-halign':'center',
@@ -101,15 +104,22 @@ function DemoGraph(props:any) {
                     }
                   });
                 });
+
+                
+
+                
               }}
               
               
               elements={element} 
-              style={ { width: '1500px', height: '1000px' }} 
+              style={ { width: '1500px', height: '1000px',border: '2px solid',borderColor:'#34495E'
+            ,borderRadius:'3%',padding:'5px'}} 
               stylesheet = {styleGraph}  
               minZoom={0.1} 
               maxZoom= {10.0} 
-              layout = {layout} />;
+              layout = {layout} />
+              
+              ;
 };
 
 export default DemoGraph;

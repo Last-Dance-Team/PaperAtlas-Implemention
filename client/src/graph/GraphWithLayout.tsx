@@ -12,6 +12,8 @@ import DemoGraph from "./DemoGraph";
 const cola = require('cytoscape-cola');
 const coseBilkent = require('cytoscape-cose-bilkent');
 
+const style = {margin: '15px'}
+
 function GraphWithLayout(props: any) {
     
   
@@ -36,7 +38,10 @@ function GraphWithLayout(props: any) {
             console.log("No resource found");
     }
   
-    return <DemoGraph {...props} />;
+    return <div style={style}>
+        <DemoGraph {...props}  />
+      </div>;    
+    //<DemoGraph {...props} />;
   }
   
   export default GraphWithLayout;
