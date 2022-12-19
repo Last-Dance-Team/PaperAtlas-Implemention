@@ -7,6 +7,11 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { Date } from 'neo4j-driver';
+import { Integer } from 'neo4j-driver-core';
+import { TextField } from '@mui/material';
+
+
 
 function HomePage(){
 
@@ -14,8 +19,10 @@ function HomePage(){
     const[elements, setElements] = useState({'nodes': [],
                                               'edges': []})
 
+    const[filteredElements, setFilteredElements] = useState({'nodes': [],
+                                              'edges': []})                                          
 
-    const callBackendAPI = async (graphType: string, parameterType : string, word: string) => {
+    const callBackendAPI = async (graphType: string, parameterType : string, word: string) => {   
       console.log("here")
       const response = await fetch(`/${graphType}/${word}`);
       const body = await response.json();
@@ -36,9 +43,33 @@ function HomePage(){
 
       console.log("here")
       setElements(elements)
+      setFilteredElements(elements)
     };
 
     useEffect(() => {}, [])
+
+    
+    
+
+    const changeDatefilter = (event: { target: { value: string } }) => {
+      var minDate = Number(event.target.value) //source author target paper
+      const newNodes = elements.nodes.filter((obj : any ) => {
+      return obj.data.year >= minDate || obj.data.type !="Paper"})
+        
+      const newIds = newNodes.map((obj : any ) => obj.data.id);
+      const finalEdges = elements.edges.filter((obj : any ) => {
+        return newIds.includes(obj.data.target) })
+      
+      
+      const newAuthorIds = finalEdges.map((obj : any ) => obj.data.source);
+      const finalNodes = newNodes.filter((obj : any ) => {
+        return obj.data.type =="Paper" || newAuthorIds.includes(obj.data.id) })
+      const filteredElements = {
+        'nodes': finalNodes,
+        'edges': finalEdges
+      }
+      setFilteredElements(filteredElements)
+    };
 
     const handleChangeLayout = (event: { target: { value: string } }) => {
       setLaYoutName(event.target.value);
@@ -63,7 +94,10 @@ function HomePage(){
               <MenuItem value={LAYOUT_NAMES.KALY}>Klay</MenuItem>
             </Select>
           </FormControl>
-          <GraphWithLayout layoutName = {layoutName}  elements = {elements} />
+          <FormControl sx={{ m: 1}}>
+            <TextField id="outlined-basic" label="Enter min year" variant="outlined" onChange={changeDatefilter} />
+          </FormControl>
+          <GraphWithLayout layoutName = {layoutName}  elements = {filteredElements} />
         </div>
       );
 }

@@ -7,9 +7,21 @@ import './jquery.qtip.css'
 const qtip = require('cytoscape-qtip');
 
 //const jquery = require('jquery')
+// BIR ISE YARAMIYOR su an ama filtrelemeyi bu tarz yapabiliriz
+function filterNodesByName(cy: cytoscape.Core, name: string) {
+  cy.nodes().forEach((node: cytoscape.NodeSingular) => {
+    if (node.data('name') !== name) {
+      node.style({'display': 'none'});
+    }
+  });
+}
 
 //qtip ( Cytoscape, jquery );
 function setSize(node: cytoscape.NodeSingular) {
+  if ( node.data('citationCount') == 0) 
+  {
+    return 30;
+  }
   if (node.data('type') == "Author") {
     return 30 + Math.log(node.data('citationCount'));
   } 
@@ -23,27 +35,29 @@ cytoscape.use(qtip)
 function DemoGraph(props:any) {
 
 
-  const styleGraph = [
+  const styleGraph  = [
     {
+      
       selector: 'node[type="Author"]',
       style: {
         'background-color': '#a05195',
-        label: 'data(abbr)',
         
-
-        'line-height': 15,
+        
+        content:'data(abbr)',
+        'text-halign':'center',
+        'text-valign':'center',
         width:setSize,
-        height:setSize
-        
-
+        height:setSize,
       }
     },
     {
       selector: 'node[type="Paper"]',
       style: {
         'background-color': '#2f4b7c',
-        label: "data(abbr)",
         
+        content:'data(abbr)',
+        'text-halign':'center',
+        'text-valign':'center',
         width:setSize,
         height:setSize
       }
@@ -58,11 +72,14 @@ function DemoGraph(props:any) {
         "target-arrow-shape": "triangle",
       }
     }
-  ]
+    
+  ] as Array<cytoscape.Stylesheet>;
 
 
   const layout = {name: props.layoutName}
   const element = CytoscapeComponent.normalizeElements(props.elements);
+
+  //const date = {name: props.date}
 
 
   return <CytoscapeComponent 
@@ -84,13 +101,14 @@ function DemoGraph(props:any) {
                     }
                   });
                 });
-
               }}
+              
+              
               elements={element} 
               style={ { width: '1500px', height: '1000px' }} 
               stylesheet = {styleGraph}  
-              minZoom={0.5} 
-              maxZoom= {2.0} 
+              minZoom={0.1} 
+              maxZoom= {10.0} 
               layout = {layout} />;
 };
 
