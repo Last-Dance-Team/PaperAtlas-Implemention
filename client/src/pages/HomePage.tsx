@@ -95,7 +95,9 @@ function HomePage(){
             </Select>
           </FormControl>
           <FormControl sx={{ m: 1}}>
-            <TextField id="outlined-basic" label="Enter min year" variant="outlined" onChange={changeDatefilter} />
+            <TextField id="outlined-basic" label="Enter min year" variant="outlined" onChange={changeDatefilter} InputProps={{  inputProps: {
+      maxLength: 4,},type: 'number'}}  
+            />
           </FormControl>
           <GraphWithLayout layoutName = {layoutName}  elements = {filteredElements} />
         </div>
