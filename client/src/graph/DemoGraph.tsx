@@ -7,7 +7,9 @@ import ReactDOM from 'react-dom';
 import NodeDetails from '../NodeDetails';
 import { border } from '@mui/system';
 
+
 const qtip = require('cytoscape-qtip');
+
 
 //const jquery = require('jquery')
 // BIR ISE YARAMIYOR su an ama filtrelemeyi bu tarz yapabiliriz
@@ -34,6 +36,8 @@ function setSize(node: cytoscape.NodeSingular) {
 }
 
 cytoscape.use(qtip)
+
+
 
 function DemoGraph(props:any) {
 
@@ -74,7 +78,9 @@ function DemoGraph(props:any) {
         'target-arrow-color': '#777',
         "target-arrow-shape": "triangle",
       }
-    }
+    },
+   
+    
     
   ] as Array<cytoscape.Stylesheet>;
 
@@ -112,7 +118,7 @@ function DemoGraph(props:any) {
               
               
               elements={element} 
-              style={ { width: '1500px', height: '1000px',border: '2px solid',borderColor:'#34495E'
+              style={ { width: '2400px', height: '1000px',border: '2px solid',borderColor:'#34495E'
             ,borderRadius:'3%',padding:'5px'}} 
               stylesheet = {styleGraph}  
               minZoom={0.1} 
