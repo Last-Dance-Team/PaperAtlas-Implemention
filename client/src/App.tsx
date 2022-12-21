@@ -14,7 +14,6 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <h1>Paper Atlas</h1>
       <HomePage/>
     </div>
   );

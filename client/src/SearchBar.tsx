@@ -34,7 +34,7 @@ export default function SearchBar(props: any) {
   };
 
   const handleClick= () => {
-    props.callBackendAPI(graphType,searchParameter, word)
+    props.callBackendAPI(graphType,searchParameter, distance, word)
   };
 
 

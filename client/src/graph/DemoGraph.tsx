@@ -4,7 +4,6 @@ import jquery from 'jquery';
 import CytoscapeComponent from 'react-cytoscapejs';
 import './jquery.qtip.css'
 import ReactDOM from 'react-dom';
-import NodeDetails from '../NodeDetails';
 import { border } from '@mui/system';
 
 
@@ -31,7 +30,7 @@ function setSize(node: cytoscape.NodeSingular) {
     return 30 + Math.log(node.data('citationCount'));
   } 
   else {
-    return 30 + 10*Math.log(node.data('citationCount'));
+    return 30 + 10*Math.log10(node.data('citationCount'));
   }
 }
 
@@ -47,7 +46,7 @@ function DemoGraph(props:any) {
       
       selector: 'node[type="Author"]',
       style: {
-        'background-color': '#D6EAF8 ',
+        'background-color': '#ffd000',
         
         
         content:'data(abbr)',
@@ -60,7 +59,7 @@ function DemoGraph(props:any) {
     {
       selector: 'node[type="Paper"]',
       style: {
-        'background-color': '#D1F2EB',
+        'background-color': '#d185c7',
         
         content:'data(abbr)',
         'text-halign':'center',
@@ -96,6 +95,8 @@ function DemoGraph(props:any) {
                 cy.on("click","node", (event) => {
                   var node = event.target;
                   console.log(node._private.data.label);
+                  props.handleName(node._private.data.label)
+                  props.handleDrawerOpen()
                 });
 
                 cy.on('mouseover', 'node', function(event) {
@@ -118,7 +119,7 @@ function DemoGraph(props:any) {
               
               
               elements={element} 
-              style={ { width: '2400px', height: '1000px',border: '2px solid',borderColor:'#34495E'
+              style={ { width: '1800px', height: '650px',border: '2px solid',borderColor:'#34495E'
             ,borderRadius:'3%',padding:'5px'}} 
               stylesheet = {styleGraph}  
               minZoom={0.1} 
