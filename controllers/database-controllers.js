@@ -157,13 +157,25 @@ var dbControllers = {
             };
           }
         }
-
-        if (field.type == "a-reference-of") {
+        console.log("field dsd", field);
+        /*
+        if (field[0].type == "a-reference-of") {
           console.log("adding edge");
           edge = {
             data: {
-              source: String(field.start.low),
-              target: String(field.end.low),
+              source: String(field[0].start.low),
+              target: String(field[0].end.low),
+              label: "a-reference-of",
+            },
+          };
+        }
+        */
+
+        for (let k = 0; k < field.length; k++) {
+          edge = {
+            data: {
+              source: String(field[k].start.low),
+              target: String(field[k].end.low),
               label: "a-reference-of",
             },
           };
@@ -179,6 +191,7 @@ var dbControllers = {
     //  console.log("nodes", nodes);
     // console.log("edges", edges);
 
+    //return resp;
     return { nodes: nodes, edges: edges };
   },
   getNeighborOfPaper: async function (title, lengthLimit) {
