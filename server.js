@@ -39,7 +39,7 @@ function getNeighbor(req, res) {
 
 //Endpoints
 app.get("/getPaper/:name/:lengthLimit", getPaper);
-app.get("/getAuthor/:name", getAuthor);
+app.get("/getAuthor/:name/:lengthLimit", getAuthor);
 app.get("/getNeighbor/:title/:lengthLimit", getNeighbor);
 
 server.listen(port, function () {
