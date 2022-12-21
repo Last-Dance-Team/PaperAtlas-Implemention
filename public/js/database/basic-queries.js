@@ -12,8 +12,8 @@ var basicQueries = {
   getPaperAndPapers: function (paper, lengthLimit) {
     return `MATCH (p:Paper) WHERE p.title CONTAINS "${paper}"
             WITH p 
-            MATCH (p:Paper {paperId: p.paperId})-[m*..${lengthLimit}]-(pp:Paper) 
-            RETURN p,pp,m`;
+            MATCH a= (n:Paper {paperId: p.paperId})-[*..${lengthLimit}]-(pp:Paper) 
+            RETURN nodes(a), relationships(a)`;
   },
   getNeighborOfPaper: function (title, lengthLimit) {
     return (
