@@ -111,7 +111,7 @@ var dbControllers = {
     var nodes = [];
     var edges = [];
     var paperSet = new Set();
-    var edgeSet = new Set();
+    var edgeSet = new Map();
     var authorSet = new Set();
 
     //Process the data
@@ -121,33 +121,12 @@ var dbControllers = {
       var fields = object._fields;
       for (let j = 0; j < fields.length; j++) {
         var nodes_edges = fields[j];
-        var node = {};
-        var edge = {};
         for (let k = 0; k < nodes_edges.length; k++) {
           var field = nodes_edges[k];
-          console.log("the field", field);
-          if (field.labels == "Author") {
-            if (!authorSet.has(field.properties.name)) {
-              authorSet.add(field.properties.name);
-              node = {
-                data: {
-                  type: "Author",
-                  label: field.properties.name,
-                  authorId: field.properties.authorId,
-                  id: String(field.identity.low),
-                  url: field.properties.url,
-                  citationCount: field.properties.citationCount.low,
-                  aliases: field.properties.aliases,
-                  paperCount: field.properties.paperCount.low,
-                  orhids: field.properties.orhids,
-                  affiliations: field.properties.affiliations,
-                  homepage: field.properties.homepage,
-                  hindex: field.properties.hindex.low,
-                },
-                position: { x: 0, y: 0 },
-              };
-            }
-          } else if (field.labels == "Paper") {
+          var node = {};
+          var edge = {};
+          //console.log("the field", field);
+          if (field.labels == "Paper") {
             if (!paperSet.has(field.properties.paperId.low)) {
               paperSet.add(field.properties.paperId.low);
               node = {
@@ -182,11 +161,18 @@ var dbControllers = {
               };
             }
           }
-          console.log("field dsd", field);
 
           if (field.type == "a-reference-of") {
-            if (!edgeSet.has([field.start.low, field.end.low])) {
-              edgeSet.add([field.start.low, field.end.low]);
+            console.log("edgseSet", edgeSet);
+            if (
+              !edgeSet.get(field.start.low) ||
+              !edgeSet.get(field.start.low).has(field.end.low)
+            ) {
+              if (!edgeSet.get(field.start.low)) {
+                newSet = new Set();
+                edgeSet.set(field.start.low, newSet);
+              }
+              edgeSet.get(field.start.low).add(field.end.low);
               console.log("adding edge");
               edge = {
                 data: {
@@ -198,25 +184,14 @@ var dbControllers = {
             }
           }
 
-          if (field.type == "an-author-of") {
-            if (!edgeSet.has([field.start.low, field.end.low])) {
-              edgeSet.add([field.start.low, field.end.low]);
-              console.log("adding edge");
-              edge = {
-                data: {
-                  source: String(field.start.low),
-                  target: String(field.end.low),
-                  label: "an-author-of",
-                },
-              };
-            }
-          }
-
           if (node.data) {
             nodes.push(node);
+            node = {};
           }
+
           if (edge.data) {
             edges.push(edge);
+            edge = {};
           }
         }
       }

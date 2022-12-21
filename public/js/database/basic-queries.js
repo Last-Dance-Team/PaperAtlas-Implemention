@@ -10,10 +10,16 @@ var basicQueries = {
             RETURN a,p,r`;
   },
   getPaperAndPapers: function (paper, lengthLimit) {
-    return `MATCH (p:Paper) WHERE p.title CONTAINS "${paper}"
-            WITH p 
-            MATCH a= (n:Paper {paperId: p.paperId})-[*..${lengthLimit}]-(pp:Paper) 
-            RETURN nodes(a), relationships(a)`;
+    return (
+      "MATCH (p:Paper) WHERE p.title CONTAINS '" +
+      paper +
+      "'" +
+      " WITH p" +
+      " MATCH a= (n:Paper {paperId: p.paperId})-[:`a-reference-of`*.." +
+      lengthLimit +
+      "]-(pp:Paper) " +
+      " RETURN nodes(a), relationships(a)  "
+    );
   },
   getNeighborOfPaper: function (title, lengthLimit) {
     return (
