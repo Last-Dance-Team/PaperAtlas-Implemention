@@ -27,7 +27,7 @@ var dbControllers = {
         var edge = {};
         if (field.labels == "Author") {
           if (!authorSet.has(field.properties.name)) {
-            authorSet.add(field.properties.name);
+            //authorSet.add(field.properties.name);
             node = {
               data: {
                 type: "Author",
