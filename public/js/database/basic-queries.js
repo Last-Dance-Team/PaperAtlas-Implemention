@@ -28,7 +28,7 @@ var basicQueries = {
       "'})-[r:`a-reference-of`*.." +
       lengthLimit +
       "]->(c:Paper)" +
-      " RETURN nodes(p) as pathNodes ,r"
+      " RETURN nodes(p) as pathNodes ,relationships(p)"
     );
   },
 };
