@@ -50,8 +50,7 @@ function DemoGraph(props:any) {
         
         
         content:'data(abbr)',
-        'text-halign':'center',
-        'text-valign':'center',
+
         width:setSize,
         height:setSize,
       }
@@ -62,8 +61,7 @@ function DemoGraph(props:any) {
         'background-color': '#d185c7',
         
         content:'data(abbr)',
-        'text-halign':'center',
-        'text-valign':'center',
+        
         width:setSize,
         height:setSize
       }
@@ -96,7 +94,7 @@ function DemoGraph(props:any) {
                   var node = event.target;
                   console.log(node._private.data.label);
                   props.handleName(node._private.data.label)
-                  props.handleDrawerOpen()
+                  props.handleDrawerOpen(node._private.data)
                 });
 
                 cy.on('mouseover', 'node', function(event) {

@@ -116,6 +116,7 @@ function HomePage(){
     const [minDate, setMinDate] = React.useState('');
     const [maxDate, setMaxDate] = React.useState('');
     const [open, setOpen] = React.useState(false);
+    const [node, setNode] = React.useState({'type': ''})
 
     const applyDateFilter =  (minDate: string, maxDate : string) => {
       var minDateNo = Number(minDate) //source author target paper
@@ -177,8 +178,9 @@ function HomePage(){
       setLaYoutName(event.target.value);
     };
 
-    const handleDrawerOpen = () => {
+    const handleDrawerOpen = (node: any) => {
       setOpen(true);
+      setNode(node)
     };
   
     const handleDrawerClose = () => {
@@ -225,7 +227,7 @@ function HomePage(){
             <Divider />
             <br />
 
-              <NodeDetail name = {name}/>
+              <NodeDetail node = {node}/>
 
 
           </Drawer>
