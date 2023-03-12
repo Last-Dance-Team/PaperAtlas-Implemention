@@ -31,5 +31,13 @@ var basicQueries = {
       " RETURN nodes(p) as pathNodes ,relationships(p)"
     );
   },
+  getAuthorsOfPaper: function (id) {
+    return (
+      "MATCH p=(n:Author)-[r:`an-author-of`]-(m:Paper)" +
+      " WHERE ID(m) = " +
+      id +
+      " RETURN  collect(n) as authors, collect(m) as paper, collect(r) as relation"
+    );
+  },
 };
 module.exports = basicQueries;

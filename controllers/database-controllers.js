@@ -204,20 +204,19 @@ var dbControllers = {
     let query = basicQueries.getNeighborOfPaper(title, lengthLimit);
     var queryData = {};
     var data = { query: query, queryData: queryData };
-   
+
     let resp = await dbService.runQuery(data);
-    console.log("resp", resp)
+    console.log("resp", resp);
     if (resp.records.length > 0) {
       var nodes = [];
       var edges = [];
-      for (let j = 0; j < resp.records.length; j++)
-      {
+      for (let j = 0; j < resp.records.length; j++) {
         var fields = resp.records[j]._fields;
         var fields = resp.records[0]._fields;
         var field_nodes = fields[0];
         var field_edges = fields[1];
-  
-        console.log("fields", fields)
+
+        console.log("fields", fields);
         for (let i = 0; i < field_nodes.length; i++) {
           //console.log("nodes", field_nodes[i]);
           var field = field_nodes[i];
@@ -241,7 +240,8 @@ var dbControllers = {
               pubmed: field.properties.pubmed,
               referenceCount: field.properties.referenceCount.low,
               arXiv: field.properties.arXiv,
-              influentialCitaitonCount: field.properties.influentialCitaitonCount,
+              influentialCitaitonCount:
+                field.properties.influentialCitaitonCount,
               journalVolume: field.properties.journalVolume,
               isOpenAccess: field.properties.isOpenAccess,
               pubMedCentral: field.properties.pubMedCentral,
@@ -252,7 +252,7 @@ var dbControllers = {
           };
           nodes.push(node);
         }
-  
+
         for (let i = 0; i < field_edges.length; i++) {
           console.log("edges", field_edges[i]);
           var field = field_edges[i];
@@ -266,9 +266,111 @@ var dbControllers = {
           edges.push(edge);
         }
       }
-      
+
       //return resp
-      console.log("here", nodes, edges)
+      console.log("here", nodes, edges);
+      return { nodes: nodes, edges: edges };
+    } else {
+      return { nodes: [], edges: [] };
+    }
+  },
+  getAuthorsOfPaper: async function (id) {
+    let query = basicQueries.getAuthorsOfPaper(id);
+    var queryData = {};
+    var data = { query: query, queryData: queryData };
+    let resp = await dbService.runQuery(data);
+    console.log("resp", resp);
+
+    //Process the data
+    if (resp.records.length > 0) {
+      var nodes = [];
+      var edges = [];
+      var authorFields = resp.records._fields[0];
+      var paper = resp.records._fields[1];
+      var relations = resp.records._fields[2];
+
+      for (let j = 0; j < authorFields.length; j++) {
+        var node = {
+          data: {
+            type: "Author",
+            label: authorFields[j].properties.name,
+            authorId: authorFields[j].properties.authorId,
+            id: String(authorFields[j].identity.low),
+            url: authorFields[j].properties.url,
+            citationCount: authorFields[j].properties.citationCount.low,
+            aliases: authorFields[j].properties.aliases,
+            paperCount: authorFields[j].properties.paperCount.low,
+            orhids: authorFields[j].properties.orhids,
+            affiliations: authorFields[j].properties.affiliations,
+            homepage: authorFields[j].properties.homepage,
+            hindex: authorFields[j].properties.hindex.low,
+          },
+          position: { x: 0, y: 0 },
+        };
+        nodes.push(node);
+      }
+      /*
+      for (let j = 0; j < resp.records.length; j++) {
+        var fields = resp.records[j]._fields;
+        var fields = resp.records[0]._fields;
+        var field_nodes = fields[0];
+        var field_edges = fields[1];
+        console.log("fields", j, fields);
+       
+        console.log("fields", fields);
+        for (let i = 0; i < field_nodes.length; i++) {
+          //console.log("nodes", field_nodes[i]);
+          var field = field_nodes[i];
+          node = {
+            data: {
+              type: "Paper",
+              label: field.properties.title,
+              id: String(field.identity.low),
+              paperId: field.properties.paperId.low,
+              url: field.properties.url,
+              citationCount: field.properties.citationCount.low,
+              venue: field.properties.venue,
+              journalName: field.properties.journalName,
+              uniqueFieldsOfStudies: field.properties.uniqueFieldsOfStudies,
+              year: field.properties.year.low,
+              publicationTypes: field.properties.publicationTypes,
+              acl: field.properties.acl,
+              dblp: field.properties.dblp,
+              journalPages: field.properties.journalPages,
+              mag: field.properties.mag,
+              pubmed: field.properties.pubmed,
+              referenceCount: field.properties.referenceCount.low,
+              arXiv: field.properties.arXiv,
+              influentialCitaitonCount:
+                field.properties.influentialCitaitonCount,
+              journalVolume: field.properties.journalVolume,
+              isOpenAccess: field.properties.isOpenAccess,
+              pubMedCentral: field.properties.pubMedCentral,
+              publicationDate: field.properties.publicationDate,
+              doi: field.properties.doi,
+            },
+            position: { x: 0, y: 0 },
+          };
+          nodes.push(node);
+        }
+
+        for (let i = 0; i < field_edges.length; i++) {
+          console.log("edges", field_edges[i]);
+          var field = field_edges[i];
+          edge = {
+            data: {
+              source: String(field.start.low),
+              target: String(field.end.low),
+              label: "a-reference-of",
+            },
+          };
+          edges.push(edge);
+        }
+        
+      }
+*/
+      //return resp;
+      console.log("here", nodes, edges);
       return { nodes: nodes, edges: edges };
     } else {
       return { nodes: [], edges: [] };
