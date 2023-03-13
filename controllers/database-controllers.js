@@ -285,10 +285,11 @@ var dbControllers = {
     if (resp.records.length > 0) {
       var nodes = [];
       var edges = [];
-      var authorFields = resp.records._fields[0];
-      var paper = resp.records._fields[1];
-      var relations = resp.records._fields[2];
+      var authorFields = resp.records[0]._fields[0];
+      var paper = resp.records[0]._fields[1][0];
+      var relations = resp.records[0]._fields[2];
 
+      //Adding author nodes
       for (let j = 0; j < authorFields.length; j++) {
         var node = {
           data: {
@@ -309,67 +310,52 @@ var dbControllers = {
         };
         nodes.push(node);
       }
-      /*
-      for (let j = 0; j < resp.records.length; j++) {
-        var fields = resp.records[j]._fields;
-        var fields = resp.records[0]._fields;
-        var field_nodes = fields[0];
-        var field_edges = fields[1];
-        console.log("fields", j, fields);
-       
-        console.log("fields", fields);
-        for (let i = 0; i < field_nodes.length; i++) {
-          //console.log("nodes", field_nodes[i]);
-          var field = field_nodes[i];
-          node = {
-            data: {
-              type: "Paper",
-              label: field.properties.title,
-              id: String(field.identity.low),
-              paperId: field.properties.paperId.low,
-              url: field.properties.url,
-              citationCount: field.properties.citationCount.low,
-              venue: field.properties.venue,
-              journalName: field.properties.journalName,
-              uniqueFieldsOfStudies: field.properties.uniqueFieldsOfStudies,
-              year: field.properties.year.low,
-              publicationTypes: field.properties.publicationTypes,
-              acl: field.properties.acl,
-              dblp: field.properties.dblp,
-              journalPages: field.properties.journalPages,
-              mag: field.properties.mag,
-              pubmed: field.properties.pubmed,
-              referenceCount: field.properties.referenceCount.low,
-              arXiv: field.properties.arXiv,
-              influentialCitaitonCount:
-                field.properties.influentialCitaitonCount,
-              journalVolume: field.properties.journalVolume,
-              isOpenAccess: field.properties.isOpenAccess,
-              pubMedCentral: field.properties.pubMedCentral,
-              publicationDate: field.properties.publicationDate,
-              doi: field.properties.doi,
-            },
-            position: { x: 0, y: 0 },
-          };
-          nodes.push(node);
-        }
 
-        for (let i = 0; i < field_edges.length; i++) {
-          console.log("edges", field_edges[i]);
-          var field = field_edges[i];
-          edge = {
-            data: {
-              source: String(field.start.low),
-              target: String(field.end.low),
-              label: "a-reference-of",
-            },
-          };
-          edges.push(edge);
-        }
-        
+      //Adding paper node
+      var node = {
+        data: {
+          type: "Paper",
+          label: paper.properties.title,
+          id: String(paper.identity.low),
+          paperId: paper.properties.paperId.low,
+          url: paper.properties.url,
+          citationCount: paper.properties.citationCount.low,
+          venue: paper.properties.venue,
+          journalName: paper.properties.journalName,
+          uniqueFieldsOfStudies: paper.properties.uniqueFieldsOfStudies,
+          year: paper.properties.year.low,
+          publicationTypes: paper.properties.publicationTypes,
+          acl: paper.properties.acl,
+          dblp: paper.properties.dblp,
+          journalPages: paper.properties.journalPages,
+          mag: paper.properties.mag,
+          pubmed: paper.properties.pubmed,
+          referenceCount: paper.properties.referenceCount.low,
+          arXiv: paper.properties.arXiv,
+          influentialCitaitonCount:
+            paper.properties.influentialCitaitonCount.low,
+          journalVolume: paper.properties.journalVolume,
+          isOpenAccess: paper.properties.isOpenAccess,
+          pubMedCentral: paper.properties.pubMedCentral,
+          publicationDate: paper.properties.publicationDate,
+          doi: paper.properties.doi,
+        },
+        position: { x: 0, y: 0 },
+      };
+      nodes.push(node);
+
+      //push edges
+      for (let i = 0; i < relations.length; i++) {
+        var field = relations[i];
+        edge = {
+          data: {
+            source: String(field.start.low),
+            target: String(field.end.low),
+            label: field.type,
+          },
+        };
+        edges.push(edge);
       }
-*/
-      //return resp;
       console.log("here", nodes, edges);
       return { nodes: nodes, edges: edges };
     } else {
