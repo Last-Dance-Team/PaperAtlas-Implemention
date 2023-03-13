@@ -356,7 +356,6 @@ var dbControllers = {
         };
         edges.push(edge);
       }
-      console.log("here", nodes, edges);
       return { nodes: nodes, edges: edges };
     } else {
       return { nodes: [], edges: [] };

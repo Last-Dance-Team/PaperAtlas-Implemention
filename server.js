@@ -37,7 +37,7 @@ function getNeighbor(req, res) {
     });
 }
 
-function getPaperOfAuthor(req, res) {
+function getAuthorsOfPaper(req, res) {
   console.log("req.params", req.params);
   databaseController.getAuthorsOfPaper(req.params.id).then((data) => {
     res.json(data);
@@ -48,7 +48,8 @@ function getPaperOfAuthor(req, res) {
 app.get("/getPaper/:name/:lengthLimit", getPaper);
 app.get("/getAuthor/:name/:lengthLimit", getAuthor);
 app.get("/getNeighbor/:title/:lengthLimit", getNeighbor);
-app.get("/getPaperOfAuthor/:id", getPaperOfAuthor);
+app.get("/getAuthorsOfPapers/:id", getAuthorsOfPaper);
+//app.get("/getPaperOfAuthor/:id", getPaperOfAuthor);
 
 server.listen(port, function () {
   console.log("server listening on port: %d", port);
