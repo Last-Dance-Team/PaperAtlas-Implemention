@@ -361,5 +361,18 @@ var dbControllers = {
       return { nodes: [], edges: [] };
     }
   },
+  getPapersOfAuthor: async function (id) {
+    let query = basicQueries.getAuthorsOfPaper(id);
+    var queryData = {};
+    var data = { query: query, queryData: queryData };
+    let resp = await dbService.runQuery(data);
+    console.log("resp", resp);
+
+    //Process the data
+    if (resp.records.length > 0) {
+      var nodes = [];
+      var edges = [];
+    }
+  },
 };
 module.exports = dbControllers;

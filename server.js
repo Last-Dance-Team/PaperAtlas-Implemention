@@ -44,12 +44,19 @@ function getAuthorsOfPaper(req, res) {
   });
 }
 
+function getPapersOfAuthor(req, res) {
+  console.log("req.params", req.params);
+  databaseController.getPapersOfAuthor(req.params.id).then((data) => {
+    res.json(data);
+  });
+}
+
 //Endpoints
 app.get("/getPaper/:name/:lengthLimit", getPaper);
 app.get("/getAuthor/:name/:lengthLimit", getAuthor);
 app.get("/getNeighbor/:title/:lengthLimit", getNeighbor);
 app.get("/getAuthorsOfPapers/:id", getAuthorsOfPaper);
-//app.get("/getPaperOfAuthor/:id", getPaperOfAuthor);
+app.get("/getPapersOfAuthor/:id", getPapersOfAuthor);
 
 server.listen(port, function () {
   console.log("server listening on port: %d", port);

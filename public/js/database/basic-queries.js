@@ -39,5 +39,8 @@ var basicQueries = {
       " RETURN  collect(n) as authors, collect(m) as paper, collect(r) as relation"
     );
   },
+  getPapersOfAuthor: function (id) {
+    return "";
+  },
 };
 module.exports = basicQueries;
