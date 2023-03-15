@@ -367,12 +367,100 @@ var dbControllers = {
     var data = { query: query, queryData: queryData };
     let resp = await dbService.runQuery(data);
     console.log("resp", resp);
-    return resp;
 
     //Process the data
     if (resp.records.length > 0) {
       var nodes = [];
       var edges = [];
+      var authorFields = resp.records[0]._fields[0][0];
+      var papers = resp.records[0]._fields[1];
+      var authorRelations = resp.records[0]._fields[2];
+      var referenceRelations = resp.records[0]._fields[3];
+      // return authorRelations;
+
+      //Adding author
+      var node = {
+        data: {
+          type: "Author",
+          label: authorFields.properties.name,
+          authorId: authorFields.properties.authorId,
+          id: String(authorFields.identity.low),
+          url: authorFields.properties.url,
+          citationCount: authorFields.properties.citationCount.low,
+          aliases: authorFields.properties.aliases,
+          paperCount: authorFields.properties.paperCount.low,
+          orhids: authorFields.properties.orhids,
+          affiliations: authorFields.properties.affiliations,
+          homepage: authorFields.properties.homepage,
+          hindex: authorFields.properties.hindex.low,
+        },
+        position: { x: 0, y: 0 },
+      };
+      nodes.push(node);
+
+      //Adding papers
+      for (let j = 0; j < papers.length; j++) {
+        var node = {
+          data: {
+            type: "Paper",
+            label: papers[j].properties.title,
+            id: String(papers[j].identity.low),
+            paperId: papers[j].properties.paperId.low,
+            url: papers[j].properties.url,
+            citationCount: papers[j].properties.citationCount.low,
+            venue: papers[j].properties.venue,
+            journalName: papers[j].properties.journalName,
+            uniqueFieldsOfStudies: papers[j].properties.uniqueFieldsOfStudies,
+            year: papers[j].properties.year.low,
+            publicationTypes: papers[j].properties.publicationTypes,
+            acl: papers[j].properties.acl,
+            dblp: papers[j].properties.dblp,
+            journalPages: papers[j].properties.journalPages,
+            mag: papers[j].properties.mag,
+            pubmed: papers[j].properties.pubmed,
+            referenceCount: papers[j].properties.referenceCount.low,
+            arXiv: papers[j].properties.arXiv,
+            influentialCitaitonCount:
+              papers[j].properties.influentialCitaitonCount.low,
+            journalVolume: papers[j].properties.journalVolume,
+            isOpenAccess: papers[j].properties.isOpenAccess,
+            pubMedCentral: papers[j].properties.pubMedCentral,
+            publicationDate: papers[j].properties.publicationDate,
+            doi: papers[j].properties.doi,
+          },
+          position: { x: 0, y: 0 },
+        };
+        nodes.push(node);
+      }
+
+      //Adding author edges
+      for (let i = 0; i < authorRelations.length; i++) {
+        var field = authorRelations[i];
+        edge = {
+          data: {
+            source: String(field.start.low),
+            target: String(field.end.low),
+            label: field.type,
+          },
+        };
+        edges.push(edge);
+      }
+
+      //Adding reference relations
+      for (let i = 0; i < referenceRelations.length; i++) {
+        var field = referenceRelations[i];
+        edge = {
+          data: {
+            source: String(field.start.low),
+            target: String(field.end.low),
+            label: field.type,
+          },
+        };
+        edges.push(edge);
+      }
+      return { nodes: nodes, edges: edges };
+    } else {
+      return { nodes: [], edges: [] };
     }
   },
 };
