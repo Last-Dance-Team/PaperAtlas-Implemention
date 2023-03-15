@@ -362,11 +362,12 @@ var dbControllers = {
     }
   },
   getPapersOfAuthor: async function (id) {
-    let query = basicQueries.getAuthorsOfPaper(id);
+    let query = basicQueries.getPapersOfAuthor(id);
     var queryData = {};
     var data = { query: query, queryData: queryData };
     let resp = await dbService.runQuery(data);
     console.log("resp", resp);
+    return resp;
 
     //Process the data
     if (resp.records.length > 0) {

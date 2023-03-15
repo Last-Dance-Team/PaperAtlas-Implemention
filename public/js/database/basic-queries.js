@@ -40,7 +40,14 @@ var basicQueries = {
     );
   },
   getPapersOfAuthor: function (id) {
-    return "";
+    //Need to test this
+    return (
+      "MATCH (a:Author)-[written:`an-author-of`]->(p:Paper) " +
+      "WHERE ID(a) = " +
+      id +
+      " OPTIONAL MATCH (p)-[refer_rel:`a-reference-of`]->(ref:Paper)<-[:`an-author-of`]-(a)" +
+      " RETURN collect(DISTINCT a) AS authors ,collect(DISTINCT p) AS papers , collect(DISTINCT written) AS author_rel , collect(DISTINCT refer_rel) AS referral "
+    );
   },
 };
 module.exports = basicQueries;
