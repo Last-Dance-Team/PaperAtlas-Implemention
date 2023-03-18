@@ -11,6 +11,7 @@ app.use(
 );
 app.use(bodyParser.json());
 var databaseController = require("./controllers/database-controllers");
+const { isArray } = require("util");
 
 //Functions
 function getAuthor(req, res) {
@@ -51,12 +52,36 @@ function getPapersOfAuthor(req, res) {
   });
 }
 
+function getAuthors(req, res) {
+  authorIds = req.body.authorIds;
+  if (!authorIds || !isArray(authorIds)) {
+    res.status(500).json({ success: false });
+    return;
+  }
+  databaseController.getAuthors(authorIds).then((data) => {
+    res.json(data);
+  });
+}
+
+function getPapers(req, res) {
+  paperIds = req.body.paperIds;
+  if (!paperIds || !isArray(paperIds)) {
+    res.status(500).json({ success: false });
+    return;
+  }
+  databaseController.getPapers(paperIds).then((data) => {
+    res.json(data);
+  });
+}
+
 //Endpoints
 app.get("/getPaper/:name/:lengthLimit", getPaper);
 app.get("/getAuthor/:name/:lengthLimit", getAuthor);
 app.get("/getNeighbor/:title/:lengthLimit", getNeighbor);
 app.get("/getAuthorsOfPapers/:id", getAuthorsOfPaper);
 app.get("/getPapersOfAuthor/:id", getPapersOfAuthor);
+app.get("/getAuthors", getAuthors);
+app.get("/getPapers", getPapers);
 
 server.listen(port, function () {
   console.log("server listening on port: %d", port);

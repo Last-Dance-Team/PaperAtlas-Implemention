@@ -3,6 +3,16 @@ Here we are just creating the Cypher queries
 */
 
 var basicQueries = {
+  getPapers: function () {
+    return `MATCH (n:Paper)
+            WHERE n.paperId IN $paperIds 
+            OPTIONAL MATCH (n)-[r]->(m:Paper)
+            WHERE m.paperId IN $paperIds 
+            RETURN n,r;`;
+  },
+  getAuthors: function () {
+    return "MATCH (n:Author) WHERE n.authorId IN $authorIds RETURN n";
+  },
   getAuthorAndPapers: function (author) {
     return `MATCH (a:Author) WHERE a.name CONTAINS "${author}"
             WITH a 
