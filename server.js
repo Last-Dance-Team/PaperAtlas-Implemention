@@ -86,7 +86,7 @@ app.get("/getPaper/:name/:lengthLimit", getPaper);
 app.get("/getAuthor/:name/:lengthLimit", getAuthor);
 app.get("/getNeighbor/:title/:lengthLimit", getNeighbor);
 app.get("/getAuthorsOfPapers/:id", getAuthorsOfPaper);
-app.get("/getReferencesOfPaper/:id", getReferencesOfPaper);
+app.get("/getReferences/:id", getReferencesOfPaper);
 app.get("/getPapersOfAuthor/:id", getPapersOfAuthor);
 app.get("/getAuthors", getAuthors);
 app.get("/getPapers", getPapers);
