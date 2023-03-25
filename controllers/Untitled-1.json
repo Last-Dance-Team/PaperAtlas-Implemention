@@ -1,0 +1,2709 @@
+[{
+    "keys": [
+        "authors",
+        "paper",
+        "relation"
+    ],
+    "length": 3,
+    "_fields": [
+        [{
+                "identity": {
+                    "low": 177625,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 37777,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "Pierre L. Hainaut",
+                        "Pierre L Hainaut",
+                        "Pierre Hainaut",
+                        "P. Hainaut",
+                        "P Hainaut",
+                        "Pierre Hainaut,"
+                    ],
+                    "paperCount": {
+                        "low": 528,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "P. Hainaut",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 96,
+                        "high": 0
+                    },
+                    "authorId": "144753219",
+                    "url": "https://www.semanticscholar.org/author/144753219",
+                    "dblps": [
+                        "P. Hainaut",
+                        "Pierre Hainaut"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177625"
+            },
+            {
+                "identity": {
+                    "low": 177565,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 1270,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "B. De Meulder",
+                        "Bertrand De Meulder"
+                    ],
+                    "paperCount": {
+                        "low": 57,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "B. De Meulder",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 18,
+                        "high": 0
+                    },
+                    "authorId": "47734985",
+                    "url": "https://www.semanticscholar.org/author/47734985",
+                    "dblps": [],
+                    "homepage": ""
+                },
+                "elementId": "177565"
+            },
+            {
+                "identity": {
+                    "low": 177534,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 24314,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "U. Dogrusoz",
+                        "Ugur Dogrusoz"
+                    ],
+                    "paperCount": {
+                        "low": 63,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "U. Dogrusoz",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 17,
+                        "high": 0
+                    },
+                    "authorId": "2276851",
+                    "url": "https://www.semanticscholar.org/author/2276851",
+                    "dblps": [
+                        "Ugur Dogrusoz"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177534"
+            },
+            {
+                "identity": {
+                    "low": 177536,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 7212,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "A. Zinovyev",
+                        "A. Yu. Zinovyev",
+                        "Andrei Yu. Zinovyev",
+                        "Andreï Zinovyev",
+                        "Andrei Zinovyev",
+                        "A. Y. Zinovyev",
+                        "A.yu. Zinovyev",
+                        "A Y Zinovyev",
+                        "A Zinovyev"
+                    ],
+                    "paperCount": {
+                        "low": 216,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "A. Zinovyev",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 42,
+                        "high": 0
+                    },
+                    "authorId": "1716706",
+                    "url": "https://www.semanticscholar.org/author/1716706",
+                    "dblps": [
+                        "Andrei Yu. Zinovyev",
+                        "Andrei Zinovyev"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177536"
+            },
+            {
+                "identity": {
+                    "low": 177621,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 2304,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "S. H. Watterson",
+                        "S. Watterson",
+                        "Steve Watterson",
+                        "Steven Watterson"
+                    ],
+                    "paperCount": {
+                        "low": 72,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "S. Watterson",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 17,
+                        "high": 0
+                    },
+                    "authorId": "143809370",
+                    "url": "https://www.semanticscholar.org/author/143809370",
+                    "dblps": [
+                        "Steven Watterson"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177621"
+            },
+            {
+                "identity": {
+                    "low": 177677,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 3894,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "S Gebel",
+                        "S. Gebel",
+                        "Stephan Gebel"
+                    ],
+                    "paperCount": {
+                        "low": 56,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "S. Gebel",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 29,
+                        "high": 0
+                    },
+                    "authorId": "2903019",
+                    "url": "https://www.semanticscholar.org/author/2903019",
+                    "dblps": [
+                        "Stephan Gebel"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177677"
+            },
+            {
+                "identity": {
+                    "low": 177649,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 1152,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "P V Gawron",
+                        "P. Gawron",
+                        "Piotr Gawron"
+                    ],
+                    "paperCount": {
+                        "low": 41,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "P. Gawron",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 16,
+                        "high": 0
+                    },
+                    "authorId": "150259755",
+                    "url": "https://www.semanticscholar.org/author/150259755",
+                    "dblps": [
+                        "Piotr Gawron"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177649"
+            },
+            {
+                "identity": {
+                    "low": 177537,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 20875,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "R Balling",
+                        "R. Balling",
+                        "Rudi Balling",
+                        "Rudolf Balling"
+                    ],
+                    "paperCount": {
+                        "low": 304,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "R. Balling",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 76,
+                        "high": 0
+                    },
+                    "authorId": "46916438",
+                    "url": "https://www.semanticscholar.org/author/46916438",
+                    "dblps": [
+                        "Rudi Balling"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177537"
+            },
+            {
+                "identity": {
+                    "low": 177570,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 1449,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "J Pellet",
+                        "J. Pellet",
+                        "Johan Pellet",
+                        "Johann Pellet"
+                    ],
+                    "paperCount": {
+                        "low": 32,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "J. Pellet",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 15,
+                        "high": 0
+                    },
+                    "authorId": "50669606",
+                    "url": "https://www.semanticscholar.org/author/50669606",
+                    "dblps": [
+                        "J. Pellet",
+                        "Johann Pellet"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177570"
+            },
+            {
+                "identity": {
+                    "low": 177545,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 2133,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "A. Mazein",
+                        "Alexander Mazein"
+                    ],
+                    "paperCount": {
+                        "low": 42,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "A. Mazein",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 17,
+                        "high": 0
+                    },
+                    "authorId": "48107154",
+                    "url": "https://www.semanticscholar.org/author/48107154",
+                    "dblps": [
+                        "Alexander Mazein"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177545"
+            },
+            {
+                "identity": {
+                    "low": 177602,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 22948,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "C Auffray",
+                        "C. Auffray",
+                        "Charles Auffray"
+                    ],
+                    "paperCount": {
+                        "low": 413,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "C. Auffray",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 72,
+                        "high": 0
+                    },
+                    "authorId": "48662628",
+                    "url": "https://www.semanticscholar.org/author/48662628",
+                    "dblps": [
+                        "Charles Auffray"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177602"
+            },
+            {
+                "identity": {
+                    "low": 177634,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 999,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "M. Ostaszewski",
+                        "Marek Ostaszewski"
+                    ],
+                    "paperCount": {
+                        "low": 69,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "M. Ostaszewski",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 16,
+                        "high": 0
+                    },
+                    "authorId": "1808626",
+                    "url": "https://www.semanticscholar.org/author/1808626",
+                    "dblps": [
+                        "Marek Ostaszewski"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177634"
+            },
+            {
+                "identity": {
+                    "low": 177566,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 11454,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "Markus W. Ollert",
+                        "M Ollert",
+                        "Markus W Ollert",
+                        "M. Ollert",
+                        "Markus Ollert",
+                        "M W Ollert"
+                    ],
+                    "paperCount": {
+                        "low": 341,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "M. Ollert",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 60,
+                        "high": 0
+                    },
+                    "authorId": "87206110",
+                    "url": "https://www.semanticscholar.org/author/87206110",
+                    "dblps": [],
+                    "homepage": ""
+                },
+                "elementId": "177566"
+            },
+            {
+                "identity": {
+                    "low": 177531,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 1024,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "D. Lefaudeux",
+                        "Diane Lefaudeux"
+                    ],
+                    "paperCount": {
+                        "low": 44,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "D. Lefaudeux",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 14,
+                        "high": 0
+                    },
+                    "authorId": "11298595",
+                    "url": "https://www.semanticscholar.org/author/11298595",
+                    "dblps": [
+                        "Diane Lefaudeux"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177531"
+            },
+            {
+                "identity": {
+                    "low": 177678,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 3049,
+                        "high": 0
+                    },
+                    "aliases": [],
+                    "paperCount": {
+                        "low": 23,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "Andrew Parton",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 12,
+                        "high": 0
+                    },
+                    "authorId": "47030752",
+                    "url": "https://www.semanticscholar.org/author/47030752",
+                    "dblps": [
+                        "Andrew Parton"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177678"
+            },
+            {
+                "identity": {
+                    "low": 177660,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 469,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "Feng He",
+                        "Feng Q He"
+                    ],
+                    "paperCount": {
+                        "low": 25,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "Feng Q. He",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 10,
+                        "high": 0
+                    },
+                    "authorId": "153190201",
+                    "url": "https://www.semanticscholar.org/author/153190201",
+                    "dblps": [
+                        "Feng He 0002"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177660"
+            },
+            {
+                "identity": {
+                    "low": 177589,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 104,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "M.m.p. Nogueira",
+                        "Maria M Nogueira",
+                        "Maria Manuela Nogueira"
+                    ],
+                    "paperCount": {
+                        "low": 8,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "M. Nogueira",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 4,
+                        "high": 0
+                    },
+                    "authorId": "49212427",
+                    "url": "https://www.semanticscholar.org/author/49212427",
+                    "dblps": [],
+                    "homepage": ""
+                },
+                "elementId": "177589"
+            },
+            {
+                "identity": {
+                    "low": 177672,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 16975,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "E Barillot",
+                        "E. Barillot",
+                        "Emmanuel Barillot"
+                    ],
+                    "paperCount": {
+                        "low": 295,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "E. Barillot",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 64,
+                        "high": 0
+                    },
+                    "authorId": "1790392",
+                    "url": "https://www.semanticscholar.org/author/1790392",
+                    "dblps": [
+                        "Emmanuel Barillot"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177672"
+            },
+            {
+                "identity": {
+                    "low": 87543,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 6217,
+                        "high": 0
+                    },
+                    "aliases": [],
+                    "orcids": [],
+                    "paperCount": {
+                        "low": 150,
+                        "high": 0
+                    },
+                    "name": "Reinhard Schneider",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 35,
+                        "high": 0
+                    },
+                    "authorId": "144704594",
+                    "url": "https://www.semanticscholar.org/author/144704594",
+                    "dblps": [
+                        "Reinhard Schneider",
+                        "Reinhard Schneider 0002"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "87543"
+            },
+            {
+                "identity": {
+                    "low": 177573,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 212,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "I-a. Balaur"
+                    ],
+                    "paperCount": {
+                        "low": 16,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "Irina Balaur",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 7,
+                        "high": 0
+                    },
+                    "authorId": "8613913",
+                    "url": "https://www.semanticscholar.org/author/8613913",
+                    "dblps": [
+                        "Irina Balaur"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177573"
+            },
+            {
+                "identity": {
+                    "low": 177613,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 8282,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "N. Le Novère",
+                        "N Le Novère",
+                        "Nicolas Gambardella Le Novère",
+                        "Nicolas Le Novère",
+                        "Nicolas Le Novère",
+                        "N Le Novere",
+                        "Nicolas Le Novere"
+                    ],
+                    "orcids": [],
+                    "paperCount": {
+                        "low": 100,
+                        "high": 0
+                    },
+                    "name": "N. L. Le Novère",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 43,
+                        "high": 0
+                    },
+                    "authorId": "47713192",
+                    "url": "https://www.semanticscholar.org/author/47713192",
+                    "dblps": [],
+                    "homepage": ""
+                },
+                "elementId": "177613"
+            },
+            {
+                "identity": {
+                    "low": 177538,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 3106,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "I Kuperstein",
+                        "I. Kuperstein",
+                        "Inna Kuperstein"
+                    ],
+                    "paperCount": {
+                        "low": 57,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "I. Kuperstein",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 20,
+                        "high": 0
+                    },
+                    "authorId": "50426072",
+                    "url": "https://www.semanticscholar.org/author/50426072",
+                    "dblps": [
+                        "Inna Kuperstein"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177538"
+            },
+            {
+                "identity": {
+                    "low": 177674,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 1807,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "Mansoor A. S. Saqi",
+                        "Mansoor Saqi",
+                        "M Saqi",
+                        "M.a.s. Saqi",
+                        "Mansoor A S Saqi",
+                        "M A Saqi"
+                    ],
+                    "paperCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "M. Saqi",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 21,
+                        "high": 0
+                    },
+                    "authorId": "50701671",
+                    "url": "https://www.semanticscholar.org/author/50701671",
+                    "dblps": [
+                        "Mansoor A. S. Saqi",
+                        "Mansoor Saqi"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177674"
+            },
+            {
+                "identity": {
+                    "low": 177540,
+                    "high": 0
+                },
+                "labels": [
+                    "Author"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 1404,
+                        "high": 0
+                    },
+                    "aliases": [
+                        "N. Lemonnier",
+                        "Nathanael Lemonnier",
+                        "Nathanaël Lemonnier"
+                    ],
+                    "paperCount": {
+                        "low": 20,
+                        "high": 0
+                    },
+                    "orcids": [],
+                    "name": "N. Lemonnier",
+                    "affiliations": [],
+                    "hindex": {
+                        "low": 13,
+                        "high": 0
+                    },
+                    "authorId": "8715814",
+                    "url": "https://www.semanticscholar.org/author/8715814",
+                    "dblps": [
+                        "Nathanaël Lemonnier"
+                    ],
+                    "homepage": ""
+                },
+                "elementId": "177540"
+            }
+        ],
+        [{
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "labels": [
+                    "Paper"
+                ],
+                "properties": {
+                    "citationCount": {
+                        "low": 70,
+                        "high": 0
+                    },
+                    "venue": "npj Systems Biology and Applications",
+                    "journalName": "NPJ Systems Biology and Applications",
+                    "year": {
+                        "low": 2018,
+                        "high": 0
+                    },
+                    "uniqueFieldsOfStudies": [
+                        "Computer Science",
+                        "Medicine",
+                        "Biology"
+                    ],
+                    "publicationTypes": [
+                        "JournalArticle"
+                    ],
+                    "acl": "",
+                    "title": "Systems medicine disease maps: community-driven comprehensive representation of disease mechanisms",
+                    "dblp": "",
+                    "journalPages": "",
+                    "url": "https://www.semanticscholar.org/paper/2d7c9c4116a9db3837cecc571ca8e618e83ef5a7",
+                    "pubmed": "29872544",
+                    "mag": "2807615161",
+                    "referenceCount": {
+                        "low": 61,
+                        "high": 0
+                    },
+                    "arXiv": "",
+                    "influentialCitaitonCount": {
+                        "low": 2,
+                        "high": 0
+                    },
+                    "journalVolume": "4",
+                    "isOpenAccess": true,
+                    "pubMedCentral": "5984630",
+                    "publicationDate": "2018-06-02",
+                    "paperId": {
+                        "low": 44065435,
+                        "high": 0
+                    },
+                    "doi": "10.1038/s41540-018-0059-y"
+                },
+                "elementId": "177698"
+            }
+        ],
+        [{
+                "identity": {
+                    "low": 151688,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177625,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151688",
+                "startNodeElementId": "177625",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151678,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177565,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151678",
+                "startNodeElementId": "177565",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151690,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177534,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151690",
+                "startNodeElementId": "177534",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151692,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177536,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151692",
+                "startNodeElementId": "177536",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151675,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177621,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151675",
+                "startNodeElementId": "177621",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151687,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177677,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151687",
+                "startNodeElementId": "177677",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151686,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177649,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151686",
+                "startNodeElementId": "177649",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151694,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177537,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151694",
+                "startNodeElementId": "177537",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151679,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177570,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151679",
+                "startNodeElementId": "177570",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151672,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177545,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151672",
+                "startNodeElementId": "177545",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151695,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177602,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151695",
+                "startNodeElementId": "177602",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151673,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177634,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151673",
+                "startNodeElementId": "177634",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151689,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177566,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151689",
+                "startNodeElementId": "177566",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151677,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177531,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151677",
+                "startNodeElementId": "177531",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151684,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177678,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151684",
+                "startNodeElementId": "177678",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151683,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177660,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151683",
+                "startNodeElementId": "177660",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151682,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177589,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151682",
+                "startNodeElementId": "177589",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151691,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177672,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151691",
+                "startNodeElementId": "177672",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151693,
+                    "high": 0
+                },
+                "start": {
+                    "low": 87543,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151693",
+                "startNodeElementId": "87543",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151680,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177573,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151680",
+                "startNodeElementId": "177573",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151676,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177613,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151676",
+                "startNodeElementId": "177613",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151674,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177538,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151674",
+                "startNodeElementId": "177538",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151681,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177674,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151681",
+                "startNodeElementId": "177674",
+                "endNodeElementId": "177698"
+            },
+            {
+                "identity": {
+                    "low": 151685,
+                    "high": 0
+                },
+                "start": {
+                    "low": 177540,
+                    "high": 0
+                },
+                "end": {
+                    "low": 177698,
+                    "high": 0
+                },
+                "type": "an-author-of",
+                "properties": {},
+                "elementId": "151685",
+                "startNodeElementId": "177540",
+                "endNodeElementId": "177698"
+            }
+        ]
+    ],
+    "_fieldLookup": {
+        "authors": 0,
+        "paper": 1,
+        "relation": 2
+    }
+}]
