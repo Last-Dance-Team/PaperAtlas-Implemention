@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { LAYOUT_NAMES } from '../constants/Layout';
 import GraphWithLayout from '../graph/GraphWithLayout';
-import SearchBar from '../SearchBar'
+import SearchBar from '../search/SearchBar'
 import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -19,7 +19,8 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
-import NodeDetail from '../graph/NodeDetail';
+import NodeDetail from '../drawer/NodeDetail';
+import DrawerContent from '../drawer/DrawerContent';
 
 const drawerWidth = 240;
 
@@ -82,11 +83,13 @@ function HomePage(){
     const[filteredElements, setFilteredElements] = useState({'nodes': [],
                                               'edges': []})                                          
 
-    const callBackendAPI = async (graphType: string, parameterType : string, distance: string, word: string) => {   
+    const callBackendAPI = async (graphType : string, word: string) => {   
       console.log("here")
 
-      const response = await fetch(`/${graphType}/${word}/${distance}`);
+      const response = await fetch(`/${graphType}/${word}/0`);
       const body = await response.json();
+
+      console.log(body)
 
       const updatedNodes = body.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
                                   return b})
@@ -216,19 +219,7 @@ function HomePage(){
             anchor="right"
             open={open}
           >
-            <DrawerHeader>
-            <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div">
-                Details
-              </Typography>
-              <IconButton onClick={handleDrawerClose}>
-                <ChevronRightIcon />
-              </IconButton>
-            </DrawerHeader>
-            <Divider />
-            <br />
-
-              <NodeDetail node = {node}/>
-
+              <DrawerContent node ={node} callBackendAPI = {callBackendAPI} handleDrawerClose = {handleDrawerClose}/>
 
           </Drawer>
           <Main open={open}>

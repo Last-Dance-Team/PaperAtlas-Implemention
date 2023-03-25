@@ -7,7 +7,7 @@ import HomePage from './pages/HomePage';
 import DemoGraph from './graph/DemoGraph';
 import Button from '@mui/material/Button';
 import TextField from "@mui/material/TextField";
-import SearchBar from  './SearchBar'
+import SearchBar from  './search/SearchBar'
 
 
 const App: React.FC = () => {

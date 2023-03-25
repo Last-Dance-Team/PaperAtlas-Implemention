@@ -3,6 +3,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { Box, ThemeProvider, createTheme } from '@mui/system';
 import Divider from '@mui/material/Divider';
+import * as React from 'react';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
 
 const theme = createTheme({
     palette: {
@@ -19,9 +23,12 @@ const theme = createTheme({
     },
   });
 
-function NodeDetail(props: any){
 
+
+
+function NodeDetail(props: any){
     var node = props.node
+
 
     if (node.type == 'Paper'){
         return(
