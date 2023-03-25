@@ -45,12 +45,22 @@ function getAuthorsOfPaper(req, res) {
     });
 }
 
+
+// Finds the papers that refer the paper with the given id.
 function getReferencesOfPaper(req, res) {
     console.log("req.params", req.params);
     databaseController.getReferencesOfPaper(req.params.id).then((data) => {
         res.json(data);
     });
 }
+
+function getReferred(req, res) {
+    console.log("req.params", req.params);
+    databaseController.getReferred(req.params.id).then((data) => {
+        res.json(data);
+    });
+}
+
 
 function getPapersOfAuthor(req, res) {
     console.log("req.params", req.params);
@@ -87,6 +97,7 @@ app.get("/getAuthor/:name/:lengthLimit", getAuthor);
 app.get("/getNeighbor/:title/:lengthLimit", getNeighbor);
 app.get("/getAuthorsOfPapers/:id", getAuthorsOfPaper);
 app.get("/getReferences/:id", getReferencesOfPaper);
+app.get("/getReferred/:id", getReferred); // Finds the papers that refer the paper with the given id.
 app.get("/getPapersOfAuthor/:id", getPapersOfAuthor);
 app.get("/getAuthors", getAuthors);
 app.get("/getPapers", getPapers);
