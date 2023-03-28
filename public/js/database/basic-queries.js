@@ -15,9 +15,8 @@ var basicQueries = {
     },
     getAuthorAndPapers: function(author) {
         return `MATCH (a:Author) WHERE a.name CONTAINS "${author}"
-            WITH a 
-            MATCH (:Author {authorId: a.authorId})-[r]-(p:Paper) 
-            RETURN a,p,r`;
+            OR any(alias IN a.aliases WHERE alias CONTAINS "${author}")
+            RETURN a.name, a.aliases, ID(a)`;
     },
     getPaperAndPapers: function(paper, lengthLimit) {
         return (

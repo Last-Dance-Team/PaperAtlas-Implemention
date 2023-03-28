@@ -92,7 +92,8 @@ function getPapers(req, res) {
 }
 
 //Endpoints
-app.get("/getPaper/:name/", getPaper); app.get("/getAuthor/:name/:lengthLimit", getAuthor);
+app.get("/getPaper/:name/", getPaper); 
+app.get("/getAuthor/:name/", getAuthor);
 app.get("/getNeighbor/:title/:lengthLimit", getNeighbor);
 app.get("/getAuthorsOfPapers/:id", getAuthorsOfPaper);
 app.get("/getReferences/:id", getReferencesOfPaper);
