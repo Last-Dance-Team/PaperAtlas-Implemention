@@ -99,8 +99,8 @@ app.get("/getAuthorsOfPapers/:id", getAuthorsOfPaper);
 app.get("/getReferences/:id", getReferencesOfPaper);
 app.get("/getReferred/:id", getReferred); // Finds the papers that refer the paper with the given id.
 app.get("/getPapersOfAuthor/:id", getPapersOfAuthor);
-app.get("/getAuthors", getAuthors);
-app.get("/getPapers", getPapers);
+app.put("/getAuthors", getAuthors);
+app.put("/getPapers", getPapers);
 
 server.listen(port, function() {
     console.log("server listening on port: %d", port);
