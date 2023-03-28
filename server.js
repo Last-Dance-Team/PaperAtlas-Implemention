@@ -22,7 +22,7 @@ function getAuthor(req, res) {
 
 function getPaper(req, res) {
     databaseController
-        .searchByPaper(req.params.name, req.params.lengthLimit)
+        .searchByPaper(req.params.name)
         .then((data) => {
             res.json(data);
         });
@@ -92,8 +92,7 @@ function getPapers(req, res) {
 }
 
 //Endpoints
-app.get("/getPaper/:name/:lengthLimit", getPaper);
-app.get("/getAuthor/:name/:lengthLimit", getAuthor);
+app.get("/getPaper/:name/", getPaper); app.get("/getAuthor/:name/:lengthLimit", getAuthor);
 app.get("/getNeighbor/:title/:lengthLimit", getNeighbor);
 app.get("/getAuthorsOfPapers/:id", getAuthorsOfPaper);
 app.get("/getReferences/:id", getReferencesOfPaper);

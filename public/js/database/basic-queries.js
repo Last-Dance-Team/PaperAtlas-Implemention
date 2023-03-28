@@ -24,11 +24,7 @@ var basicQueries = {
             "MATCH (p:Paper) WHERE p.title CONTAINS '" +
             paper +
             "'" +
-            " WITH p" +
-            " MATCH a= (n:Paper {paperId: p.paperId})-[:`a-reference-of`*.." +
-            lengthLimit +
-            "]-(pp:Paper) " +
-            " RETURN nodes(a), relationships(a)  "
+            " RETURN p.title, ID(p) "
         );
     },
     getNeighborOfPaper: function(title, lengthLimit) {

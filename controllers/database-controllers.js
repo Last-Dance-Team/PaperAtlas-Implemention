@@ -197,102 +197,28 @@ var dbControllers = {
 
         return { nodes: nodes, edges: edges };
     },
-    searchByPaper: async function(paper, lengthLimit) {
-        let query = basicQueries.getPaperAndPapers(paper, lengthLimit);
+    searchByPaper: async function(paper) {
+        let query = basicQueries.getPaperAndPapers(paper);
         var queryData = { paper: paper };
         var data = { query: query, queryData: queryData };
 
         let resp = await dbService.runQuery(data);
-
         var nodes = [];
-        var edges = [];
-        var paperSet = new Set();
-        var edgeSet = new Map();
-        var authorSet = new Set();
 
         //Process the data
         var arrayOfObjects = resp.records;
         for (let i = 0; i < arrayOfObjects.length; i++) {
             var object = arrayOfObjects[i];
             var fields = object._fields;
-            for (let j = 0; j < fields.length; j++) {
-                var nodes_edges = fields[j];
-                for (let k = 0; k < nodes_edges.length; k++) {
-                    var field = nodes_edges[k];
-                    var node = {};
-                    var edge = {};
-                    //console.log("the field", field);
-                    if (field.labels == "Paper") {
-                        if (!paperSet.has(field.properties.paperId.low)) {
-                            paperSet.add(field.properties.paperId.low);
-                            node = {
-                                data: {
-                                    type: "Paper",
-                                    label: field.properties.title,
-                                    id: String(field.identity.low),
-                                    paperId: field.properties.paperId.low,
-                                    url: field.properties.url,
-                                    citationCount: field.properties.citationCount.low,
-                                    venue: field.properties.venue,
-                                    journalName: field.properties.journalName,
-                                    uniqueFieldsOfStudies: field.properties.uniqueFieldsOfStudies,
-                                    year: field.properties.year.low,
-                                    publicationTypes: field.properties.publicationTypes,
-                                    acl: field.properties.acl,
-                                    dblp: field.properties.dblp,
-                                    journalPages: field.properties.journalPages,
-                                    mag: field.properties.mag,
-                                    pubmed: field.properties.pubmed,
-                                    referenceCount: field.properties.referenceCount.low,
-                                    arXiv: field.properties.arXiv,
-                                    influentialCitaitonCount: field.properties.influentialCitaitonCount,
-                                    journalVolume: field.properties.journalVolume,
-                                    isOpenAccess: field.properties.isOpenAccess,
-                                    pubMedCentral: field.properties.pubMedCentral,
-                                    publicationDate: field.properties.publicationDate,
-                                    doi: field.properties.doi,
-                                },
-                                position: { x: 0, y: 0 },
-                            };
-                        }
-                    }
-
-                    if (field.type == "a-reference-of") {
-                        console.log("edgseSet", edgeSet);
-                        if (!edgeSet.get(field.start.low) ||
-                            !edgeSet.get(field.start.low).has(field.end.low)
-                        ) {
-                            if (!edgeSet.get(field.start.low)) {
-                                newSet = new Set();
-                                edgeSet.set(field.start.low, newSet);
-                            }
-                            edgeSet.get(field.start.low).add(field.end.low);
-                            console.log("adding edge");
-                            edge = {
-                                data: {
-                                    source: String(field.start.low),
-                                    target: String(field.end.low),
-                                    label: "a-reference-of",
-                                },
-                            };
-                        }
-                    }
-
-                    if (node.data) {
-                        nodes.push(node);
-                        node = {};
-                    }
-
-                    if (edge.data) {
-                        edges.push(edge);
-                        edge = {};
-                    }
-                }
-            }
+            var data = {}
+            data.title = fields[0];
+            data.id = fields[1].low;
+            nodes.push(data);
+        
         }
 
         //return resp;
-        return { nodes: nodes, edges: edges };
+        return { nodes: nodes };
     },
     getNeighborOfPaper: async function(title, lengthLimit) {
         let query = basicQueries.getNeighborOfPaper(title, lengthLimit);
