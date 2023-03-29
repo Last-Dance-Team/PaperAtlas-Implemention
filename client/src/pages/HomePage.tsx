@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { LAYOUT_NAMES } from '../constants/Layout';
 import GraphWithLayout from '../graph/GraphWithLayout';
 import SearchBar from '../search/SearchBar'
@@ -13,7 +14,7 @@ import { TextField } from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import { styled, useTheme } from '@mui/material/styles';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Divider from '@mui/material/Divider';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -22,7 +23,7 @@ import Typography from '@mui/material/Typography';
 import NodeDetail from '../drawer/NodeDetail';
 import DrawerContent from '../drawer/DrawerContent';
 
-const drawerWidth = 240;
+const drawerWidth = 500;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   open?: boolean;
@@ -83,18 +84,21 @@ function HomePage(){
     const[filteredElements, setFilteredElements] = useState({'nodes': [],
                                               'edges': []})                                          
 
-    const callBackendAPI = async (graphType : string, word: string) => {   
+    const callBackendAPI = async (graphType : string, ids: string[]) => {   
       console.log("here")
+      
+      const body = {
+        ids : ids
+      }
+      const response = await axios.put(`/add/${graphType}`, body);
+      const data = await response.data
 
-      const response = await fetch(`/${graphType}/${word}/0`);
-      const body = await response.json();
+      console.log(data)
 
-      console.log(body)
-
-      const updatedNodes = body.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+      const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
                                   return b})
       
-      const updatedEdges = body.edges.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+      const updatedEdges = data.edges.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
                                   return b})
       const elements = {
         'nodes': updatedNodes,
@@ -102,7 +106,7 @@ function HomePage(){
       }
 
       if (response.status !== 200) {
-        throw Error(body.message) 
+        throw Error(data.message) 
       }
 
       console.log("here")
@@ -118,7 +122,7 @@ function HomePage(){
 
     const [minDate, setMinDate] = React.useState('');
     const [maxDate, setMaxDate] = React.useState('');
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
     const [node, setNode] = React.useState({'type': ''})
 
     const applyDateFilter =  (minDate: string, maxDate : string) => {
@@ -203,15 +207,20 @@ function HomePage(){
             <Toolbar>
               <Typography variant="h5" noWrap sx={{ flexGrow: 1 }} component="div">
                 Paper Atlas
-              </Typography>        
+              </Typography>  
+              <Typography variant="h6" noWrap sx={{ position: 'right' }} component="div">
+                    <IconButton onClick={handleDrawerOpen}>
+                        <ChevronLeftIcon />
+                    </IconButton>
+                </Typography>      
             </Toolbar>
           </AppBar>
           <Drawer
             sx={{
-              width: 400,
+              width: 500,
               flexShrink: 0,
               '& .MuiDrawer-paper': {
-                width: 400,
+                width: 500,
                 boxSizing: 'border-box',
               },
             }}
@@ -224,7 +233,6 @@ function HomePage(){
           </Drawer>
           <Main open={open}>
             <DrawerHeader />
-            <SearchBar callBackendAPI = {callBackendAPI}/>
             <FormControl sx={{ m: 1, minWidth: 150 }}>
               <InputLabel id="demo-simple-select-label">Layout</InputLabel>
               <Select

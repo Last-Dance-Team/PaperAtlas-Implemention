@@ -81,7 +81,8 @@ function getAuthors(req, res) {
 }
 
 function getPapers(req, res) {
-    paperIds = req.body.paperIds;
+    console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+    paperIds = req.body.ids;
     if (!paperIds || !isArray(paperIds)) {
         res.status(500).json({ success: false });
         return;
@@ -92,15 +93,15 @@ function getPapers(req, res) {
 }
 
 //Endpoints
-app.get("/getPaper/:name/", getPaper); 
-app.get("/getAuthor/:name/", getAuthor);
+app.get("/search/paper/:name/", getPaper); 
+app.get("/search/author/:name/", getAuthor);
 app.get("/getNeighbor/:title/:lengthLimit", getNeighbor);
 app.get("/getAuthorsOfPapers/:id", getAuthorsOfPaper);
 app.get("/getReferences/:id", getReferencesOfPaper);
 app.get("/getReferred/:id", getReferred); // Finds the papers that refer the paper with the given id.
 app.get("/getPapersOfAuthor/:id", getPapersOfAuthor);
 app.get("/getAuthors", getAuthors);
-app.get("/getPapers", getPapers);
+app.put("/add/paper", getPapers);
 
 server.listen(port, function() {
     console.log("server listening on port: %d", port);

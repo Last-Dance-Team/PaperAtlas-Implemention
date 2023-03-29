@@ -275,7 +275,7 @@ function DemoGraph(props:any) {
               
               
               elements={element} 
-              style={ { width: '1800px', height: '650px',border: '2px solid',borderColor:'#34495E'
+              style={ { width: '1330px', height: '700px',border: '2px solid',borderColor:'#34495E'
             ,borderRadius:'3%',padding:'5px'}} 
               stylesheet = {styleGraph}  
               minZoom={0.1} 
