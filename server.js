@@ -97,6 +97,21 @@ function getPapers(req, res) {
     });
 }
 
+function getAuthorWithPage(req, res) {
+  console.log("req.params.pageNo", req.params.pageNo);
+
+  var pageNoInt = parseInt(req.params.pageNo);
+  if (pageNoInt > 0) {
+    databaseController
+      .getAuthorWithPage(req.params.name, pageNoInt)
+      .then((data) => {
+        res.json(data);
+      });
+  } else {
+    res.status(500).json({ success: false });
+  }
+}
+
 //Endpoints
 app.get("/search/paper/:name/", getPaper); 
 app.get("/search/author/:name/", getAuthor);
@@ -107,6 +122,7 @@ app.get("/getReferred/:id", getReferred); // Finds the papers that refer the pap
 app.get("/getPapersOfAuthor/:id", getPapersOfAuthor);
 app.get("/getAuthors", getAuthors);
 app.put("/add/paper", getPapers);
+app.get("/page/getAuthor/:name/:pageNo", getAuthorWithPage);
 
 server.listen(port, function() {
     console.log("server listening on port: %d", port);

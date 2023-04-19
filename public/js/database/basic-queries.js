@@ -70,5 +70,11 @@ var basicQueries = {
             " RETURN collect(DISTINCT a) AS authors ,collect(DISTINCT p) AS papers , collect(DISTINCT written) AS author_rel , collect(DISTINCT refer_rel) AS referral "
         );
     },
+    getAuthorWithPage: function () {
+        return `MATCH (n:Author) WHERE n.name CONTAINS $author OR any(alias IN n.aliases WHERE alias CONTAINS $author)
+            return n.name, n.aliases, ID(n) 
+            ORDER BY n.hindex DESC,n.name
+            SKIP toInteger($startNo) LIMIT 10;`;
+    },
 };
 module.exports = basicQueries;
