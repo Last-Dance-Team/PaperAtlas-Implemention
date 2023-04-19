@@ -8,6 +8,7 @@ import NativeSelect from '@mui/material/NativeSelect';
 import InputBase from '@mui/material/InputBase';
 import Button from '@mui/material/Button';
 import { Checkbox, Drawer, FormControlLabel, TextField } from '@mui/material';
+import axios from 'axios';
 
 
 
@@ -93,8 +94,8 @@ export default function SearchBar(props: any) {
   }
 
   const fetchData = async() => {
-    const response = await fetch(`search/${graphType}/${word}`);
-    const body = await response.json();
+    const response = await axios.get(`http://localhost:80/search/${graphType}/${word}`);
+    const body = await response.data;
 
     let newList : paper[] = []
 

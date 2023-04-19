@@ -90,7 +90,9 @@ function HomePage(){
       const body = {
         ids : ids
       }
-      const response = await axios.put(`/add/${graphType}`, body);
+     // "proxy": "http://localhost:80",
+
+      const response = await axios.put(`http://localhost:80/add/${graphType}`, body);
       const data = await response.data
 
       console.log(data)
