@@ -70,7 +70,7 @@ function getPapersOfAuthor(req, res) {
 }
 
 function getAuthors(req, res) {
-    authorIds = req.body.authorIds;
+    authorIds = req.body.ids;
     if (!authorIds || !isArray(authorIds)) {
         res.status(500).json({ success: false });
         return;
@@ -81,7 +81,6 @@ function getAuthors(req, res) {
 }
 
 function getPapers(req, res) {
-    console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
     paperIds = req.body.ids;
     if (!paperIds || !isArray(paperIds)) {
         res.status(500).json({ success: false });
@@ -100,7 +99,7 @@ app.get("/getAuthorsOfPapers/:id", getAuthorsOfPaper);
 app.get("/getReferences/:id", getReferencesOfPaper);
 app.get("/getReferred/:id", getReferred); // Finds the papers that refer the paper with the given id.
 app.get("/getPapersOfAuthor/:id", getPapersOfAuthor);
-app.get("/getAuthors", getAuthors);
+app.put("/add/author", getAuthors);
 app.put("/add/paper", getPapers);
 
 server.listen(port, function() {

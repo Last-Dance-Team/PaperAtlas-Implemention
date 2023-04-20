@@ -75,6 +75,8 @@ var dbControllers = {
         let resp = await dbService.runQuery(data);
 
         var nodes = [];
+        var edges = [];
+        var g
 
         var authorResp = resp.records;
 
@@ -100,7 +102,7 @@ var dbControllers = {
             nodes.push(node);
         }
 
-        return { nodes: nodes };
+        return { nodes: nodes, edges: edges };
     },
     searchByAuthor: async function(author) {
         let query = basicQueries.getAuthorAndPapers(author);

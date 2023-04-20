@@ -88,7 +88,10 @@ export default function SearchBar(props: any) {
 
   const handleAdd = () => {
       let ids: string[] = []
-      papers.forEach((paper) => {ids.push(paper.id)})
+      papers.forEach((paper) => {
+        if(paper.checked){
+          ids.push(paper.id)
+        }})
       props.callBackendAPI(graphType, ids)
   }
 
@@ -107,6 +110,13 @@ export default function SearchBar(props: any) {
         })
       })
     } else {
+      body.authors.forEach(( author : any) => {
+        newList.push({
+          label: author.name,
+          id: author.id,
+          checked : false
+        })
+      })
 
     }
 
