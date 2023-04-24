@@ -1,4 +1,5 @@
 var express = require("express");
+const cors = require('cors');
 var app = express();
 var bodyParser = require("body-parser");
 var server = require("http").createServer(app);
@@ -15,6 +16,13 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     next();
   });
+
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    methods: ['PUT', 'GET', 'POST', 'DELETE', 'OPTIONS'],
+};
+  
+app.use(cors(corsOptions));
 var databaseController = require("./controllers/database-controllers");
 const { isArray } = require("util");
 

@@ -9,6 +9,7 @@ import InputBase from '@mui/material/InputBase';
 import Button from '@mui/material/Button';
 import { Checkbox, Drawer, FormControlLabel, TextField } from '@mui/material';
 import axios from 'axios';
+import Pagination from '@mui/material/Pagination';
 
 
 
@@ -24,7 +25,8 @@ const authors = [
     id : ""
   }
 ]
-
+const itemsPerPage = 10;
+let pageNumber = 0;
 export default function SearchBar(props: any) {
   const [graphType, setGraphType] = React.useState('');
   const [searchParameter, setSearchParameter] = React.useState('');
@@ -33,6 +35,11 @@ export default function SearchBar(props: any) {
   const [hideButtons, setHideButtons] = React.useState(true)
 
   const [papers, setPapers] = React.useState<paper[]>([])
+  const [ currentPage,setCurrentPage] = React.useState(1);
+
+
+  const lastIndex = currentPage * itemsPerPage;
+  const firstIndex = lastIndex - itemsPerPage;
 
   const handleChangeGraphType = (event: { target: { value: string } }) => {
     setGraphType(event.target.value);
@@ -52,10 +59,15 @@ export default function SearchBar(props: any) {
     setWord(event.target.value);
   };
 
+  const handleChangeCurrentPage= (event: { target: { value: string } }) => {
+    setCurrentPage(parseInt(event.target.value));
+  };
+
   const handleSearch= async() => {
     
     fetchData();
     setHideButtons(false)
+    setCurrentPage(1);
   };
 
   const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,8 +79,6 @@ export default function SearchBar(props: any) {
       }
     })
     setPapers(newPapers)
-
-
   }
 
   const handleSelectAll = () =>{
@@ -127,7 +137,8 @@ export default function SearchBar(props: any) {
   }
 
   React.useEffect(() => {}, [papers])
-
+  
+  pageNumber =  Math.ceil( 1.0 * papers.length / itemsPerPage);
   let paperCheckList : React.ReactElement[] = [];
   papers.forEach( (paper) => {
     paperCheckList.push(
@@ -143,6 +154,13 @@ export default function SearchBar(props: any) {
       </FormControl>)
   })
 
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number,
+  ) => {
+    setCurrentPage(value);
+  };
+  
   return (
     <div className= {'search-bar-body'}>
       <FormControl sx={{ m: 1, minWidth: 280 }}>
@@ -182,10 +200,18 @@ export default function SearchBar(props: any) {
     </FormControl>
     <br/>
     </div>
-    {paperCheckList}
+    {paperCheckList.slice(firstIndex, lastIndex)}
 
     
-
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      { paperCheckList.length > 0 && (
+      <Pagination count={pageNumber}
+        page={currentPage}
+        onChange={handlePageChange}
+        color="secondary" />
+      )}
     </div>
+    </div>
+    
   );
 }
