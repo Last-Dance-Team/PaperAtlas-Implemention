@@ -21,6 +21,7 @@
         "@types/cytoscape-cxtmenu": "^3.4.0",
         "axios": "^1.2.1",
         "body-parser": "^1.20.1",
+        "cors": "^2.8.5",
         "cytoscape": "^3.23.0",
         "cytoscape-context-menus": "^4.1.0",
         "cytoscape-qtip": "^2.8.0",

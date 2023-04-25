@@ -5,7 +5,34 @@ var basicQueries = require("../public/js/database/basic-queries");
 const dbService = require("../public/js/database/db-service");
 
 var dbControllers = {
-    getPapers: async function(paperIds) {
+  getAuthorWithPage: async function (author, pageNo) {
+    let query = basicQueries.getAuthorWithPage();
+
+    var limit = 10;
+
+    var startNo = (pageNo - 1) * limit;
+
+    var queryData = { author: author, startNo: startNo };
+    var data = { query: query, queryData: queryData };
+    let resp = await dbService.runQuery(data);
+    var authors = [];
+
+    //Process the data
+    var arrayOfObjects = resp.records;
+    for (let i = 0; i < arrayOfObjects.length; i++) {
+      var object = arrayOfObjects[i];
+      var fields = object._fields;
+      var data = {};
+      data.name = fields[0];
+      data.aliases = fields[1];
+      data.id = fields[2].low;
+      authors.push(data);
+    }
+
+    return { authors: authors };
+  },
+
+  getPapers: async function(paperIds) {
         let query = basicQueries.getPapers();
 
         var queryData = { paperIds: paperIds };
@@ -75,6 +102,8 @@ var dbControllers = {
         let resp = await dbService.runQuery(data);
 
         var nodes = [];
+        var edges = [];
+        var g
 
         var authorResp = resp.records;
 
@@ -100,7 +129,7 @@ var dbControllers = {
             nodes.push(node);
         }
 
-        return { nodes: nodes };
+        return { nodes: nodes, edges: edges };
     },
     searchByAuthor: async function(author) {
         let query = basicQueries.getAuthorAndPapers(author);

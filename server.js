@@ -1,4 +1,5 @@
 var express = require("express");
+const cors = require('cors');
 var app = express();
 var bodyParser = require("body-parser");
 var server = require("http").createServer(app);
@@ -15,6 +16,13 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     next();
   });
+
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    methods: ['PUT', 'GET', 'POST', 'DELETE', 'OPTIONS'],
+};
+  
+app.use(cors(corsOptions));
 var databaseController = require("./controllers/database-controllers");
 const { isArray } = require("util");
 
@@ -75,7 +83,7 @@ function getPapersOfAuthor(req, res) {
 }
 
 function getAuthors(req, res) {
-    authorIds = req.body.authorIds;
+    authorIds = req.body.ids;
     if (!authorIds || !isArray(authorIds)) {
         res.status(500).json({ success: false });
         return;
@@ -86,7 +94,6 @@ function getAuthors(req, res) {
 }
 
 function getPapers(req, res) {
-    console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
     paperIds = req.body.ids;
     if (!paperIds || !isArray(paperIds)) {
         res.status(500).json({ success: false });
@@ -97,6 +104,21 @@ function getPapers(req, res) {
     });
 }
 
+function getAuthorWithPage(req, res) {
+  console.log("req.params.pageNo", req.params.pageNo);
+
+  var pageNoInt = parseInt(req.params.pageNo);
+  if (pageNoInt > 0) {
+    databaseController
+      .getAuthorWithPage(req.params.name, pageNoInt)
+      .then((data) => {
+        res.json(data);
+      });
+  } else {
+    res.status(500).json({ success: false });
+  }
+}
+
 //Endpoints
 app.get("/search/paper/:name/", getPaper); 
 app.get("/search/author/:name/", getAuthor);
@@ -105,8 +127,9 @@ app.get("/getAuthorsOfPapers/:id", getAuthorsOfPaper);
 app.get("/getReferences/:id", getReferencesOfPaper);
 app.get("/getReferred/:id", getReferred); // Finds the papers that refer the paper with the given id.
 app.get("/getPapersOfAuthor/:id", getPapersOfAuthor);
-app.get("/getAuthors", getAuthors);
+app.put("/add/author", getAuthors);
 app.put("/add/paper", getPapers);
+app.get("/page/getAuthor/:name/:pageNo", getAuthorWithPage);
 
 server.listen(port, function() {
     console.log("server listening on port: %d", port);
