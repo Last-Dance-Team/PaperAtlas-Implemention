@@ -47,7 +47,7 @@ var basicQueries = {
     getReferencesOfPaper: function(id) {
         return (
             "MATCH p=(n:Paper)-[r:`a-reference-of`]->(m:Paper)" +
-            " WHERE ID(m) = " +
+            " WHERE ID(n) = " +
             id +
             " RETURN  collect(n) as references, collect(m) as paper, collect(r) as relation"
         );
@@ -55,7 +55,7 @@ var basicQueries = {
     getReferred: function(id) {
         return (
             "MATCH p=(n:Paper)-[r:`a-reference-of`]->(m:Paper)" +
-            " WHERE ID(n) = " +
+            " WHERE ID(m) = " +
             id +
             " RETURN  collect(n) as references, collect(m) as paper, collect(r) as relation"
         );

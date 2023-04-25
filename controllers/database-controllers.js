@@ -317,7 +317,7 @@ var dbControllers = {
         console.log("resp", resp);
 
         //Process the data
-        if (resp.records.length > 0) {
+        if (resp.records.length > 0  && resp.records[0]._fields[0][0]) {
             var nodes = [];
             var edges = [];
             // var paper, references, relations;
@@ -416,9 +416,10 @@ var dbControllers = {
         var data = { query: query, queryData: queryData };
         let resp = await dbService.runQuery(data);
         console.log("resp", resp);
+       // return resp;
 
         //Process the data
-        if (resp.records.length > 0) {
+        if (resp.records.length > 0 && resp.records[0]._fields[0][0]) {
             var nodes = [];
             var edges = [];
             // var paper, references, relations;
