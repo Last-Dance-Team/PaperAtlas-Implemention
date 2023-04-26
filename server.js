@@ -1,5 +1,7 @@
 var express = require("express");
 const cors = require('cors');
+const axios = require("axios");
+
 var app = express();
 var bodyParser = require("body-parser");
 var server = require("http").createServer(app);
@@ -127,6 +129,49 @@ function getAuthorPageCount(req, res) {
       });
 }
 
+function getInfo(req, res){
+    
+    const apiUrl = process.env.API_URL;
+    const xApiKey = process.env.API_KEY;
+    const corpusID = req.params.id;
+
+
+    const url = `${apiUrl}/paper/CorpusID:${corpusID}`;
+
+    axios({
+    method: "get",
+    url,
+    params: { fields: "abstract,openAccessPdf,tldr" },
+    headers: { "x-api-key": xApiKey },
+  })
+    .then(function (response) {
+      let abstract = "";
+
+      if (response.data.abstract != null) {
+        abstract = response.data.abstract;
+      }
+      let url = "";
+      if (response.data.openAccessPdf != null) {
+        url = response.data.openAccessPdf.url;
+      }
+
+      let tldr = "";
+      if (response.data.tldr != null) {
+        tldr = response.data.tldr;
+      }
+
+      res.send({
+        abstract: abstract,
+        url: url,
+        tldr: tldr
+      });
+
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
 //Endpoints
 app.get("/search/paper/:name/", getPaper); 
 app.get("/search/author/:name/", getAuthor);
@@ -138,6 +183,8 @@ app.get("/getPapersOfAuthor/:id", getPapersOfAuthor);
 
 app.put("/add/author", getAuthors);
 app.put("/add/paper", getPapers); // length
+
+app.get("/paper/info/:id", getInfo)
 
 //---
 app.get("/page/getAuthor/:name/:pageNo", getAuthorWithPage);
