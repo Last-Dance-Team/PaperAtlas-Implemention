@@ -119,6 +119,14 @@ function getAuthorWithPage(req, res) {
   }
 }
 
+function getAuthorPageCount(req, res) {
+    databaseController
+      .getAuthorPageCount(req.params.name)
+      .then((data) => {
+        res.json(data);
+      });
+}
+
 //Endpoints
 app.get("/search/paper/:name/", getPaper); 
 app.get("/search/author/:name/", getAuthor);
@@ -130,6 +138,7 @@ app.get("/getPapersOfAuthor/:id", getPapersOfAuthor);
 app.put("/add/author", getAuthors);
 app.put("/add/paper", getPapers);
 app.get("/page/getAuthor/:name/:pageNo", getAuthorWithPage);
+app.get("/page/getAuthorPageCount/:name",getAuthorPageCount)
 
 server.listen(port, function() {
     console.log("server listening on port: %d", port);

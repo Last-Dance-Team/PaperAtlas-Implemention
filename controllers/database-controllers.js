@@ -5,6 +5,15 @@ var basicQueries = require("../public/js/database/basic-queries");
 const dbService = require("../public/js/database/db-service");
 
 var dbControllers = {
+  getAuthorPageCount: async function (author){
+        let query = basicQueries.getAuthorPageCount();
+        var queryData = { author: author };
+        var data = { query: query, queryData: queryData };
+        let resp = await dbService.runQuery(data);
+        let fields = resp.records[0]._fields;
+        return { "totalPageCount": fields[0].low, "totalResult": fields[1].low };
+    },
+
   getAuthorWithPage: async function (author, pageNo) {
     let query = basicQueries.getAuthorWithPage();
 

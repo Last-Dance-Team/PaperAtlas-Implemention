@@ -76,5 +76,11 @@ var basicQueries = {
             ORDER BY n.hindex DESC,n.name
             SKIP toInteger($startNo) LIMIT 10;`;
     },
+
+    getAuthorPageCount: function () {
+        return `MATCH (n:Author) WHERE n.name CONTAINS $author OR any(alias IN n.aliases WHERE alias CONTAINS $author)
+                with count(n) as totalResult
+                return toInteger(CEIL(totalResult/10.0)) as totalPageCount, totalResult;`;
+    }
 };
 module.exports = basicQueries;
