@@ -16,14 +16,16 @@ var basicQueries = {
     getAuthorAndPapers: function(author) {
         return `MATCH (a:Author) WHERE a.name CONTAINS "${author}"
             OR any(alias IN a.aliases WHERE alias CONTAINS "${author}")
-            RETURN a.name, a.aliases, ID(a)`;
+            RETURN a.name, a.aliases, ID(a)
+            ORDER BY a.hindex DESC, a.name`;
     },
     getPaperAndPapers: function(paper, lengthLimit) {
         return (
             "MATCH (p:Paper) WHERE p.title CONTAINS '" +
             paper +
             "'" +
-            " RETURN p.title, ID(p) "
+            " RETURN p.title, ID(p) "+
+            " ORDER BY coalesce(p.citationCount,0) DESC, p.title"
         );
     },
     getNeighborOfPaper: function(title, lengthLimit) {

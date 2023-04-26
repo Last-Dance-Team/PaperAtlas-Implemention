@@ -135,8 +135,11 @@ app.get("/getAuthorsOfPapers/:id", getAuthorsOfPaper);
 app.get("/getReferences/:id", getReferencesOfPaper);
 app.get("/getReferred/:id", getReferred); // Finds the papers that refer the paper with the given id.
 app.get("/getPapersOfAuthor/:id", getPapersOfAuthor);
+
 app.put("/add/author", getAuthors);
-app.put("/add/paper", getPapers);
+app.put("/add/paper", getPapers); // length
+
+//---
 app.get("/page/getAuthor/:name/:pageNo", getAuthorWithPage);
 app.get("/page/getAuthorPageCount/:name",getAuthorPageCount)
 
