@@ -77,7 +77,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 function HomePage(){
 
-    const [layoutName, setLaYoutName] = useState(LAYOUT_NAMES.COLA)
+    const [layoutName, setLaYoutName] = useState(LAYOUT_NAMES.KLAY)
     const[elements, setElements] = useState({'nodes': [],
                                               'edges': []})
 
@@ -248,7 +248,7 @@ function HomePage(){
                 <MenuItem value={LAYOUT_NAMES.COSE_BILKENT}>Cose Bilkent</MenuItem>
                 <MenuItem value={LAYOUT_NAMES.DAGRE}>Dagre</MenuItem>
                 <MenuItem value={LAYOUT_NAMES.EULER}>Euler</MenuItem>
-                <MenuItem value={LAYOUT_NAMES.KALY}>Klay</MenuItem>
+                <MenuItem value={LAYOUT_NAMES.KLAY}>Klay</MenuItem>
               </Select>
             </FormControl>
             <FormControl sx={{ m: 1}}>

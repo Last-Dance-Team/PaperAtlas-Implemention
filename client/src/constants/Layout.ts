@@ -4,5 +4,5 @@ export const LAYOUT_NAMES = {
     COSE_BILKENT: "cose-bilkent",
     DAGRE: "dagre",
     EULER: "euler",
-    KALY: "klay"
+    KLAY: "klay"
     }

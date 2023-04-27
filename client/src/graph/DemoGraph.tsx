@@ -116,11 +116,54 @@ function DemoGraph(props:any) {
     animate: true, // enable animations
     animationDuration: 1000, // set the animation duration
   };
+
+  useEffect(() => {
+    const cy = cyRef.current;
+    const numNodesToAdd = element.length;
+    let numNodesAdded = 0;
+  
+
+    // get the bounding box of the graph
+    if (cy)
+    {
+      const boundingBox = cy.elements().boundingBox();
+
+      // calculate the center point of the bounding box
+      const centerX = boundingBox.x1 + boundingBox.w / 2;
+      const centerY = boundingBox.y1 + boundingBox.h / 2;
+
+    // add new nodes to the center of the graph
+    cy.add(element.map(ele => {
+      numNodesAdded++;
+      return {
+        data: ele.data,
+        position: {
+          x: centerX,
+          y: centerY
+        }
+      };
+    }));
+
+    cy.on('add', 'node', () => {
+  
+      if (numNodesAdded === numNodesToAdd) {
+        console.log("ever here")
+        // animate the nodes to their final positions
+        cy.layout(layoutOptions).run();  
+        // fit the graph to the new nodes
+        cy.fit();
+      }
+    });
+    cy.layout(layoutOptions).run();  
+    // fit the graph to the new nodes
+    cy.fit();
+
+  }
+  }, [element]);
   
   return <CytoscapeComponent 
               cy={(cy): void => {
                 cyRef.current = cy;
-                cy.layout(layoutOptions).run();
               
                 cy.on("click","node", (event) => {
                   var node = event.target;
