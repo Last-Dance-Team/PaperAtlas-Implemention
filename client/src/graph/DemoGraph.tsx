@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useRef, useEffect, useState } from 'react';
 import cytoscape, { Core, EdgeSingular, EventObject, NodeSingular } from 'cytoscape';
 //import cxtmenu from "cytoscape-cxtmenu";
 import jquery from 'jquery';
@@ -9,8 +9,10 @@ import { border } from '@mui/system';
 //import cyQtip from 'cytoscape-qtip'; 
 import 'cytoscape-context-menus';
 //import cxtmenu from 'cytoscape-cxtmenu';
-
-
+const cola = require('cytoscape-cola');
+const dagre = require('cytoscape-dagre');
+const euler = require('cytoscape-euler');
+const klay = require('cytoscape-klay');
 
 const qtip = require('cytoscape-qtip');
 const cxtmenu = require('cytoscape-cxtmenu');
@@ -46,9 +48,18 @@ cytoscape.use(qtip)
 
 cytoscape.use(cxtmenu)
 
+cytoscape.use(cola);
+cytoscape.use(dagre);
+
+cytoscape.use(euler);
+cytoscape.use(klay);
+
+
+
 
 function DemoGraph(props:any) {
 
+  
 
   const styleGraph  = [
     {
@@ -97,10 +108,20 @@ function DemoGraph(props:any) {
   const element = CytoscapeComponent.normalizeElements(props.elements);
 
 
+  const cyRef = useRef<Core | null>(null);
+  
 
+  const layoutOptions = {
+    name: layout.name,
+    animate: true, // enable animations
+    animationDuration: 1000, // set the animation duration
+  };
   
   return <CytoscapeComponent 
               cy={(cy): void => {
+                cyRef.current = cy;
+                cy.layout(layoutOptions).run();
+              
                 cy.on("click","node", (event) => {
                   var node = event.target;
                   console.log(node._private.data.label);
@@ -280,7 +301,7 @@ function DemoGraph(props:any) {
               stylesheet = {styleGraph}  
               minZoom={0.1} 
               maxZoom= {10.0} 
-              layout = {layout} />
+              />
               
               ;
 };
