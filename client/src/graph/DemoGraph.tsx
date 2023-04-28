@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useCallback } from 'react';
+import axios from 'axios';
 import cytoscape, { Core, EdgeSingular, EventObject, NodeSingular } from 'cytoscape';
 //import cxtmenu from "cytoscape-cxtmenu";
 import jquery from 'jquery';
@@ -47,7 +48,81 @@ cytoscape.use(qtip)
 cytoscape.use(cxtmenu)
 
 
-function DemoGraph(props:any) {
+const DemoGraph = ((props:any) => {
+
+  //console.log("DEMO GRAPH")
+
+  const[filteredElements, setFilteredElements] = useState<{ nodes: any[], edges: any[]}>({'nodes': [] ,
+                                              'edges': []}) 
+  const[demoVar,setDemoVar] = useState(1)
+  const [isFetching, setIsFetching] = useState(false);
+
+  const demo = useCallback(async() => {
+      console.log("demo")
+      const response = await axios.get(`/getReferences/116840`);
+      const data = await response.data
+      setDemoVar((prevDemoVar) => prevDemoVar + 1)
+      console.log(demoVar)
+
+    
+  }, [isFetching, setDemoVar, demoVar])
+
+  const getReferences = async(paperId: string) => {
+    console.log("refrerences")
+    const response = await axios.get(`/getReferences/${paperId}`);
+    const data = await response.data
+
+    const uniqueNodes = data.nodes.filter((node: any) => 
+      !filteredElements.nodes.some((e) => e.data.id === node.data.id)
+    )
+
+    const uniqueEdges = data.edges.filter((edge: any) => 
+    !filteredElements.edges.some((e) => e.data.source === edge.data.source && e.data.target === edge.data.target)
+    )
+    //data.nodes.forEach( (element: any) => {
+    //  console.log(element)
+    //  console.log(filteredElements.nodes.some((e) => e.data.id === element.data.id))
+    //});
+
+    //console.log(filteredElements)
+    //console.log(data)
+    //console.log(uniqueNodes)
+    //console.log(uniqueEdges)
+    const updatedNodes = uniqueNodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                return b})
+    addUniqueElements(updatedNodes,uniqueEdges)
+
+  }
+
+  const getReferred = async(paperId: string) => {
+    console.log("refrerred")
+    const response = await axios.get(`/getReferred/${paperId}`);
+    const data = await response.data
+
+    const uniqueNodes = data.nodes.filter((node: any) => 
+      !filteredElements.nodes.some((e) => e.data.id === node.data.id)
+    )
+
+    const uniqueEdges = data.edges.filter((edge: any) => 
+    !filteredElements.edges.some((e) => e.data.source === edge.data.source && e.data.target === edge.data.target)
+    )
+
+    const updatedNodes = uniqueNodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                return b})
+    addUniqueElements(updatedNodes,uniqueEdges)
+
+  }
+
+  const addUniqueElements = (uniqueNodes: any[], uniqueEdges: any[]) => {
+
+    console.log(demoVar)
+    //console.log("setting filtered elements")
+    const elements = {
+      nodes: [...(filteredElements.nodes), ...uniqueNodes],
+      edges: [...(filteredElements.edges), ...uniqueEdges]
+    }
+    setFilteredElements(elements)
+  }
 
 
   const styleGraph  = [
@@ -95,34 +170,24 @@ function DemoGraph(props:any) {
 
   const layout = {name: props.layoutName}
   const element = CytoscapeComponent.normalizeElements(props.elements);
-
+  const [selectedId, setSelectedId] = useState("")
 
 
   
-  return <CytoscapeComponent 
+
+  
+  return (
+  <div>
+  <CytoscapeComponent 
               cy={(cy): void => {
-                cy.on("click","node", (event) => {
-                  var node = event.target;
-                  console.log(node._private.data.label);
-                  props.handleName(node._private.data.label)
-                  props.handleDrawerOpen(node._private.data)
-                });
 
-                cy.on('mouseover', 'node', function(event) {
-                  var node = event.target; // cy.target is the right choice here
-                  node.qtip({
-                    content: node._private.data.label,
-                    show: {
-                      event: "mouseover mouseenter "
-                    },
-                    hide: {
-                      event: "mouseleave mouseout"
-                    }
-                  });
-                });
-                
-               
+                function demoHandler() {
+                  //console.log("on")
+                  demo()
+                  //cy.off("cxtmenu", "node", demoHandler);
+                }
 
+                //cy.on("click","node", demoHandler);
 
                 let paperToolBox = {
                   selector: 'node[type="Paper"]',
@@ -137,10 +202,12 @@ function DemoGraph(props:any) {
                         'font-size': '13px',
                         'padding': '2px 2px'
                       }, // css key:value pairs to set the command's css in js if you want
-                      select: function () {
+                      select: function (ele:any) {
+                        props.demo()
+                        //demoHandler();
+                        //cy.off("cxtmenu", "node", demoHandler);
+                        //cy.on("cxtmenu", "node", demoHandler);
                         // a function to execute when the command is selected
-                        
-                        console.log("pin") // `ele` holds the reference to the active element
                       },
                       enabled: true // whether the command is selectable
                     },
@@ -150,8 +217,8 @@ function DemoGraph(props:any) {
                         'font-size': '13px',
                         'padding': '2px 2px'
                       }, // css key:value pairs to set the command's css in js if you want
-                      select: function () {
-                        
+                      select: function (ele:any) {
+                        getReferences(ele.id())
                       },
                       enabled: true
       
@@ -163,8 +230,8 @@ function DemoGraph(props:any) {
                         'font-size': '13px',
                         'padding': '2px 2px'
                       }, // css key:value pairs to set the command's css in js if you want
-                      select: function(){
-                        console.log('Command 2 selected');
+                      select: function(ele:any){
+                        getReferred(ele.id())
                         
                       },
                       enabled: true // whether the command is selectable
@@ -175,8 +242,7 @@ function DemoGraph(props:any) {
                         'font-size': '13px',
                         'padding': '2px 2px'
                       }, // css key:value pairs to set the command's css in js if you want
-                      select: function () {
-                        console.log("remove")
+                      select: function (ele: any) {
                       },
                       enabled: true // whether the command is selectable
                     }
@@ -211,10 +277,9 @@ function DemoGraph(props:any) {
                         'font-size': '13px',
                         'padding': '2px 2px'
                       }, // css key:value pairs to set the command's css in js if you want
-                      select: function () {
+                      select: function (ele: any) {
                         // a function to execute when the command is selected
                         
-                        console.log("pin") // `ele` holds the reference to the active element
                       },
                       enabled: true // whether the command is selectable
                     },
@@ -224,9 +289,8 @@ function DemoGraph(props:any) {
                         'font-size': '13px',
                         'padding': '2px 2px'
                       }, // css key:value pairs to set the command's css in js if you want
-                      select: function () {
+                      select: function (ele:any) {
 
-                        console.log("bring papers")
                       },
                       enabled: true
       
@@ -239,7 +303,7 @@ function DemoGraph(props:any) {
                         'padding': '2px 2px'
                       }, // css key:value pairs to set the command's css in js if you want
                       select: function () {
-                        console.log("remove")
+
                       },
                       enabled: true // whether the command is selectable
                     }
@@ -281,8 +345,9 @@ function DemoGraph(props:any) {
               minZoom={0.1} 
               maxZoom= {10.0} 
               layout = {layout} />
-              
-              ;
-};
+              <button onClick={props.demo}>Demo</button>
+              </div>
+  );
+});
 
 export default DemoGraph;

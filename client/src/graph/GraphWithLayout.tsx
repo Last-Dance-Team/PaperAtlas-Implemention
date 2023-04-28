@@ -15,7 +15,7 @@ const coseBilkent = require('cytoscape-cose-bilkent');
 const style = {margin: '15px'}
 
 function GraphWithLayout(props: any) {
-    
+    //console.log("GRAPH WITH LAYOUT")
   
     switch (props.layoutName) {
         case LAYOUT_NAMES.COLA:

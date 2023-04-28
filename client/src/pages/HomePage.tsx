@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { LAYOUT_NAMES } from '../constants/Layout';
 import GraphWithLayout from '../graph/GraphWithLayout';
@@ -22,6 +22,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import NodeDetail from '../drawer/NodeDetail';
 import DrawerContent from '../drawer/DrawerContent';
+import { unique } from 'jquery';
 
 const drawerWidth = 500;
 
@@ -75,27 +76,39 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 
-function HomePage(){
+const HomePage = React.memo(() => {
+  //console.log("HOME PAGE")
 
     const [layoutName, setLaYoutName] = useState(LAYOUT_NAMES.COLA)
     const[elements, setElements] = useState({'nodes': [],
                                               'edges': []})
 
-    const[filteredElements, setFilteredElements] = useState({'nodes': [],
-                                              'edges': []})                                          
+    const[filteredElements, setFilteredElements] = useState<{ nodes: any[], edges: any[]}>({'nodes': [] ,
+                                              'edges': []}) 
+    const[demoVar,setDemoVar] = useState(1)
+                                              
+    const [isFetching, setIsFetching] = useState(false);
+    const demo = useCallback(async() => {
+
+        console.log("demo")
+        const response = await axios.get(`/getReferences/116840`);
+        const data = await response.data
+        setDemoVar((prevDemoVar) => prevDemoVar + 1)
+        console.log(demoVar)
+
+      
+    }, [isFetching, setDemoVar, demoVar])
 
     const callBackendAPI = async (graphType : string, ids: string[]) => {   
-      console.log("here")
+
       
       const body = {
         ids : ids
       }
      // "proxy": "http://localhost:80",
 
-      const response = await axios.put(`http://localhost:80/add/${graphType}`, body);
+      const response = await axios.put(`/add/${graphType}`, body);
       const data = await response.data
-
-      console.log(data)
 
       const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
                                   return b})
@@ -111,7 +124,6 @@ function HomePage(){
         throw Error(data.message) 
       }
 
-      console.log("here")
       setElements(elements)
       setFilteredElements(elements)
 
@@ -119,6 +131,64 @@ function HomePage(){
       setMaxDate('')
 
     };
+
+    const getReferences = async(paperId: string) => {
+      console.log("refrerences")
+      const response = await axios.get(`/getReferences/${paperId}`);
+      const data = await response.data
+
+      const uniqueNodes = data.nodes.filter((node: any) => 
+        !filteredElements.nodes.some((e) => e.data.id === node.data.id)
+      )
+
+      const uniqueEdges = data.edges.filter((edge: any) => 
+      !filteredElements.edges.some((e) => e.data.source === edge.data.source && e.data.target === edge.data.target)
+      )
+      //data.nodes.forEach( (element: any) => {
+      //  console.log(element)
+      //  console.log(filteredElements.nodes.some((e) => e.data.id === element.data.id))
+      //});
+
+      //console.log(filteredElements)
+      //console.log(data)
+      //console.log(uniqueNodes)
+      //console.log(uniqueEdges)
+      const updatedNodes = uniqueNodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                  return b})
+      addUniqueElements(updatedNodes,uniqueEdges)
+
+    }
+
+    const getReferred = async(paperId: string) => {
+      console.log("refrerred")
+      const response = await axios.get(`/getReferred/${paperId}`);
+      const data = await response.data
+
+      const uniqueNodes = data.nodes.filter((node: any) => 
+        !filteredElements.nodes.some((e) => e.data.id === node.data.id)
+      )
+
+      const uniqueEdges = data.edges.filter((edge: any) => 
+      !filteredElements.edges.some((e) => e.data.source === edge.data.source && e.data.target === edge.data.target)
+      )
+
+      const updatedNodes = uniqueNodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                  return b})
+      addUniqueElements(updatedNodes,uniqueEdges)
+
+    }
+
+    const addUniqueElements = (uniqueNodes: any[], uniqueEdges: any[]) => {
+      console.log(demoVar)
+      //console.log("setting filtered elements")
+      const elements = {
+        nodes: [...(filteredElements.nodes), ...uniqueNodes],
+        edges: [...(filteredElements.edges), ...uniqueEdges]
+      }
+      setFilteredElements(elements)
+    }
+
+
 
     useEffect(() => {}, [])
 
@@ -264,11 +334,20 @@ function HomePage(){
             <FormControl sx={{ m: 2}} >
               <Button variant="contained" onClick={filterAccordingToDate} >Filter</Button>
             </FormControl>
-            <GraphWithLayout layoutName = {layoutName}  elements = {filteredElements} handleDrawerOpen={handleDrawerOpen} handleName = {handleName} />
+            <GraphWithLayout 
+                layoutName = {layoutName}  
+                elements = {filteredElements} 
+                handleDrawerOpen={handleDrawerOpen} 
+                handleName = {handleName}
+                getReferences = {getReferences}
+                getReferred = {getReferred}
+                demo = {demo} />
           </Main>
+          
         </div>
+       
       );
-}
+})
 
 
 export default HomePage
