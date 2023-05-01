@@ -7,6 +7,7 @@ import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 const theme = createTheme({
     palette: {
@@ -29,9 +30,19 @@ const theme = createTheme({
 function NodeDetail(props: any){
     var node = props.node
 
+    const handleReference = () => {
+        console.log(node)
+        props.getReferences(node.id)
+    }
+
+    const HandleReferred = () => {
+        console.log(node)
+        props.getReferred(node.id)
+    }
 
     if (node.type == 'Paper'){
         return(
+        <div>
         <ThemeProvider theme={theme}>
             <Box sx={{  bgcolor: 'background.paper',}}>
                 <Box sx={{  m: 1, color: 'text.secondary' }}><strong>Title: </strong>  </Box>
@@ -59,7 +70,12 @@ function NodeDetail(props: any){
                 <br/>
 
         </Box>
-        </ThemeProvider>)
+        
+        </ThemeProvider>
+        <Button onClick={handleReference}>References</Button>
+        <Button onClick={HandleReferred}>Citation</Button>
+        </div>
+        )
     }
 
     if (node.type == 'Author'){

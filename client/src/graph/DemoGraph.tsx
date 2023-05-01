@@ -181,11 +181,23 @@ const DemoGraph = ((props:any) => {
   <CytoscapeComponent 
               cy={(cy): void => {
 
-                function demoHandler() {
-                  //console.log("on")
-                  demo()
-                  //cy.off("cxtmenu", "node", demoHandler);
+                let lastClickedNode: any = null;
+
+                function onClickHandler(event: any) {
+                  //console.log("here")
+                  var node = event.target;
+                  if (node !== lastClickedNode) {
+                    console.log(node._private.data.label);
+                    props.handleName(node._private.data.label);
+                    props.handleDrawerOpen(node._private.data);
+                    lastClickedNode = node;
+                  }
+                  //cy.off("click", "node", onClickHandler);
                 }
+
+                cy.on("click","node", onClickHandler);
+
+                
 
                 //cy.on("click","node", demoHandler);
 
@@ -218,7 +230,7 @@ const DemoGraph = ((props:any) => {
                         'padding': '2px 2px'
                       }, // css key:value pairs to set the command's css in js if you want
                       select: function (ele:any) {
-                        getReferences(ele.id())
+                        props.getReferences(ele.id())
                       },
                       enabled: true
       
@@ -231,7 +243,7 @@ const DemoGraph = ((props:any) => {
                         'padding': '2px 2px'
                       }, // css key:value pairs to set the command's css in js if you want
                       select: function(ele:any){
-                        getReferred(ele.id())
+                        props.getReferred(ele.id())
                         
                       },
                       enabled: true // whether the command is selectable

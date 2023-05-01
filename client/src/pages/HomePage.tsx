@@ -136,7 +136,7 @@ const HomePage = React.memo(() => {
       console.log("refrerences")
       const response = await axios.get(`/getReferences/${paperId}`);
       const data = await response.data
-
+      console.log(data)
       const uniqueNodes = data.nodes.filter((node: any) => 
         !filteredElements.nodes.some((e) => e.data.id === node.data.id)
       )
@@ -155,6 +155,7 @@ const HomePage = React.memo(() => {
       //console.log(uniqueEdges)
       const updatedNodes = uniqueNodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
                                   return b})
+      
       addUniqueElements(updatedNodes,uniqueEdges)
 
     }
@@ -179,12 +180,12 @@ const HomePage = React.memo(() => {
     }
 
     const addUniqueElements = (uniqueNodes: any[], uniqueEdges: any[]) => {
-      console.log(demoVar)
       //console.log("setting filtered elements")
       const elements = {
         nodes: [...(filteredElements.nodes), ...uniqueNodes],
         edges: [...(filteredElements.edges), ...uniqueEdges]
       }
+      console.log(elements)
       setFilteredElements(elements)
     }
 
@@ -300,7 +301,12 @@ const HomePage = React.memo(() => {
             anchor="right"
             open={open}
           >
-              <DrawerContent node ={node} callBackendAPI = {callBackendAPI} handleDrawerClose = {handleDrawerClose}/>
+              <DrawerContent 
+                node ={node} 
+                callBackendAPI = {callBackendAPI} 
+                handleDrawerClose = {handleDrawerClose}
+                getReferences = {getReferences}
+                getReferred = {getReferred}/>
 
           </Drawer>
           <Main open={open}>
