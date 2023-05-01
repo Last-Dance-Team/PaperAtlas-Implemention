@@ -135,28 +135,8 @@ const HomePage = React.memo(() => {
     const getReferences = async(paperId: string) => {
       console.log("refrerences")
       const response = await axios.get(`/getReferences/${paperId}`);
-      const data = await response.data
-      console.log(data)
-      const uniqueNodes = data.nodes.filter((node: any) => 
-        !filteredElements.nodes.some((e) => e.data.id === node.data.id)
-      )
-
-      const uniqueEdges = data.edges.filter((edge: any) => 
-      !filteredElements.edges.some((e) => e.data.source === edge.data.source && e.data.target === edge.data.target)
-      )
-      //data.nodes.forEach( (element: any) => {
-      //  console.log(element)
-      //  console.log(filteredElements.nodes.some((e) => e.data.id === element.data.id))
-      //});
-
-      //console.log(filteredElements)
-      //console.log(data)
-      //console.log(uniqueNodes)
-      //console.log(uniqueEdges)
-      const updatedNodes = uniqueNodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
-                                  return b})
-      
-      addUniqueElements(updatedNodes,uniqueEdges)
+      const data = await response.data 
+      addUniqueElements(data)
 
     }
 
@@ -164,25 +144,23 @@ const HomePage = React.memo(() => {
       console.log("refrerred")
       const response = await axios.get(`/getReferred/${paperId}`);
       const data = await response.data
+      addUniqueElements(data)
 
+    }
+
+    const addUniqueElements = (data: any) => {
       const uniqueNodes = data.nodes.filter((node: any) => 
         !filteredElements.nodes.some((e) => e.data.id === node.data.id)
       )
 
       const uniqueEdges = data.edges.filter((edge: any) => 
-      !filteredElements.edges.some((e) => e.data.source === edge.data.source && e.data.target === edge.data.target)
+        !filteredElements.edges.some((e) => e.data.source === edge.data.source && e.data.target === edge.data.target)
       )
 
       const updatedNodes = uniqueNodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
                                   return b})
-      addUniqueElements(updatedNodes,uniqueEdges)
-
-    }
-
-    const addUniqueElements = (uniqueNodes: any[], uniqueEdges: any[]) => {
-      //console.log("setting filtered elements")
       const elements = {
-        nodes: [...(filteredElements.nodes), ...uniqueNodes],
+        nodes: [...(filteredElements.nodes), ...updatedNodes],
         edges: [...(filteredElements.edges), ...uniqueEdges]
       }
       console.log(elements)
