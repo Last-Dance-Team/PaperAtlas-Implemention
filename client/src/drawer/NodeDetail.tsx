@@ -7,6 +7,7 @@ import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 const theme = createTheme({
     palette: {
@@ -32,34 +33,38 @@ function NodeDetail(props: any){
 
     if (node.type == 'Paper'){
         return(
-        <ThemeProvider theme={theme}>
-            <Box sx={{  bgcolor: 'background.paper',}}>
-                <Box sx={{  m: 1, color: 'text.secondary' }}><strong>Title: </strong>  </Box>
-                <Box sx={{  m: 2, color: 'text.primary', fontSize: 20, fontWeight: 'medium'}}>{node.label}  </Box>
-                <br/>
-                <Box sx={{  m: 1, color: 'text.secondary' }}><strong>Publication Year: </strong>  </Box>
-                <Box sx={{  m: 2, color: 'text.primary', fontSize: 20, fontWeight: 'medium'}}>{node.year}  </Box>
-                <br/>
-                <Box sx={{  m: 1, color: 'text.secondary' }}><strong>DOI: </strong>  </Box>
-                <Box sx={{  m: 2, color: 'text.primary', fontSize: 20, fontWeight: 'medium'}}>{node.doi}  </Box>
-                <br/>
-                <Box sx={{ m: 1, color: 'text.secondary' }}><strong>Field of Study: </strong>  </Box>
+            <div>   
+                <Button>References</Button>
+                <Button>Citations</Button>        
+                <ThemeProvider theme={theme}>
+                    <Box sx={{  bgcolor: 'background.paper',}}>
+                        <Box sx={{  m: 1, color: 'text.secondary' }}><strong>Title: </strong>  </Box>
+                        <Box sx={{  m: 2, color: 'text.primary', fontSize: 20, fontWeight: 'medium'}}>{node.label}  </Box>
+                        <br/>
+                        <Box sx={{  m: 1, color: 'text.secondary' }}><strong>Publication Year: </strong>  </Box>
+                        <Box sx={{  m: 2, color: 'text.primary', fontSize: 20, fontWeight: 'medium'}}>{node.year}  </Box>
+                        <br/>
+                        <Box sx={{  m: 1, color: 'text.secondary' }}><strong>DOI: </strong>  </Box>
+                        <Box sx={{  m: 2, color: 'text.primary', fontSize: 20, fontWeight: 'medium'}}>{node.doi}  </Box>
+                        <br/>
+                        <Box sx={{ m: 1, color: 'text.secondary' }}><strong>Field of Study: </strong>  </Box>
 
-                        {node.uniqueFieldsOfStudies.map( (a: string) =>{
-                            return(<Box key = {a} sx={{  m: 2, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}>{a}</Box>)
-                        })}
+                                {node.uniqueFieldsOfStudies.map( (a: string) =>{
+                                    return(<Box key = {a} sx={{  m: 2, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}>{a}</Box>)
+                                })}
+
+                                <br/>
+                        <Box sx={{  m: 1, color: 'text.secondary' }}><strong>Citation Count: </strong>  </Box>
+                        <Box sx={{  m: 2, color: 'text.primary', fontSize: 20, fontWeight: 'medium'}}>{node.citationCount}  </Box>
 
                         <br/>
-                <Box sx={{  m: 1, color: 'text.secondary' }}><strong>Citation Count: </strong>  </Box>
-                <Box sx={{  m: 2, color: 'text.primary', fontSize: 20, fontWeight: 'medium'}}>{node.citationCount}  </Box>
+                        <Box sx={{  m: 2, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}> <a href= {node.url}>URL to Paper</a></Box>
+                    
+                        <br/>
 
-                <br/>
-                <Box sx={{  m: 2, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}> <a href= {node.url}>URL to Paper</a></Box>
-               
-                <br/>
-
-        </Box>
-        </ThemeProvider>)
+                    </Box>
+                </ThemeProvider>
+            </div>)
     }
 
     if (node.type == 'Author'){

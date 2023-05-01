@@ -78,11 +78,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 function HomePage(){
 
     const [layoutName, setLaYoutName] = useState(LAYOUT_NAMES.KLAY)
-    const[elements, setElements] = useState({'nodes': [],
-                                              'edges': []})
+    const[elements, setElements] = useState<{ nodes: any[], edges: any[]}>({'nodes': [] ,'edges': []})
 
-    const[filteredElements, setFilteredElements] = useState({'nodes': [],
-                                              'edges': []})                                          
+    const[filteredElements, setFilteredElements] = useState<{ nodes: any[], edges: any[]}>({'nodes': [] ,'edges': []})                                           
 
     const callBackendAPI = async (graphType : string, ids: string[]) => {   
       console.log("here")
@@ -119,6 +117,41 @@ function HomePage(){
       setMaxDate('')
 
     };
+
+    const getReferences = async(paperId: string) => {
+      console.log("refrerences")
+      const response = await axios.get(`/getReferences/${paperId}`);
+      const data = await response.data 
+      addUniqueElements(data)
+
+    }
+
+    const getReferred = async(paperId: string) => {
+      console.log("refrerred")
+      const response = await axios.get(`/getReferred/${paperId}`);
+      const data = await response.data
+      addUniqueElements(data)
+
+    }
+
+    const addUniqueElements = (data: any) => {
+      const uniqueNodes = data.nodes.filter((node: any) => 
+        !filteredElements.nodes.some((e) => e.data.id === node.data.id)
+      )
+
+      const uniqueEdges = data.edges.filter((edge: any) => 
+        !filteredElements.edges.some((e) => e.data.source === edge.data.source && e.data.target === edge.data.target)
+      )
+
+      const updatedNodes = uniqueNodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                  return b})
+      const elements = {
+        nodes: [...(filteredElements.nodes), ...updatedNodes],
+        edges: [...(filteredElements.edges), ...uniqueEdges]
+      }
+      console.log(elements)
+      setElements(elements)
+    }
 
     useEffect(() => {}, [])
 
@@ -243,7 +276,9 @@ function HomePage(){
                 node ={node} 
                 value = {drawerState}
                 callBackendAPI = {callBackendAPI} 
-                handleDrawerClose = {handleDrawerClose}/>
+                handleDrawerClose = {handleDrawerClose}
+                getReferences={getReferences}
+                getReferred = {getReferred}/>
 
           </Drawer>
           <Main open={open}>

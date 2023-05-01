@@ -69,7 +69,7 @@ function DrawerContent(props: any){
                 <SearchBar callBackendAPI = {props.callBackendAPI}/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <NodeDetail node = {props.node}/>
+                <NodeDetail {...props}/>
             </TabPanel>
         </Box>
     )
