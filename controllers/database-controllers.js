@@ -360,8 +360,8 @@ var dbControllers = {
             var edges = [];
             // var paper, references, relations;
 
-            var paper = resp.records[0]._fields[1][0];
-            var references = resp.records[0]._fields[0];
+            var paper = resp.records[0]._fields[0][0];
+            var references = resp.records[0]._fields[1];
             var relations = resp.records[0]._fields[2];
 
             //Adding paper node
