@@ -126,6 +126,7 @@ function HomePage(){
     const [maxDate, setMaxDate] = React.useState('');
     const [open, setOpen] = React.useState(true);
     const [node, setNode] = React.useState({'type': ''})
+    const [drawerState, setDrawerState] = React.useState(0)
 
     const applyDateFilter =  (minDate: string, maxDate : string) => {
       var minDateNo = Number(minDate) //source author target paper
@@ -188,13 +189,21 @@ function HomePage(){
     };
 
     const handleDrawerOpen = (node: any) => {
+      setDrawerState(0)
       setOpen(true);
       setNode(node)
+    };
+
+    const handleDrawerOpenWithState = (node: any, state: number) => {
+      setOpen(true);
+      setNode(node)
+      setDrawerState(state)
     };
   
     const handleDrawerClose = () => {
       setOpen(false);
     };
+    
 
     const [name, setName] = useState('start');
 
@@ -230,7 +239,11 @@ function HomePage(){
             anchor="right"
             open={open}
           >
-              <DrawerContent node ={node} callBackendAPI = {callBackendAPI} handleDrawerClose = {handleDrawerClose}/>
+              <DrawerContent 
+                node ={node} 
+                value = {drawerState}
+                callBackendAPI = {callBackendAPI} 
+                handleDrawerClose = {handleDrawerClose}/>
 
           </Drawer>
           <Main open={open}>
@@ -264,7 +277,12 @@ function HomePage(){
             <FormControl sx={{ m: 2}} >
               <Button variant="contained" onClick={filterAccordingToDate} >Filter</Button>
             </FormControl>
-            <GraphWithLayout layoutName = {layoutName}  elements = {filteredElements} handleDrawerOpen={handleDrawerOpen} handleName = {handleName} />
+            <GraphWithLayout 
+              layoutName = {layoutName}  
+              elements = {filteredElements} 
+              handleDrawerOpen={handleDrawerOpen}
+              handleDrawerOpenWithState = {handleDrawerOpenWithState} 
+              handleName = {handleName} />
           </Main>
         </div>
       );

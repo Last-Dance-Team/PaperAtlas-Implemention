@@ -46,7 +46,7 @@ function NodeDetail(props: any){
                 <Box sx={{ m: 1, color: 'text.secondary' }}><strong>Field of Study: </strong>  </Box>
 
                         {node.uniqueFieldsOfStudies.map( (a: string) =>{
-                            return(<Box sx={{  m: 2, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}>{a}</Box>)
+                            return(<Box key = {a} sx={{  m: 2, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}>{a}</Box>)
                         })}
 
                         <br/>

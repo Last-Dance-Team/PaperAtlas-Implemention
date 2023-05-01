@@ -25,7 +25,7 @@ function GraphWithLayout(props: any) {
 
       console.log("layout in GraphWithLayout", props.layoutName)
     return <div style={style}>
-        <DemoGraph elements= {props.elements} props={props} layoutName= {props.layoutName}  />
+        <DemoGraph elements= {props.elements} {...props}  layoutName= {props.layoutName}  />
       </div>;    
     //<DemoGraph {...props} />;
   }

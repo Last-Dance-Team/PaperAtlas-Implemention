@@ -169,9 +169,11 @@ function DemoGraph(props:any) {
                   var node = event.target;
                   console.log(node._private.data.label);
                   props.handleName(node._private.data.label)
-                  props.handleDrawerOpen(node._private.data)
+                  props.handleDrawerOpenWithState(node._private.data, 1)
                 });
 
+                /**
+                 * Showing whole title when mouse is on the node
                 cy.on('mouseover', 'node', function(event) {
                   var node = event.target; // cy.target is the right choice here
                   node.qtip({
@@ -184,7 +186,7 @@ function DemoGraph(props:any) {
                     }
                   });
                 });
-                
+                 */
                
 
 

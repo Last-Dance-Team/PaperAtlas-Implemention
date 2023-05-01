@@ -42,12 +42,15 @@ function a11yProps(index: number) {
 }
 
 function DrawerContent(props: any){
-    const [value, setValue] = React.useState(0);
-    var node = props.node
+    const [value, setValue] = React.useState(props.value);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
       };
+
+    React.useEffect(() => {
+        setValue(props.value)
+    }, [props.value])
 
     return (
         <Box sx={{ width: '100%' }}>
