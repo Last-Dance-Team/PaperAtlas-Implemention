@@ -464,8 +464,8 @@ var dbControllers = {
 
             //TODO TODO
 
-            var paper = resp.records[0]._fields[0][0];
-            var referred = resp.records[0]._fields[1];
+            var paper = resp.records[0]._fields[1][0];
+            var referred = resp.records[0]._fields[0];
             var relations = resp.records[0]._fields[2];
 
             //Adding paper node
