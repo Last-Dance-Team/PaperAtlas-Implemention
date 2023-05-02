@@ -22,6 +22,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import NodeDetail from '../drawer/NodeDetail';
 import DrawerContent from '../drawer/DrawerContent';
+import Slider from '@mui/material/Slider';
 
 const drawerWidth = 500;
 
@@ -161,7 +162,7 @@ function HomePage(){
     const [node, setNode] = React.useState({'type': ''})
     const [drawerState, setDrawerState] = React.useState(0)
 
-    const applyDateFilter =  (minDate: string, maxDate : string) => {
+    const applyDateFilter =  (minDate: number, maxDate : number) => {
       var minDateNo = Number(minDate) //source author target paper
       var maxDateNo = Number(maxDate) //source author target paper
       maxDateNo = maxDateNo ? maxDateNo : 3000
@@ -185,7 +186,8 @@ function HomePage(){
     };
 
     const filterAccordingToDate= () => {
-      applyDateFilter(minDate,maxDate)
+      
+      applyDateFilter(value[0],value[1])
     };
 
     const changeDatefilter = (event: { target: { value: string } }) => {
@@ -244,6 +246,38 @@ function HomePage(){
       setName(name);
     };
 
+
+
+    const styles = {
+      root: {
+        width: 500,
+        padding: '20px 0',
+      },
+    };
+    
+    const [value, setValue] = React.useState<number[]>([1980, 2023]);
+
+    const handleChange = (event: Event, newValue: number | number[]) => {
+    setValue(newValue as number[]);
+    filterAccordingToDate();
+    };
+
+
+
+const marks = [
+  {
+    value: 1980,
+    label: '1980',
+  },
+  {
+    value: 2023,
+    label: 2023,
+  },
+];
+
+function valuetext(value: number) {
+  return `${value}`;
+}
     return (
         <div>
           <CssBaseline />
@@ -300,14 +334,16 @@ function HomePage(){
               </Select>
             </FormControl>
             <FormControl sx={{ m: 1}}>
-              <TextField id="minYear" label="Enter min year" variant="outlined" onChange={handleChangeMinDate} value = {minDate} InputProps={{  inputProps: {
-        maxLength: 4},type: 'number'}}  
+            <div style = {styles.root}>
+            <Slider
+              value={value}
+              onChange={handleChange}
+              valueLabelDisplay="on"
+              getAriaValueText={valuetext}
+              min={1980}
+              max={2023}
               />
-            </FormControl>
-            <FormControl sx={{ m: 1,fontSize: '150px' }} style={{ fontSize: '150px' }}>
-              <TextField id="maxYear" label="Enter max year" variant="outlined" onChange={handleChangeMaxDate} value = {maxDate} InputProps={{  inputProps: {
-        maxLength: 4},type: 'number'}}  
-              />
+            </div>
             </FormControl>
             <FormControl sx={{ m: 2}} >
               <Button variant="contained" onClick={filterAccordingToDate} >Filter</Button>
