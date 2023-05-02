@@ -119,6 +119,50 @@ function HomePage(){
 
     };
 
+
+    const callBackendAPIMerge = async (graphType : string, ids: string[]) => {   
+      console.log("mhere")
+      
+      const body = {
+        ids : ids
+      }
+     // "proxy": "http://localhost:80",
+
+      const response = await axios.put(`http://localhost:80/add/${graphType}`, body);
+      const data = await response.data
+
+      console.log(data)
+
+      const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                  return b})
+      
+      const updatedEdges = data.edges.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                  return b})
+      
+      const mergedElements = {
+      nodes: [...elements.nodes, ...updatedNodes],
+      edges: [...elements.edges, ...updatedEdges],
+      };
+                                  
+
+      if (response.status !== 200) {
+        throw Error(data.message) 
+      }
+
+      console.log("mhere")
+      setElements(  mergedElements)
+      setFilteredElements(mergedElements)
+
+      setMinDate('')
+      setMaxDate('')
+
+    };
+
+
+
+
+
+
     const getReferences = async(paperId: string) => {
       console.log("refrerences")
       const response = await axios.get(`/getReferences/${paperId}`);
@@ -310,6 +354,7 @@ function valuetext(value: number) {
                 node ={node} 
                 value = {drawerState}
                 callBackendAPI = {callBackendAPI} 
+                callBackendAPIMerge = {callBackendAPIMerge} 
                 handleDrawerClose = {handleDrawerClose}
                 getReferences={getReferences}
                 getReferred = {getReferred}/>
