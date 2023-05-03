@@ -19,6 +19,8 @@ export interface paper{
   checked : boolean
 }
 
+
+
 const authors = [
   {
     name: "",
@@ -36,7 +38,9 @@ export default function SearchBar(props: any) {
 
   const [papers, setPapers] = React.useState<paper[]>([])
   const [ currentPage,setCurrentPage] = React.useState(1);
+  
 
+  const [isMerge, setIsMerge] = React.useState(false);
 
   const lastIndex = currentPage * itemsPerPage;
   const firstIndex = lastIndex - itemsPerPage;
@@ -81,6 +85,12 @@ export default function SearchBar(props: any) {
     setPapers(newPapers)
   }
 
+  const handleCheckForMerge = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+    setIsMerge(event.target.checked);
+    
+  }
+
   const handleSelectAll = () =>{
     let newPapers = [...papers]
     newPapers.forEach( (paper) => {
@@ -98,12 +108,19 @@ export default function SearchBar(props: any) {
   }
 
   const handleAdd = () => {
-      let ids: string[] = []
+    let ids: string[] = []
       papers.forEach((paper) => {
         if(paper.checked){
           ids.push(paper.id)
         }})
+    if( !isMerge)
+    {
       props.callBackendAPI(graphType, ids)
+    }
+    else
+    {
+      props.callBackendAPIMerge(graphType, ids)
+    }
   }
 
   const fetchData = async() => {
@@ -188,7 +205,16 @@ export default function SearchBar(props: any) {
 
     <div hidden = {hideButtons}>
     <br/>
-
+    <FormControlLabel
+          label = {"Merge"}
+          control = {<Checkbox
+            checked = {isMerge}
+            onChange = {handleCheckForMerge}
+           />}
+          labelPlacement = "end"
+    />
+    <br/>
+    <br/>
     <FormControl sx={{ m: 2}}>
       <Button onClick={handleSelectAll} >Select All</Button>
     </FormControl>

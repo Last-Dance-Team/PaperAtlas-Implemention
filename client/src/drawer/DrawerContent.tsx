@@ -66,7 +66,7 @@ function DrawerContent(props: any){
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-                <SearchBar callBackendAPI = {props.callBackendAPI}/>
+                <SearchBar callBackendAPI = {props.callBackendAPI} callBackendAPIMerge = {props.callBackendAPIMerge}/>
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <NodeDetail {...props}/>
