@@ -92,6 +92,7 @@ function HomePage(){
       const body = {
         ids : ids
       }
+      console.log(body)
      // "proxy": "http://localhost:80",
 
       const response = await axios.put(`http://localhost:80/add/${graphType}`, body);
@@ -129,6 +130,7 @@ function HomePage(){
       const body = {
         ids : ids
       }
+      console.log(body)
      // "proxy": "http://localhost:80",
 
       const response = await axios.put(`http://localhost:80/add/${graphType}`, body);
@@ -170,8 +172,9 @@ function HomePage(){
       console.log(paperId)
       const response = await axios.get(`/getReferences/${paperId}`);
       const data = await response.data 
-      console.log(data)
-      addUniqueElements(data)
+      //console.log(data)
+      addPapers(data.nodes)
+      //addUniqueElements(data)
 
     }
 
@@ -179,9 +182,32 @@ function HomePage(){
       console.log(paperId)
       const response = await axios.get(`/getReferred/${paperId}`);
       const data = await response.data
-      console.log(data)
-      addUniqueElements(data)
+      //console.log(data)
+      addPapers(data.nodes)
+      //addUniqueElements(data)
 
+    }
+
+    const addPapers = async(papers: any[]) => {
+      console.log(papers)
+      console.log(elements)
+        const uniqueIds = papers.filter((node: any) => 
+          !elements.nodes.some((e) => e.data.id === node.data.id)
+        ).map((e) => Number(e.data.id))
+
+        
+
+        const body = {
+          ids : [ ...(elements.nodes.map((n)=> Number(n.data.id))),...uniqueIds]
+        }
+        console.log(body)
+  
+        const response = await axios.put(`http://localhost:80/add/paper`, body);
+        const data = await response.data
+        //setElements(data)
+        //console.log(data)
+        //applyDateFilter(value[0],value[1], data)
+        addUniqueElements(data)
     }
 
     const addUniqueElements = (data: any) => {
@@ -201,7 +227,7 @@ function HomePage(){
       }
       
       setElements(uniqueElements)
-      applyDateFilter(minDate,maxDate, uniqueElements)
+      applyDateFilter(value[0],value[1], uniqueElements)
     }
 
     const remove = (nodeId: string) => {
@@ -215,7 +241,7 @@ function HomePage(){
       }
 
       setElements(newElements)
-      applyDateFilter(minDate, maxDate, newElements)
+      applyDateFilter(value[0], value[1], newElements)
     }
 
     const pin = (nodeId: string) => {
@@ -307,9 +333,10 @@ function HomePage(){
     };
 
     const handleDrawerOpenWithState = (node: any, state: number) => {
+      setDrawerState(state)
       setOpen(true);
       setNode(node)
-      setDrawerState(state)
+      
     };
   
     const handleDrawerClose = () => {

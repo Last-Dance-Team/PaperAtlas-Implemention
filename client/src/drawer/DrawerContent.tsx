@@ -50,7 +50,7 @@ function DrawerContent(props: any){
 
     React.useEffect(() => {
         setValue(props.value)
-    }, [props.value])
+    }, [props.value, props.node])
 
     return (
         <Box sx={{ width: '100%' }}>
