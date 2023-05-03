@@ -159,7 +159,7 @@ export default function SearchBar(props: any) {
   let paperCheckList : React.ReactElement[] = [];
   papers.forEach( (paper) => {
     paperCheckList.push(
-      <FormControl sx={{ m: 1}} key = {paper.id}>
+      <FormControl sx={{ m: 1, display: 'block'}} key = {paper.id}>
         <FormControlLabel
           label = {paper.label}
           control = {<Checkbox
