@@ -77,10 +77,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 function HomePage(){
 
+  console.log("Home Page")
+
     const [layoutName, setLaYoutName] = useState(LAYOUT_NAMES.KLAY)
     const[elements, setElements] = useState<{ nodes: any[], edges: any[]}>({'nodes': [] ,'edges': []})
 
-    const[filteredElements, setFilteredElements] = useState<{ nodes: any[], edges: any[]}>({'nodes': [] ,'edges': []})                                           
+    const[filteredElements, setFilteredElements] = useState<{ nodes: any[], edges: any[]}>({'nodes': [] ,'edges': []}) 
+    const[pinnedNodes, setPinnedNodes] = useState<string[]>([])                                           
 
     const callBackendAPI = async (graphType : string, ids: string[]) => {   
       console.log("here")
@@ -119,38 +122,63 @@ function HomePage(){
     };
 
     const getReferences = async(paperId: string) => {
-      console.log("refrerences")
+      console.log(paperId)
       const response = await axios.get(`/getReferences/${paperId}`);
       const data = await response.data 
+      console.log(data)
       addUniqueElements(data)
 
     }
 
     const getReferred = async(paperId: string) => {
-      console.log("refrerred")
+      console.log(paperId)
       const response = await axios.get(`/getReferred/${paperId}`);
       const data = await response.data
+      console.log(data)
       addUniqueElements(data)
 
     }
 
     const addUniqueElements = (data: any) => {
       const uniqueNodes = data.nodes.filter((node: any) => 
-        !filteredElements.nodes.some((e) => e.data.id === node.data.id)
+        !elements.nodes.some((e) => e.data.id === node.data.id)
       )
 
       const uniqueEdges = data.edges.filter((edge: any) => 
-        !filteredElements.edges.some((e) => e.data.source === edge.data.source && e.data.target === edge.data.target)
+        !elements.edges.some((e) => e.data.source === edge.data.source && e.data.target === edge.data.target)
       )
 
       const updatedNodes = uniqueNodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
                                   return b})
-      const elements = {
-        nodes: [...(filteredElements.nodes), ...updatedNodes],
-        edges: [...(filteredElements.edges), ...uniqueEdges]
+      const uniqueElements = {
+        nodes: [...(elements.nodes), ...updatedNodes],
+        edges: [...(elements.edges), ...uniqueEdges]
       }
-      console.log(elements)
-      setElements(elements)
+      
+      setElements(uniqueElements)
+      applyDateFilter(minDate,maxDate, uniqueElements)
+    }
+
+    const remove = (nodeId: string) => {
+      const newNodes = elements.nodes.filter((node: any) => !(node.data.id === nodeId))
+
+      const newEdges = elements.edges.filter((edge: any) => !(edge.data.source === nodeId || edge.data.target === nodeId))
+
+      const newElements = {
+        nodes : newNodes,
+        edges: newEdges
+      }
+
+      setElements(newElements)
+      applyDateFilter(minDate, maxDate, newElements)
+    }
+
+    const pin = (nodeId: string) => {
+        setPinnedNodes([...pinnedNodes, nodeId])
+    }
+
+    const unpin = (nodeId: string) => {
+      setPinnedNodes(pinnedNodes.filter((e: string) => !(e === nodeId)))
     }
 
     useEffect(() => {}, [])
@@ -161,12 +189,16 @@ function HomePage(){
     const [node, setNode] = React.useState({'type': ''})
     const [drawerState, setDrawerState] = React.useState(0)
 
-    const applyDateFilter =  (minDate: string, maxDate : string) => {
+    const applyDateFilter =  (minDate: string, maxDate : string, elements: {nodes: any[], edges: any[]}) => {
+      console.log(elements)
       var minDateNo = Number(minDate) //source author target paper
       var maxDateNo = Number(maxDate) //source author target paper
       maxDateNo = maxDateNo ? maxDateNo : 3000
       const newNodes = elements.nodes.filter((obj : any ) => {
-      return (obj.data.year >= minDateNo && obj.data.year <= maxDateNo) || obj.data.type !="Paper"})
+        return (obj.data.year >= minDateNo && obj.data.year <= maxDateNo) || obj.data.type !="Paper"})
+        //obj.data.type !="Paper"
+        //|| pinnedNodes.some((e) => e === obj.data.id)
+        //|| ( obj.data.year >= minDateNo && obj.data.year <= maxDateNo)})
         
       const newIds = newNodes.map((obj : any ) => obj.data.id);
       const finalEdges = elements.edges.filter((obj : any ) => {
@@ -181,11 +213,12 @@ function HomePage(){
         'edges': finalEdges
       }
       setFilteredElements(filteredElements)
+      console.log(filteredElements)
 
     };
 
     const filterAccordingToDate= () => {
-      applyDateFilter(minDate,maxDate)
+      applyDateFilter(minDate,maxDate, elements)
     };
 
     const changeDatefilter = (event: { target: { value: string } }) => {
@@ -261,10 +294,10 @@ function HomePage(){
           </AppBar>
           <Drawer
             sx={{
-              width: 500,
+              width: 510,
               flexShrink: 0,
               '& .MuiDrawer-paper': {
-                width: 500,
+                width: 510,
                 boxSizing: 'border-box',
               },
             }}
@@ -278,7 +311,10 @@ function HomePage(){
                 callBackendAPI = {callBackendAPI} 
                 handleDrawerClose = {handleDrawerClose}
                 getReferences={getReferences}
-                getReferred = {getReferred}/>
+                getReferred = {getReferred}
+                remove = {remove}
+                pin = {pin}
+                unpin = {unpin}/>
 
           </Drawer>
           <Main open={open}>

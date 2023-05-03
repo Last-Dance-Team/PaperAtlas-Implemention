@@ -30,12 +30,37 @@ const theme = createTheme({
 function NodeDetail(props: any){
     var node = props.node
 
+    const [pinned, setPinned] = React.useState(false)
+    const handleReference = () => {
+        props.getReferences(node.id)
+    }
+
+    const handleReferred = () => {
+        props.getReferred(node.id)
+    }
+    const handleRemove = () => {
+        props.remove(node.id)
+    }
+    const handlePin = () => {
+        props.pin(node.id)
+        setPinned(true)
+    }
+    const handleUnpin = () => {
+        props.unpin(node.id)
+        setPinned(false)
+    }
+
+
+
 
     if (node.type == 'Paper'){
         return(
             <div>   
-                <Button>References</Button>
-                <Button>Citations</Button>        
+                <Button sx={{  m: 0.5 }} variant="outlined" onClick = {handleReference}>References</Button>
+                <Button sx={{  m: 0.5 }} variant="outlined" onClick = {handleReferred}>Citations</Button>  
+                <Button sx={{  m: 0.5 }} variant="outlined" onClick = {handleRemove}>Remove</Button> 
+                <> { !pinned && (<Button sx={{  m: 0, width:50 }} variant="outlined" onClick = {handlePin}>Pin</Button>)  }</>
+                <> { pinned && (<Button sx={{  m: 0, width:50 }} variant="contained" onClick = {handleUnpin}>Unpin</Button>)  }</>       
                 <ThemeProvider theme={theme}>
                     <Box sx={{  bgcolor: 'background.paper',}}>
                         <Box sx={{  m: 1, color: 'text.secondary' }}><strong>Title: </strong>  </Box>

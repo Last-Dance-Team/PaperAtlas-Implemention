@@ -59,7 +59,7 @@ cytoscape.use(klay);
 
 function DemoGraph(props:any) {
 
-  
+  console.log("DEMO GRAPH")
 
   const styleGraph  = [
     {
@@ -189,7 +189,8 @@ function DemoGraph(props:any) {
                  */
                
 
-
+                /**
+                 * context menu
                 let paperToolBox = {
                   selector: 'node[type="Paper"]',
                   menuRadius: 80, // the outer radius (node center to the end of the menu) in pixels. It is added to the rendered size of the node. Can either be a number or function as in the example.
@@ -246,7 +247,7 @@ function DemoGraph(props:any) {
                       },
                       enabled: true // whether the command is selectable
                     }
-                  ], // function( ele ){ return [ /*...*/ ] }, // a function that returns commands or a promise of commands
+                  ], // function( ele ){ return [ ] }, // a function that returns commands or a promise of commands
                   fillColor: "black", // the background colour of the menu
                   activeFillColor: "grey", // the colour used to indicate the selected command
                   activePadding: 8, // additional size in pixels for the active command
@@ -309,7 +310,7 @@ function DemoGraph(props:any) {
                       },
                       enabled: true // whether the command is selectable
                     }
-                  ], // function( ele ){ return [ /*...*/ ] }, // a function that returns commands or a promise of commands
+                  ], // function( ele ){ return [  ] }, // a function that returns commands or a promise of commands
                   fillColor: "black", // the background colour of the menu
                   activeFillColor: "grey", // the colour used to indicate the selected command
                   activePadding: 8, // additional size in pixels for the active command
@@ -333,10 +334,8 @@ function DemoGraph(props:any) {
 
                 cy.cxtmenu(paperToolBox);
                 cy.cxtmenu(authorToolBox);
-
-
-
-                
+                */
+               
               }}
               
               
