@@ -38,6 +38,12 @@ function NodeDetail(props: any){
     const handleReferred = () => {
         props.getReferred(node.id)
     }
+    const handleAuthors = () => {
+        props.getAuthors(node.id)
+    }
+    const handlePapers = () => {
+        props.getPapers(node.id)
+    }
     const handleRemove = () => {
         props.remove(node.id)
     }
@@ -57,7 +63,8 @@ function NodeDetail(props: any){
         return(
             <div>   
                 <Button sx={{  m: 0.5 }} variant="outlined" onClick = {handleReference}>References</Button>
-                <Button sx={{  m: 0.5 }} variant="outlined" onClick = {handleReferred}>Citations</Button>  
+                <Button sx={{  m: 0.5 }} variant="outlined" onClick = {handleReferred}>Citations</Button> 
+                <Button sx={{  m: 0.5 }} variant="outlined" onClick = {handleAuthors}>Authors</Button>  
                 <Button sx={{  m: 0.5 }} variant="outlined" onClick = {handleRemove}>Remove</Button> 
                 <> { !pinned && (<Button sx={{  m: 0, width:50 }} variant="outlined" onClick = {handlePin}>Pin</Button>)  }</>
                 <> { pinned && (<Button sx={{  m: 0, width:50 }} variant="contained" onClick = {handleUnpin}>Unpin</Button>)  }</>       
@@ -94,30 +101,34 @@ function NodeDetail(props: any){
 
     if (node.type == 'Author'){
         return(
-            <ThemeProvider theme={theme}>
-                <Box sx={{  bgcolor: 'background.paper',}}>
-                    <Box sx={{ m: 1, color: 'text.secondary' }}><strong>Name: </strong>  </Box>
-                    <Box sx={{ m: 2, color: 'text.primary', fontSize: 20, fontWeight: 'medium'}}>{node.label}  </Box>
-                    <br/>
-                    <div hidden = {node.aliases.length === 0 }>
-                        <Box sx={{ m: 1, color: 'text.secondary' }}><strong>Aliases: </strong>  </Box>
-
-                        {node.aliases.map( (a: string) =>{
-                            return(<Box sx={{  m: 2, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}>{a}</Box>)
-                        })}
-
+            <div>
+                <Button sx={{  m: 0.5 }} variant="outlined" onClick = {handlePapers}>Papers</Button>  
+                <Button sx={{  m: 0.5 }} variant="outlined" onClick = {handleRemove}>Remove</Button> 
+                <ThemeProvider theme={theme}>
+                    <Box sx={{  bgcolor: 'background.paper',}}>
+                        <Box sx={{ m: 1, color: 'text.secondary' }}><strong>Name: </strong>  </Box>
+                        <Box sx={{ m: 2, color: 'text.primary', fontSize: 20, fontWeight: 'medium'}}>{node.label}  </Box>
                         <br/>
-                    </div>
-                    
-                    <Box sx={{ m: 1, color: 'text.secondary' }}><strong>Paper Count: </strong>  </Box>
-                    <Box sx={{  m: 2, color: 'text.primary', fontSize: 20, fontWeight: 'medium'}}>{node.paperCount}  </Box>
-                    <br/>
-                    <Box sx={{ m: 1, color: 'text.secondary' }}><strong>Citation Count: </strong>  </Box>
-                    <Box sx={{  m: 2, color: 'text.primary', fontSize: 20, fontWeight: 'medium'}}>{node.citationCount}  </Box>
+                        <div hidden = {node.aliases.length === 0 }>
+                            <Box sx={{ m: 1, color: 'text.secondary' }}><strong>Aliases: </strong>  </Box>
+
+                            {node.aliases.map( (a: string) =>{
+                                return(<Box sx={{  m: 2, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}>{a}</Box>)
+                            })}
+
+                            <br/>
+                        </div>
+                        
+                        <Box sx={{ m: 1, color: 'text.secondary' }}><strong>Paper Count: </strong>  </Box>
+                        <Box sx={{  m: 2, color: 'text.primary', fontSize: 20, fontWeight: 'medium'}}>{node.paperCount}  </Box>
+                        <br/>
+                        <Box sx={{ m: 1, color: 'text.secondary' }}><strong>Citation Count: </strong>  </Box>
+                        <Box sx={{  m: 2, color: 'text.primary', fontSize: 20, fontWeight: 'medium'}}>{node.citationCount}  </Box>
 
 
-                </Box>
-            </ThemeProvider>)
+                    </Box>
+                </ThemeProvider>
+            </div>)
     }
     return(
         <div>

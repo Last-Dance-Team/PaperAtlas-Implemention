@@ -210,6 +210,26 @@ function HomePage(){
         addUniqueElements(data)
     }
 
+    const getPapers = async(authorId: string) => {
+      console.log(authorId)
+      const response = await axios.get(`/getPapersOfAuthor/${authorId}`);
+      const data = await response.data
+      console.log(data)
+      //addPapers(data.nodes)
+      addUniqueElements(data)
+
+    }
+
+    const getAuthors = async(paperId: string) => {
+      console.log(paperId)
+      const response = await axios.get(`/getAuthorsOfPapers/${paperId}`);
+      const data = await response.data
+      console.log(data)
+      //addPapers(data.nodes)
+      addUniqueElements(data)
+
+    }
+
     const addUniqueElements = (data: any) => {
       const uniqueNodes = data.nodes.filter((node: any) => 
         !elements.nodes.some((e) => e.data.id === node.data.id)
@@ -418,6 +438,8 @@ function valuetext(value: number) {
                 handleDrawerClose = {handleDrawerClose}
                 getReferences={getReferences}
                 getReferred = {getReferred}
+                getPapers = {getPapers}
+                getAuthors= {getAuthors}
                 remove = {remove}
                 pin = {pin}
                 unpin = {unpin}/>
