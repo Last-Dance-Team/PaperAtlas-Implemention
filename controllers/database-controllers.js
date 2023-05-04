@@ -5,7 +5,7 @@ var basicQueries = require("../public/js/database/basic-queries");
 const dbService = require("../public/js/database/db-service");
 
 var dbControllers = {
-  getAuthorPageCount: async function (author){
+    getAuthorPageCount: async function(author) {
         let query = basicQueries.getAuthorPageCount();
         var queryData = { author: author };
         var data = { query: query, queryData: queryData };
@@ -14,34 +14,34 @@ var dbControllers = {
         return { "totalPageCount": fields[0].low, "totalResult": fields[1].low };
     },
 
-  getAuthorWithPage: async function (author, pageNo) {
-    let query = basicQueries.getAuthorWithPage();
+    getAuthorWithPage: async function(author, pageNo) {
+        let query = basicQueries.getAuthorWithPage();
 
-    var limit = 10;
+        var limit = 10;
 
-    var startNo = (pageNo - 1) * limit;
+        var startNo = (pageNo - 1) * limit;
 
-    var queryData = { author: author, startNo: startNo };
-    var data = { query: query, queryData: queryData };
-    let resp = await dbService.runQuery(data);
-    var authors = [];
+        var queryData = { author: author, startNo: startNo };
+        var data = { query: query, queryData: queryData };
+        let resp = await dbService.runQuery(data);
+        var authors = [];
 
-    //Process the data
-    var arrayOfObjects = resp.records;
-    for (let i = 0; i < arrayOfObjects.length; i++) {
-      var object = arrayOfObjects[i];
-      var fields = object._fields;
-      var data = {};
-      data.name = fields[0];
-      data.aliases = fields[1];
-      data.id = fields[2].low;
-      authors.push(data);
-    }
+        //Process the data
+        var arrayOfObjects = resp.records;
+        for (let i = 0; i < arrayOfObjects.length; i++) {
+            var object = arrayOfObjects[i];
+            var fields = object._fields;
+            var data = {};
+            data.name = fields[0];
+            data.aliases = fields[1];
+            data.id = fields[2].low;
+            authors.push(data);
+        }
 
-    return { authors: authors };
-  },
+        return { authors: authors };
+    },
 
-  getPapers: async function(paperIds) {
+    getPapers: async function(paperIds) {
         let query = basicQueries.getPapers();
 
         var queryData = { paperIds: paperIds };
@@ -101,6 +101,121 @@ var dbControllers = {
             }
         }
 
+        return { nodes: nodes, edges: edges };
+    },
+
+    getPapersWithDistanceToTheirReferences: async function(paperIds, distance) {
+        let nextPapers = [];
+        let allPapers = [];
+        const paperSet = new Set();
+
+        for (i = 0; i < paperIds.length; i++) {
+            if (!paperSet.has(paperIds[i])) {
+                allPapers.push(paperIds[i]);
+                nextPapers.push(paperIds[i]);
+                paperSet.add(paperIds[i]);
+            }
+        }
+
+        var nodes = [];
+        var edges = [];
+
+        if (distance < 0) {
+            return { nodes: nodes, edges: edges };
+        }
+
+        console.log("distance = ", distance);
+        for (let i = -2; i < distance; i++) {
+            var currentPapers = nextPapers;
+            nextPapers = [];
+
+            if (i != distance - 1) {
+                for (let k = 0; k < currentPapers.length; k++) {
+
+                    let query2 = basicQueries.getReferencesOfPaper(currentPapers[k]);
+                    var queryData2 = {};
+                    var data2 = { query: query2, queryData: queryData2 };
+                    let resp2 = await dbService.runQuery(data2);
+
+
+                    //Process the data
+                    if (resp2.records.length > 0 && resp2.records[0]._fields[0][0]) {
+                        var paper = resp2.records[0]._fields[0][0];
+                        var references = resp2.records[0]._fields[1];
+                        var relations = resp2.records[0]._fields[2];
+
+                        // adding references
+                        for (let jj = 0; jj < references.length; jj++) {
+                            var refId = references[jj].identity.low;
+                            if (!paperSet.has(refId)) {
+                                allPapers.push(refId);
+                                nextPapers.push(refId);
+                                paperSet.add(refId);
+                            }
+                        }
+
+                    }
+                }
+            } else {
+
+                let query = basicQueries.getPapers();
+
+                var queryData = { paperIds: allPapers };
+                var data = { query: query, queryData: queryData };
+                let resp = await dbService.runQuery(data);
+
+                var records = resp.records;
+
+                for (let j = 0; j < records.length; j++) {
+                    var cur = records[j];
+                    var curPaper = cur._fields[0].properties;
+
+                    var pushPaperNode = {
+                        data: {
+                            type: "Paper",
+                            label: curPaper.title,
+                            id: String(cur._fields[0].identity.low),
+                            paperId: curPaper.paperId.low,
+                            url: curPaper.url,
+                            citationCount: curPaper.citationCount.low,
+                            venue: curPaper.venue,
+                            journalName: curPaper.journalName,
+                            uniqueFieldsOfStudies: curPaper.uniqueFieldsOfStudies,
+                            year: curPaper.year.low,
+                            publicationTypes: curPaper.publicationTypes,
+                            acl: curPaper.acl,
+                            dblp: curPaper.dblp,
+                            journalPages: curPaper.journalPages,
+                            mag: curPaper.mag,
+                            pubmed: curPaper.pubmed,
+                            referenceCount: curPaper.referenceCount.low,
+                            arXiv: curPaper.arXiv,
+                            influentialCitaitonCount: curPaper.influentialCitaitonCount,
+                            journalVolume: curPaper.journalVolume,
+                            isOpenAccess: curPaper.isOpenAccess,
+                            pubMedCentral: curPaper.pubMedCentral,
+                            publicationDate: curPaper.publicationDate,
+                            doi: curPaper.doi,
+                        },
+                        position: { x: 0, y: 0 },
+                    };
+                    nodes.push(pushPaperNode);
+
+                    var curRel = cur._fields[1];
+                    if (curRel) {
+                        var pushEdge = {
+                            data: {
+                                source: String(curRel.start.low),
+                                target: String(curRel.end.low),
+                                label: "a-reference-of",
+                            },
+                        };
+
+                        edges.push(pushEdge);
+                    }
+                }
+            }
+        }
         return { nodes: nodes, edges: edges };
     },
     getAuthors: async function(authorIds) {
@@ -163,7 +278,7 @@ var dbControllers = {
         //  console.log("nodes", nodes);
         // console.log("edges", edges);
 
-        return { authors: authors};
+        return { authors: authors };
     },
     searchByPaper: async function(paper) {
         let query = basicQueries.getPaperAndPapers(paper);
@@ -182,7 +297,7 @@ var dbControllers = {
             data.title = fields[0];
             data.id = fields[1].low;
             nodes.push(data);
-        
+
         }
 
         //return resp;
@@ -355,7 +470,7 @@ var dbControllers = {
         console.log("resp", resp);
 
         //Process the data
-        if (resp.records.length > 0  && resp.records[0]._fields[0][0]) {
+        if (resp.records.length > 0 && resp.records[0]._fields[0][0]) {
             var nodes = [];
             var edges = [];
             // var paper, references, relations;
@@ -454,7 +569,7 @@ var dbControllers = {
         var data = { query: query, queryData: queryData };
         let resp = await dbService.runQuery(data);
         console.log("resp", resp);
-       // return resp;
+        // return resp;
 
         //Process the data
         if (resp.records.length > 0 && resp.records[0]._fields[0][0]) {

@@ -24,7 +24,7 @@ var basicQueries = {
             "MATCH (p:Paper) WHERE p.title CONTAINS '" +
             paper +
             "'" +
-            " RETURN p.title, ID(p) "+
+            " RETURN p.title, ID(p) " +
             " ORDER BY coalesce(p.citationCount,0) DESC, p.title"
         );
     },
@@ -72,14 +72,14 @@ var basicQueries = {
             " RETURN collect(DISTINCT a) AS authors ,collect(DISTINCT p) AS papers , collect(DISTINCT written) AS author_rel , collect(DISTINCT refer_rel) AS referral "
         );
     },
-    getAuthorWithPage: function () {
+    getAuthorWithPage: function() {
         return `MATCH (n:Author) WHERE n.name CONTAINS $author OR any(alias IN n.aliases WHERE alias CONTAINS $author)
             return n.name, n.aliases, ID(n) 
             ORDER BY n.hindex DESC,n.name
             SKIP toInteger($startNo) LIMIT 10;`;
     },
 
-    getAuthorPageCount: function () {
+    getAuthorPageCount: function() {
         return `MATCH (n:Author) WHERE n.name CONTAINS $author OR any(alias IN n.aliases WHERE alias CONTAINS $author)
                 with count(n) as totalResult
                 return toInteger(CEIL(totalResult/10.0)) as totalPageCount, totalResult;`;

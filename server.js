@@ -17,13 +17,13 @@ app.use(bodyParser.json());
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     next();
-  });
+});
 
 const corsOptions = {
     origin: 'http://localhost:3000',
     methods: ['PUT', 'GET', 'POST', 'DELETE', 'OPTIONS'],
 };
-  
+
 app.use(cors(corsOptions));
 var databaseController = require("./controllers/database-controllers");
 const { isArray } = require("util");
@@ -95,6 +95,18 @@ function getAuthors(req, res) {
     });
 }
 
+function getPapersWithDistanceToTheirReferences(req, res) {
+    paperIds = req.body.ids;
+    distance = req.body.distance;
+    if (!paperIds || !isArray(paperIds)) {
+        res.status(500).json({ success: false });
+        return;
+    }
+    databaseController.getPapersWithDistanceToTheirReferences(paperIds, distance).then((data) => {
+        res.json(data);
+    });
+}
+
 function getPapers(req, res) {
     paperIds = req.body.ids;
     if (!paperIds || !isArray(paperIds)) {
@@ -107,30 +119,30 @@ function getPapers(req, res) {
 }
 
 function getAuthorWithPage(req, res) {
-  console.log("req.params.pageNo", req.params.pageNo);
+    console.log("req.params.pageNo", req.params.pageNo);
 
-  var pageNoInt = parseInt(req.params.pageNo);
-  if (pageNoInt > 0) {
-    databaseController
-      .getAuthorWithPage(req.params.name, pageNoInt)
-      .then((data) => {
-        res.json(data);
-      });
-  } else {
-    res.status(500).json({ success: false });
-  }
+    var pageNoInt = parseInt(req.params.pageNo);
+    if (pageNoInt > 0) {
+        databaseController
+            .getAuthorWithPage(req.params.name, pageNoInt)
+            .then((data) => {
+                res.json(data);
+            });
+    } else {
+        res.status(500).json({ success: false });
+    }
 }
 
 function getAuthorPageCount(req, res) {
     databaseController
-      .getAuthorPageCount(req.params.name)
-      .then((data) => {
-        res.json(data);
-      });
+        .getAuthorPageCount(req.params.name)
+        .then((data) => {
+            res.json(data);
+        });
 }
 
-function getInfo(req, res){
-    
+function getInfo(req, res) {
+
     const apiUrl = process.env.API_URL;
     const xApiKey = process.env.API_KEY;
     const corpusID = req.params.id;
@@ -139,41 +151,41 @@ function getInfo(req, res){
     const url = `${apiUrl}/paper/CorpusID:${corpusID}`;
 
     axios({
-    method: "get",
-    url,
-    params: { fields: "abstract,openAccessPdf,tldr" },
-    headers: { "x-api-key": xApiKey },
-  })
-    .then(function (response) {
-      let abstract = "";
+            method: "get",
+            url,
+            params: { fields: "abstract,openAccessPdf,tldr" },
+            headers: { "x-api-key": xApiKey },
+        })
+        .then(function(response) {
+            let abstract = "";
 
-      if (response.data.abstract != null) {
-        abstract = response.data.abstract;
-      }
-      let url = "";
-      if (response.data.openAccessPdf != null) {
-        url = response.data.openAccessPdf.url;
-      }
+            if (response.data.abstract != null) {
+                abstract = response.data.abstract;
+            }
+            let url = "";
+            if (response.data.openAccessPdf != null) {
+                url = response.data.openAccessPdf.url;
+            }
 
-      let tldr = "";
-      if (response.data.tldr != null) {
-        tldr = response.data.tldr;
-      }
+            let tldr = "";
+            if (response.data.tldr != null) {
+                tldr = response.data.tldr;
+            }
 
-      res.send({
-        abstract: abstract,
-        url: url,
-        tldr: tldr
-      });
+            res.send({
+                abstract: abstract,
+                url: url,
+                tldr: tldr
+            });
 
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
 }
 
 //Endpoints
-app.get("/search/paper/:name/", getPaper); 
+app.get("/search/paper/:name/", getPaper);
 app.get("/search/author/:name/", getAuthor);
 app.get("/getNeighbor/:title/:lengthLimit", getNeighbor);
 app.get("/getAuthorsOfPapers/:id", getAuthorsOfPaper);
@@ -182,13 +194,14 @@ app.get("/getReferred/:id", getReferred); // Finds the papers that refer the pap
 app.get("/getPapersOfAuthor/:id", getPapersOfAuthor);
 
 app.put("/add/author", getAuthors);
-app.put("/add/paper", getPapers); // length
+app.put("/add/paper", getPapers);
+app.put("/add/paper/distance", getPapersWithDistanceToTheirReferences); // distance
 
 app.get("/paper/info/:id", getInfo)
 
 //---
 app.get("/page/getAuthor/:name/:pageNo", getAuthorWithPage);
-app.get("/page/getAuthorPageCount/:name",getAuthorPageCount)
+app.get("/page/getAuthorPageCount/:name", getAuthorPageCount)
 
 server.listen(port, function() {
     console.log("server listening on port: %d", port);
