@@ -107,6 +107,19 @@ function getPapersWithDistanceToTheirReferences(req, res) {
     });
 }
 
+function getPapersWithDistanceToPapersThatReferThem(req, res) {
+    paperIds = req.body.ids;
+    distance = req.body.distance;
+    if (!paperIds || !isArray(paperIds)) {
+        res.status(500).json({ success: false });
+        return;
+    }
+    databaseController.getPapersWithDistanceToPapersThatReferThem(paperIds, distance).then((data) => {
+        res.json(data);
+    });
+}
+
+
 function getPapers(req, res) {
     paperIds = req.body.ids;
     if (!paperIds || !isArray(paperIds)) {
@@ -195,7 +208,8 @@ app.get("/getPapersOfAuthor/:id", getPapersOfAuthor);
 
 app.put("/add/author", getAuthors);
 app.put("/add/paper", getPapers);
-app.put("/add/paper/distance", getPapersWithDistanceToTheirReferences); // distance
+app.put("/add/paper/dist/reference/", getPapersWithDistanceToTheirReferences); // distance
+app.put("/add/paper/dist/referredBy", getPapersWithDistanceToPapersThatReferThem); // distance
 
 app.get("/paper/info/:id", getInfo)
 

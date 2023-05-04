@@ -124,11 +124,9 @@ var dbControllers = {
             return { nodes: nodes, edges: edges };
         }
 
-        console.log("distance = ", distance);
         for (let i = -2; i < distance; i++) {
             var currentPapers = nextPapers;
             nextPapers = [];
-
             if (i != distance - 1) {
                 for (let k = 0; k < currentPapers.length; k++) {
 
@@ -145,6 +143,121 @@ var dbControllers = {
                         var relations = resp2.records[0]._fields[2];
 
                         // adding references
+                        for (let jj = 0; jj < references.length; jj++) {
+                            var refId = references[jj].identity.low;
+                            if (!paperSet.has(refId)) {
+                                allPapers.push(refId);
+                                nextPapers.push(refId);
+                                paperSet.add(refId);
+                            }
+                        }
+
+                    }
+                }
+            } else {
+
+                let query = basicQueries.getPapers();
+
+                var queryData = { paperIds: allPapers };
+                var data = { query: query, queryData: queryData };
+                let resp = await dbService.runQuery(data);
+
+                var records = resp.records;
+
+                for (let j = 0; j < records.length; j++) {
+                    var cur = records[j];
+                    var curPaper = cur._fields[0].properties;
+
+                    var pushPaperNode = {
+                        data: {
+                            type: "Paper",
+                            label: curPaper.title,
+                            id: String(cur._fields[0].identity.low),
+                            paperId: curPaper.paperId.low,
+                            url: curPaper.url,
+                            citationCount: curPaper.citationCount.low,
+                            venue: curPaper.venue,
+                            journalName: curPaper.journalName,
+                            uniqueFieldsOfStudies: curPaper.uniqueFieldsOfStudies,
+                            year: curPaper.year.low,
+                            publicationTypes: curPaper.publicationTypes,
+                            acl: curPaper.acl,
+                            dblp: curPaper.dblp,
+                            journalPages: curPaper.journalPages,
+                            mag: curPaper.mag,
+                            pubmed: curPaper.pubmed,
+                            referenceCount: curPaper.referenceCount.low,
+                            arXiv: curPaper.arXiv,
+                            influentialCitaitonCount: curPaper.influentialCitaitonCount,
+                            journalVolume: curPaper.journalVolume,
+                            isOpenAccess: curPaper.isOpenAccess,
+                            pubMedCentral: curPaper.pubMedCentral,
+                            publicationDate: curPaper.publicationDate,
+                            doi: curPaper.doi,
+                        },
+                        position: { x: 0, y: 0 },
+                    };
+                    nodes.push(pushPaperNode);
+
+                    var curRel = cur._fields[1];
+                    if (curRel) {
+                        var pushEdge = {
+                            data: {
+                                source: String(curRel.start.low),
+                                target: String(curRel.end.low),
+                                label: "a-reference-of",
+                            },
+                        };
+
+                        edges.push(pushEdge);
+                    }
+                }
+            }
+        }
+        return { nodes: nodes, edges: edges };
+    },
+    getPapersWithDistanceToPapersThatReferThem: async function(paperIds, distance) {
+        let nextPapers = [];
+        let allPapers = [];
+        const paperSet = new Set();
+
+        for (i = 0; i < paperIds.length; i++) {
+            if (!paperSet.has(paperIds[i])) {
+                allPapers.push(paperIds[i]);
+                nextPapers.push(paperIds[i]);
+                paperSet.add(paperIds[i]);
+            }
+        }
+
+        var nodes = [];
+        var edges = [];
+
+        if (distance < 0) {
+            return { nodes: nodes, edges: edges };
+        }
+
+        for (let i = -2; i < distance; i++) {
+            var currentPapers = nextPapers;
+            nextPapers = [];
+
+
+            console.log(currentPapers);
+
+
+            if (i != distance - 1) {
+                for (let k = 0; k < currentPapers.length; k++) {
+
+                    let query2 = basicQueries.getReferred(currentPapers[k]);
+                    var queryData2 = {};
+                    var data2 = { query: query2, queryData: queryData2 };
+                    let resp2 = await dbService.runQuery(data2);
+
+
+                    //Process the data
+                    if (resp2.records.length > 0 && resp2.records[0]._fields[0][0]) {
+                        var references = resp2.records[0]._fields[0];
+
+                        // adding referred by
                         for (let jj = 0; jj < references.length; jj++) {
                             var refId = references[jj].identity.low;
                             if (!paperSet.has(refId)) {
