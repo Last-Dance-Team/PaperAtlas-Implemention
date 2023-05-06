@@ -10,8 +10,6 @@ import Button from '@mui/material/Button';
 import { Checkbox, Drawer, FormControlLabel, IconButton, TextField, makeStyles } from '@mui/material';
 import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
-import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
-import Fingerprint from '@mui/icons-material/Fingerprint';
 import MergeIcon from '@mui/icons-material/Merge';
 import StartIcon from '@mui/icons-material/Start';
 import ArticleIcon from '@mui/icons-material/Article';
@@ -118,11 +116,11 @@ export default function SearchBar(props: any) {
         }})
     if( selectedButton == 2)
     {
-      props.callBackendAPI(graphType, ids)
+      props.callBackendAPI(graphType, ids,bringReference,bringReferenced,distance)
     }
     else
     {
-      props.callBackendAPIMerge(graphType, ids)
+      props.callBackendAPIMerge(graphType, ids,bringReference,bringReferenced,distance)
     }
   }
 

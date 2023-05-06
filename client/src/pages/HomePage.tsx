@@ -23,6 +23,7 @@ import Typography from '@mui/material/Typography';
 import NodeDetail from '../drawer/NodeDetail';
 import DrawerContent from '../drawer/DrawerContent';
 import Slider from '@mui/material/Slider';
+import internal from 'stream';
 
 const drawerWidth = 500;
 
@@ -86,7 +87,7 @@ function HomePage(){
     const[filteredElements, setFilteredElements] = useState<{ nodes: any[], edges: any[]}>({'nodes': [] ,'edges': []}) 
     const[pinnedNodes, setPinnedNodes] = useState<string[]>([])                                           
 
-    const callBackendAPI = async (graphType : string, ids: string[]) => {   
+    const callBackendAPI = async (graphType : string, ids: string[],bringReference: number, bringReferenced: number, distance:number ) => {   
       console.log("here")
       
       const body = {
@@ -94,13 +95,11 @@ function HomePage(){
       }
       console.log(body)
      // "proxy": "http://localhost:80",
-
-      const response = await axios.put(`http://localhost:80/add/${graphType}`, body);
-      const data = await response.data
-
-      console.log(data)
-
-      const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+      if ( graphType === 'author')
+      {
+        const response = await axios.put(`http://localhost:80/add/${graphType}`, body);
+        const data = await response.data
+        const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
                                   return b})
       
       const updatedEdges = data.edges.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
@@ -113,14 +112,116 @@ function HomePage(){
       if (response.status !== 200) {
         throw Error(data.message) 
       }
-
-      console.log("here")
       setElements(elements)
       setFilteredElements(elements)
 
       setMinDate('')
       setMaxDate('')
+      }
+      else
+      {
+        if(bringReference == 1 && bringReferenced == 1)
+        {
+          const response = await axios.put(`http://localhost:80/add/${graphType}/${distance}`, body);
+          const data = await response.data
+          const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                    return b})
+        
+          const updatedEdges = data.edges.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                    return b})
+          const elements = {
+            'nodes': updatedNodes,
+            'edges': updatedEdges
+          }
+  
+          if (response.status !== 200) {
+              throw Error(data.message) 
+          }
+          setElements(elements)
+          setFilteredElements(elements)
+  
+          setMinDate('')
+          setMaxDate('')
+        }
+        else if ( bringReference == 1 && bringReferenced == 0 )
+        {
+          const response = await axios.put(`http://localhost:80/add/${graphType}/${distance}/reference`, body);
+          const data = await response.data
+          const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                    return b})
+        
+          const updatedEdges = data.edges.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                    return b})
+          const elements = {
+            'nodes': updatedNodes,
+            'edges': updatedEdges
+          }
+  
+          if (response.status !== 200) {
+              throw Error(data.message) 
+          }
+          setElements(elements)
+          setFilteredElements(elements)
+  
+          setMinDate('')
+          setMaxDate('')
+        }
+        else if ( bringReference == 0 && bringReferenced == 1 )
+        {
+          const response = await axios.put(`http://localhost:80/add/${graphType}/${distance}/referredBy`, body);
+          const data = await response.data
+          const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                    return b})
+        
+          const updatedEdges = data.edges.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                    return b})
+          const elements = {
+            'nodes': updatedNodes,
+            'edges': updatedEdges
+          }
+  
+          if (response.status !== 200) {
+              throw Error(data.message) 
+          }
+          setElements(elements)
+          setFilteredElements(elements)
+  
+          setMinDate('')
+          setMaxDate('')
+        }
+        else
+        {
+          const response = await axios.put(`http://localhost:80/add/${graphType}`, body);
+          const data = await response.data
+          const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                    return b})
+        
+          const updatedEdges = data.edges.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                    return b})
+          const elements = {
+            'nodes': updatedNodes,
+            'edges': updatedEdges
+          }
+  
+          if (response.status !== 200) {
+              throw Error(data.message) 
+          }
+          setElements(elements)
+          setFilteredElements(elements)
+  
+          setMinDate('')
+          setMaxDate('')
+        }
+      }
+     
+      //const data = await response.data
 
+      //console.log(data)
+
+      
+
+      
+      
     };
 
 
