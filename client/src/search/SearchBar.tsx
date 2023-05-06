@@ -7,12 +7,13 @@ import Select from '@mui/material/Select';
 import NativeSelect from '@mui/material/NativeSelect';
 import InputBase from '@mui/material/InputBase';
 import Button from '@mui/material/Button';
-import { Checkbox, Drawer, FormControlLabel, TextField } from '@mui/material';
+import { Checkbox, Drawer, FormControlLabel, IconButton, TextField, makeStyles } from '@mui/material';
 import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
-
-
-
+import SvgIcon, { SvgIconProps } from '@mui/material/SvgIcon';
+import Fingerprint from '@mui/icons-material/Fingerprint';
+import MergeIcon from '@mui/icons-material/Merge';
+import StartIcon from '@mui/icons-material/Start';
 export interface paper{
   label: string, 
   id: string,
@@ -113,7 +114,7 @@ export default function SearchBar(props: any) {
         if(paper.checked){
           ids.push(paper.id)
         }})
-    if( !isMerge)
+    if( selectedButton == 2)
     {
       props.callBackendAPI(graphType, ids)
     }
@@ -177,8 +178,19 @@ export default function SearchBar(props: any) {
   ) => {
     setCurrentPage(value);
   };
+
+  
+const [selectedButton, setSelectedButton] = React.useState(1);
+
+
+const handleButtonClick = (buttonNumber: React.SetStateAction<number>) => {
+  setSelectedButton(buttonNumber);
+};
+    
+
   
   return (
+    
     <div className= {'search-bar-body'}>
       <FormControl sx={{ m: 1, minWidth: 280 }}>
         <InputLabel id="demo-simple-select-label">Search Type</InputLabel>
@@ -204,16 +216,39 @@ export default function SearchBar(props: any) {
     </FormControl>
 
     <div hidden = {hideButtons}>
-    <br/>
-    <FormControlLabel
-          label = {"Merge"}
-          control = {<Checkbox
-            checked = {isMerge}
-            onChange = {handleCheckForMerge}
-           />}
-          labelPlacement = "end"
-    />
-    <br/>
+    
+    
+    <div>
+      <IconButton
+        onClick={() => handleButtonClick(1)}
+        style={{ color: selectedButton === 1 ? 'blue' : 'grey' ,
+        border: '1px solid grey', // Add a border to the buttons
+        borderRadius: '4px', // Optionally, add border radius for a rounded appearance
+        backgroundColor: 'transparent',
+        boxShadow: 'none',
+        padding: '8px',
+        marginRight: '10px',}}
+      >
+        <MergeIcon />
+        <span style={{ fontSize: '14px' }}>Merge to the graph</span>
+      </IconButton>
+
+      <IconButton
+        onClick={() => handleButtonClick(2)}
+        style={{ color: selectedButton === 2 ? 'blue' : 'grey',
+        border: '1px solid grey', // Add a border to the buttons
+        borderRadius: '4px', // Optionally, add border radius for a rounded appearance
+        backgroundColor: 'transparent',
+        boxShadow: 'none',
+        padding: '8px',
+        marginRight: '10px',
+      }}
+      >
+        <StartIcon />
+        <span style={{ fontSize: '14px' }} >Start a graph </span>
+      </IconButton>
+    </div>
+    
     <br/>
     <FormControl sx={{ m: 2}}>
       <Button onClick={handleSelectAll} >Select All</Button>
