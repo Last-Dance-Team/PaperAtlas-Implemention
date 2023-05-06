@@ -19,7 +19,7 @@
     "homepage": "https://github.com/Last-Dance-Team/PaperAtlas-Implemention#readme",
     "dependencies": {
         "@types/cytoscape-cxtmenu": "^3.4.0",
-        "axios": "^1.2.1",
+        "axios": "^0.21.4",
         "body-parser": "^1.20.1",
         "cors": "^2.8.5",
         "cytoscape": "^3.23.0",

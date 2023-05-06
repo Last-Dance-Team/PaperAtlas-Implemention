@@ -125,7 +125,7 @@ function HomePage(){
 
 
     const callBackendAPIMerge = async (graphType : string, ids: string[]) => {   
-      console.log("mhere")
+      
       
       const body = {
         ids : ids
@@ -154,7 +154,7 @@ function HomePage(){
         throw Error(data.message) 
       }
 
-      console.log("mhere")
+      
       setElements(  mergedElements)
       setFilteredElements(mergedElements)
 
