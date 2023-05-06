@@ -144,6 +144,7 @@ function DemoGraph(props:any) {
       };
     }));
 
+    
     cy.on('add', 'node', () => {
   
       if (numNodesAdded === numNodesToAdd) {
