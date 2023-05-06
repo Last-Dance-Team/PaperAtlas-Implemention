@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom';
 import { border } from '@mui/system';
 //import cyQtip from 'cytoscape-qtip'; 
 import 'cytoscape-context-menus';
+import { removeAllListeners } from 'process';
 //import cxtmenu from 'cytoscape-cxtmenu';
 const cola = require('cytoscape-cola');
 const dagre = require('cytoscape-dagre');
@@ -160,20 +161,33 @@ function DemoGraph(props:any) {
 
   }
   }, [element]);
-  
-  return <CytoscapeComponent 
-              cy={(cy): void => {
-                cyRef.current = cy;
-              
-                cy.on("click","node", (event) => {
+
+
+  function handleClick(event: { target: any; }) {
+          
                   var node = event.target;
                   console.log(node._private.data.label);
                   props.handleName(node._private.data.label)
                   props.handleDrawerOpenWithState(node._private.data, 1)
-                });
+                  if (cyRef.current) {
+                    cyRef.current.off("click", "node");
+                    cyRef.current.on("click", "node", handleClick);
+                  }
+  
+    // ...rest of your click handling code
+  }
 
-                /**
-                 * Showing whole title when mouse is on the node
+
+
+  return <CytoscapeComponent 
+              cy={(cy): void => {
+                cyRef.current = cy;
+              
+                cy.on("click", "node", handleClick);
+
+                
+                // Showing whole title when mouse is on the node
+                /*/
                 cy.on('mouseover', 'node', function(event) {
                   var node = event.target; // cy.target is the right choice here
                   node.qtip({
@@ -186,11 +200,11 @@ function DemoGraph(props:any) {
                     }
                   });
                 });
-                 */
+                */
                
 
-                /**
-                 * context menu
+                // context menu
+                
                 let paperToolBox = {
                   selector: 'node[type="Paper"]',
                   menuRadius: 80, // the outer radius (node center to the end of the menu) in pixels. It is added to the rendered size of the node. Can either be a number or function as in the example.
@@ -207,7 +221,10 @@ function DemoGraph(props:any) {
                       select: function () {
                         // a function to execute when the command is selected
                         
-                        console.log("pin") // `ele` holds the reference to the active element
+                        if (cyRef.current) {
+                          cyRef.current.off("click", "node");
+                          cyRef.current.on("click", "node", handleClick);
+                        }
                       },
                       enabled: true // whether the command is selectable
                     },
@@ -217,8 +234,8 @@ function DemoGraph(props:any) {
                         'font-size': '13px',
                         'padding': '2px 2px'
                       }, // css key:value pairs to set the command's css in js if you want
-                      select: function () {
-                        
+                      select: function (ele: { id: () => any; }) {
+                       
                       },
                       enabled: true
       
@@ -334,7 +351,7 @@ function DemoGraph(props:any) {
 
                 cy.cxtmenu(paperToolBox);
                 cy.cxtmenu(authorToolBox);
-                */
+                
                
               }}
               
