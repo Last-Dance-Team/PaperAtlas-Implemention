@@ -91,7 +91,8 @@ function HomePage(){
       console.log("here")
       
       const body = {
-        ids : ids
+        ids : ids,
+        distance : distance
       }
       console.log(body)
      // "proxy": "http://localhost:80",
@@ -122,7 +123,7 @@ function HomePage(){
       {
         if(bringReference == 1 && bringReferenced == 1)
         {
-          const response = await axios.put(`http://localhost:80/add/${graphType}/${distance}`, body);
+          const response = await axios.put(`http://localhost:80/add/${graphType}/dist`, body);
           const data = await response.data
           const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
                                     return b})
@@ -145,7 +146,7 @@ function HomePage(){
         }
         else if ( bringReference == 1 && bringReferenced == 0 )
         {
-          const response = await axios.put(`http://localhost:80/add/${graphType}/${distance}/reference`, body);
+          const response = await axios.put(`http://localhost:80/add/${graphType}/dist/reference`, body);
           const data = await response.data
           const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
                                     return b})
@@ -168,7 +169,7 @@ function HomePage(){
         }
         else if ( bringReference == 0 && bringReferenced == 1 )
         {
-          const response = await axios.put(`http://localhost:80/add/${graphType}/${distance}/referredBy`, body);
+          const response = await axios.put(`http://localhost:80/add/${graphType}/dist/referredBy`, body);
           const data = await response.data
           const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
                                     return b})
@@ -213,15 +214,7 @@ function HomePage(){
           setMaxDate('')
         }
       }
-     
-      //const data = await response.data
-
-      //console.log(data)
-
-      
-
-      
-      
+       
     };
 
 
@@ -232,7 +225,7 @@ function HomePage(){
         ids : ids
       }
       console.log(body)
-     // "proxy": "http://localhost:80",
+     
 
       const response = await axios.put(`http://localhost:80/add/${graphType}`, body);
       const data = await response.data

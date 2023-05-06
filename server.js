@@ -219,9 +219,9 @@ app.get("/getPapersOfAuthor/:id", getPapersOfAuthor);
 
 app.put("/add/author", getAuthors);
 app.put("/add/paper", getPapers);
-app.put("/add/paper/:dist/reference", getPapersWithDistanceToTheirReferences); // distance
-app.put("/add/paper/:dist/referredBy", getPapersWithDistanceToPapersThatReferThem); // distance
-app.put("/add/paper/:dist", getPapersWithDistanceBothDirections); // distance
+app.put("/add/paper/dist/reference", getPapersWithDistanceToTheirReferences); // distance
+app.put("/add/paper/dist/referredBy", getPapersWithDistanceToPapersThatReferThem); // distance
+app.put("/add/paper/dist", getPapersWithDistanceBothDirections); // distance
 
 app.get("/paper/info/:id", getInfo)
 
