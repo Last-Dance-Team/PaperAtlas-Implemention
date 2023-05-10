@@ -237,7 +237,8 @@ const handleReferencedButtonClick = () => {
       <IconButton
         onClick={() => handleButtonClick(1)}
         style={{ color: selectedButton === 1 ? 'purple' : 'grey' ,borderColor : selectedButton === 1 ? 'purple' : 'grey',
-        border: '1px solid grey', // Add a border to the buttons
+        borderWidth: '1px',
+        borderStyle: 'solid',
         borderRadius: '4px', // Optionally, add border radius for a rounded appearance
         backgroundColor: 'transparent',
         boxShadow: 'none',
@@ -251,7 +252,8 @@ const handleReferencedButtonClick = () => {
       <IconButton
         onClick={() => handleButtonClick(2)}
         style={{ color: selectedButton === 2 ? 'purple' : 'grey',borderColor : selectedButton === 2 ? 'purple' : 'grey',
-        border: '1px solid grey', // Add a border to the buttons
+        borderWidth: '1px',
+        borderStyle: 'solid',
         borderRadius: '4px', // Optionally, add border radius for a rounded appearance
         backgroundColor: 'transparent',
         boxShadow: 'none',
@@ -268,7 +270,8 @@ const handleReferencedButtonClick = () => {
       <IconButton
         onClick={ handleReferenceButtonClick}
         style={{ color: bringReference === 1 ? 'purple' : 'grey', borderColor : bringReference === 1 ? 'purple' : 'grey',
-        border: '1px solid grey', // Add a border to the buttons
+        borderWidth: '1px',
+        borderStyle: 'solid',
         borderRadius: '4px', // Optionally, add border radius for a rounded appearance
         backgroundColor: 'transparent',
         boxShadow: 'none',
@@ -282,7 +285,8 @@ const handleReferencedButtonClick = () => {
       <IconButton
         onClick={handleReferencedButtonClick}
         style={{ color: bringReferenced === 1 ? 'purple' : 'grey', borderColor : bringReferenced === 1 ? 'purple' : 'grey',
-        border: '1px solid grey', // Add a border to the buttons
+        borderWidth: '1px',
+        borderStyle: 'solid',
         borderRadius: '4px', // Optionally, add border radius for a rounded appearance
         backgroundColor: 'transparent',
         boxShadow: 'none',

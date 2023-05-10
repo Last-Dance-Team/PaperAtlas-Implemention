@@ -218,42 +218,145 @@ function HomePage(){
     };
 
 
-    const callBackendAPIMerge = async (graphType : string, ids: string[]) => {   
-      
+    const callBackendAPIMerge = async (graphType : string, ids: string[],bringReference: number, bringReferenced: number, distance:number) => {   
       
       const body = {
-        ids : ids
+        ids : ids,
+        distance : distance
       }
       console.log(body)
-     
-
-      const response = await axios.put(`http://localhost:80/add/${graphType}`, body);
-      const data = await response.data
-
-      console.log(data)
-
-      const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+     // "proxy": "http://localhost:80",
+      if ( graphType === 'author')
+      {
+        const response = await axios.put(`http://localhost:80/add/${graphType}`, body);
+        const data = await response.data
+        const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
                                   return b})
       
       const updatedEdges = data.edges.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
                                   return b})
-      
-      const mergedElements = {
-      nodes: [...elements.nodes, ...updatedNodes],
-      edges: [...elements.edges, ...updatedEdges],
-      };
-                                  
+      const elements = {
+        'nodes': updatedNodes,
+        'edges': updatedEdges
+      }
 
       if (response.status !== 200) {
         throw Error(data.message) 
       }
-
-      
-      setElements(  mergedElements)
-      setFilteredElements(mergedElements)
+      setElements(elements)
+      setFilteredElements(elements)
 
       setMinDate('')
       setMaxDate('')
+      }
+      else
+      {
+        if(bringReference == 1 && bringReferenced == 1)
+        {
+          const response = await axios.put(`http://localhost:80/add/${graphType}/dist`, body);
+          const data = await response.data
+          const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                    return b})
+        
+          const updatedEdges = data.edges.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                    return b})
+          const mergedElements = {
+            nodes: [...elements.nodes, ...updatedNodes],
+            edges: [...elements.edges, ...updatedEdges],
+          };
+
+
+          if (response.status !== 200) {
+            throw Error(data.message)
+          }
+
+
+          setElements(mergedElements)
+          setFilteredElements(mergedElements)
+
+          setMinDate('')
+          setMaxDate('')
+        }
+        else if ( bringReference == 1 && bringReferenced == 0 )
+        {
+          const response = await axios.put(`http://localhost:80/add/${graphType}/dist/reference`, body);
+          const data = await response.data
+          const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                    return b})
+        
+          const updatedEdges = data.edges.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                    return b})
+          const mergedElements = {
+            nodes: [...elements.nodes, ...updatedNodes],
+            edges: [...elements.edges, ...updatedEdges],
+          };
+
+
+          if (response.status !== 200) {
+            throw Error(data.message)
+          }
+
+
+          setElements(mergedElements)
+          setFilteredElements(mergedElements)
+
+          setMinDate('')
+          setMaxDate('')
+        }
+        else if ( bringReference == 0 && bringReferenced == 1 )
+        {
+          const response = await axios.put(`http://localhost:80/add/${graphType}/dist/referredBy`, body);
+          const data = await response.data
+          const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                    return b})
+        
+          const updatedEdges = data.edges.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                    return b})
+          const mergedElements = {
+            nodes: [...elements.nodes, ...updatedNodes],
+            edges: [...elements.edges, ...updatedEdges],
+          };
+
+
+          if (response.status !== 200) {
+            throw Error(data.message)
+          }
+
+
+          setElements(mergedElements)
+          setFilteredElements(mergedElements)
+
+          setMinDate('')
+          setMaxDate('')
+        }
+        else
+        {
+          const response = await axios.put(`http://localhost:80/add/${graphType}`, body);
+          const data = await response.data
+          const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                    return b})
+        
+          const updatedEdges = data.edges.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
+                                    return b})
+          const mergedElements = {
+            nodes: [...elements.nodes, ...updatedNodes],
+            edges: [...elements.edges, ...updatedEdges],
+          };
+
+
+          if (response.status !== 200) {
+            throw Error(data.message)
+          }
+
+
+          setElements(mergedElements)
+          setFilteredElements(mergedElements)
+
+          setMinDate('')
+          setMaxDate('')
+        }
+      }
+
 
     };
 
