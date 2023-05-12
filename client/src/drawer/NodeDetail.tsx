@@ -30,7 +30,8 @@ const theme = createTheme({
 function NodeDetail(props: any){
     var node = props.node
 
-    const [pinned, setPinned] = React.useState(false)
+    console.log(node.pinned)
+
     const handleReference = () => {
         props.getReferences(node.id)
     }
@@ -48,12 +49,10 @@ function NodeDetail(props: any){
         props.remove(node.id)
     }
     const handlePin = () => {
-        props.pin(node.id)
-        setPinned(true)
+        props.updatePin(node.id, true)
     }
     const handleUnpin = () => {
-        props.unpin(node.id)
-        setPinned(false)
+        props.updatePin(node.id, false)
     }
 
 
@@ -66,8 +65,8 @@ function NodeDetail(props: any){
                 <Button sx={{  m: 0.5 }} variant="outlined" onClick = {handleReferred}>Citations</Button> 
                 <Button sx={{  m: 0.5 }} variant="outlined" onClick = {handleAuthors}>Authors</Button>  
                 <Button sx={{  m: 0.5 }} variant="outlined" onClick = {handleRemove}>Remove</Button> 
-                <> { !pinned && (<Button sx={{  m: 0, width:50 }} variant="outlined" onClick = {handlePin}>Pin</Button>)  }</>
-                <> { pinned && (<Button sx={{  m: 0, width:50 }} variant="contained" onClick = {handleUnpin}>Unpin</Button>)  }</>       
+                <> { !node.pinned && (<Button sx={{  m: 0, width:50 }} variant="outlined" onClick = {handlePin}>Pin</Button>)  }</>
+                <> { node.pinned && (<Button sx={{  m: 0, width:50 }} variant="contained" onClick = {handleUnpin}>Unpin</Button>)  }</>       
                 <ThemeProvider theme={theme}>
                     <Box sx={{  bgcolor: 'background.paper',}}>
                         <Box sx={{  m: 1, color: 'text.secondary' }}><strong>Title: </strong>  </Box>
@@ -104,6 +103,8 @@ function NodeDetail(props: any){
             <div>
                 <Button sx={{  m: 0.5 }} variant="outlined" onClick = {handlePapers}>Papers</Button>  
                 <Button sx={{  m: 0.5 }} variant="outlined" onClick = {handleRemove}>Remove</Button> 
+                <> { !node.pinned && (<Button sx={{  m: 0, width:50 }} variant="outlined" onClick = {handlePin}>Pin</Button>)  }</>
+                <> { node.pinned && (<Button sx={{  m: 0, width:50 }} variant="contained" onClick = {handleUnpin}>Unpin</Button>)  }</> 
                 <ThemeProvider theme={theme}>
                     <Box sx={{  bgcolor: 'background.paper',}}>
                         <Box sx={{ m: 1, color: 'text.secondary' }}><strong>Name: </strong>  </Box>
@@ -113,7 +114,7 @@ function NodeDetail(props: any){
                             <Box sx={{ m: 1, color: 'text.secondary' }}><strong>Aliases: </strong>  </Box>
 
                             {node.aliases.map( (a: string) =>{
-                                return(<Box sx={{  m: 2, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}>{a}</Box>)
+                                return(<Box key = {a} sx={{  m: 2, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}>{a}</Box>)
                             })}
 
                             <br/>

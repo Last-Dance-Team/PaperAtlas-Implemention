@@ -76,25 +76,28 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
+type node = {
+  data: {},
+  positin: {x: number, y: number}
+}
 
 function HomePage(){
 
-  console.log("Home Page")
+  //console.log("Home Page")
 
     const [layoutName, setLaYoutName] = useState(LAYOUT_NAMES.KLAY)
     const[elements, setElements] = useState<{ nodes: any[], edges: any[]}>({'nodes': [] ,'edges': []})
 
-    const[filteredElements, setFilteredElements] = useState<{ nodes: any[], edges: any[]}>({'nodes': [] ,'edges': []}) 
-    const[pinnedNodes, setPinnedNodes] = useState<string[]>([])                                           
+    const[filteredElements, setFilteredElements] = useState<{ nodes: any[], edges: any[]}>({'nodes': [] ,'edges': []})                                          
 
     const callBackendAPI = async (graphType : string, ids: string[],bringReference: number, bringReferenced: number, distance:number ) => {   
-      console.log("here")
+      //console.log("here")
       
       const body = {
         ids : ids,
         distance : distance
       }
-      console.log(body)
+      //console.log(body)
      // "proxy": "http://localhost:80",
       if ( graphType === 'author')
       {
@@ -224,7 +227,7 @@ function HomePage(){
         ids : ids,
         distance : distance
       }
-      console.log(body)
+      //console.log(body)
      // "proxy": "http://localhost:80",
       if ( graphType === 'author')
       {
@@ -366,7 +369,7 @@ function HomePage(){
 
 
     const getReferences = async(paperId: string) => {
-      console.log(paperId)
+      //console.log(paperId)
       const response = await axios.get(`/getReferences/${paperId}`);
       const data = await response.data 
       //console.log(data)
@@ -376,7 +379,7 @@ function HomePage(){
     }
 
     const getReferred = async(paperId: string) => {
-      console.log(paperId)
+      //console.log(paperId)
       const response = await axios.get(`/getReferred/${paperId}`);
       const data = await response.data
       //console.log(data)
@@ -386,8 +389,8 @@ function HomePage(){
     }
 
     const addPapers = async(papers: any[]) => {
-      console.log(papers)
-      console.log(elements)
+      //console.log(papers)
+      //console.log(elements)
         const uniqueIds = papers.filter((node: any) => 
           !elements.nodes.some((e) => e.data.id === node.data.id)
         ).map((e) => Number(e.data.id))
@@ -397,7 +400,7 @@ function HomePage(){
         const body = {
           ids : [ ...(elements.nodes.map((n)=> Number(n.data.id))),...uniqueIds]
         }
-        console.log(body)
+        //console.log(body)
   
         const response = await axios.put(`http://localhost:80/add/paper`, body);
         const data = await response.data
@@ -408,20 +411,20 @@ function HomePage(){
     }
 
     const getPapers = async(authorId: string) => {
-      console.log(authorId)
+      //console.log(authorId)
       const response = await axios.get(`/getPapersOfAuthor/${authorId}`);
       const data = await response.data
-      console.log(data)
+      //console.log(data)
       //addPapers(data.nodes)
       addUniqueElements(data)
 
     }
 
     const getAuthors = async(paperId: string) => {
-      console.log(paperId)
+      //console.log(paperId)
       const response = await axios.get(`/getAuthorsOfPapers/${paperId}`);
       const data = await response.data
-      console.log(data)
+      //console.log(data)
       //addPapers(data.nodes)
       addUniqueElements(data)
 
@@ -461,13 +464,23 @@ function HomePage(){
       applyDateFilter(value[0], value[1], newElements)
     }
 
-    const pin = (nodeId: string) => {
-        setPinnedNodes([...pinnedNodes, nodeId])
+    const updatePin = (nodeId: string, pinStatus: boolean) => {
+      const newNodes = elements.nodes.map((node) =>
+          node.data.id === nodeId ? { ...node, data: {...(node.data), pinned: pinStatus} } : node
+        )
+
+      const node = newNodes.find((node) => node.data.id === nodeId)
+
+      const newElements = {
+        nodes : newNodes,
+        edges: elements.edges
+      }
+ 
+      setElements(newElements)
+      applyDateFilter(value[0], value[1], newElements)
+      handleDrawerOpenWithState(node.data, 1)
     }
 
-    const unpin = (nodeId: string) => {
-      setPinnedNodes(pinnedNodes.filter((e: string) => !(e === nodeId)))
-    }
 
     useEffect(() => {}, [])
 
@@ -478,31 +491,28 @@ function HomePage(){
     const [drawerState, setDrawerState] = React.useState(0)
 
     const applyDateFilter =  (minDate: number, maxDate : number, elements: {nodes: any[], edges: any[]}) => {
-      console.log(elements)
+      //console.log(elements)
 
       var minDateNo = Number(minDate) //source author target paper
       var maxDateNo = Number(maxDate) //source author target paper
       maxDateNo = maxDateNo ? maxDateNo : 3000
       const newNodes = elements.nodes.filter((obj : any ) => {
-        return (obj.data.year >= minDateNo && obj.data.year <= maxDateNo) || obj.data.type !="Paper"})
-        //obj.data.type !="Paper"
-        //|| pinnedNodes.some((e) => e === obj.data.id)
-        //|| ( obj.data.year >= minDateNo && obj.data.year <= maxDateNo)})
+        return obj.data.pinned == true || obj.data.type !="Paper" || (obj.data.year >= minDateNo && obj.data.year <= maxDateNo) })
         
       const newIds = newNodes.map((obj : any ) => obj.data.id);
       const finalEdges = elements.edges.filter((obj : any ) => {
-        return newIds.includes(obj.data.target) })
+        return newIds.includes(obj.data.target) && newIds.includes(obj.data.source) })
       
       
-      const newAuthorIds = finalEdges.map((obj : any ) => obj.data.source);
-      const finalNodes = newNodes.filter((obj : any ) => {
-        return obj.data.type =="Paper" || newAuthorIds.includes(obj.data.id) })
+      //const newAuthorIds = finalEdges.map((obj : any ) => obj.data.source);
+      //const finalNodes = newNodes.filter((obj : any ) => {
+        //return obj.data.type =="Paper" || newAuthorIds.includes(obj.data.id) })
       const filteredElements = {
-        'nodes': finalNodes,
+        'nodes': newNodes,
         'edges': finalEdges
       }
       setFilteredElements(filteredElements)
-      console.log(filteredElements)
+      //console.log(filteredElements)
 
     };
 
@@ -638,8 +648,7 @@ function valuetext(value: number) {
                 getPapers = {getPapers}
                 getAuthors= {getAuthors}
                 remove = {remove}
-                pin = {pin}
-                unpin = {unpin}/>
+                updatePin = {updatePin}/>
 
           </Drawer>
           <Main open={open}>
