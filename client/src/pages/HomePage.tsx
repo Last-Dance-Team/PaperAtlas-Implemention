@@ -238,19 +238,22 @@ function HomePage(){
       
       const updatedEdges = data.edges.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
                                   return b})
-      const elements = {
-        'nodes': updatedNodes,
-        'edges': updatedEdges
-      }
+        const mergedElements = {
+          nodes: [...elements.nodes, ...updatedNodes],
+          edges: [...elements.edges, ...updatedEdges],
+        };
 
-      if (response.status !== 200) {
-        throw Error(data.message) 
-      }
-      setElements(elements)
-      setFilteredElements(elements)
 
-      setMinDate('')
-      setMaxDate('')
+        if (response.status !== 200) {
+          throw Error(data.message)
+        }
+
+
+        setElements(mergedElements)
+        setFilteredElements(mergedElements)
+
+        setMinDate('')
+        setMaxDate('')
       }
       else
       {
