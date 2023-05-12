@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -8,6 +9,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import axios from 'axios';
 
 const theme = createTheme({
     palette: {
@@ -54,6 +56,21 @@ function NodeDetail(props: any){
     const handleUnpin = () => {
         props.updatePin(node.id, false)
     }
+
+    const fetchInfo = async() => {
+        console.log(props.node.id)
+        const response = await axios.get(`http://localhost:80/paper/info/${props.node.id}`);
+        const data = await response.data
+        console.log(data)
+    }
+
+    useEffect(() => {
+        console.log("in use effect")
+        if(props.node.type == 'Paper'){
+            console.log("in if")
+            fetchInfo()
+        }
+    }, [props.node])
 
 
 
