@@ -62,11 +62,12 @@ cytoscape.use(cose);
 function DemoGraph(props:any) {
 
   console.log("DEMO GRAPH")
+  console.log(props.select)
 
   const styleGraph  = [
     {
       
-      selector: 'node[type="Author"][!pinned]',
+      selector: 'node[type="Author"][!selected]',
       
       style: {
         'background-color': '#6693d6',
@@ -81,7 +82,7 @@ function DemoGraph(props:any) {
     },
     {
       
-      selector: 'node[type="Author"][?pinned]',
+      selector: 'node[type="Author"][?selected]',
       
       style: {
         'background-color': '#395277',
@@ -95,7 +96,7 @@ function DemoGraph(props:any) {
       }
     },
     {
-      selector: 'node[type="Paper"][!pinned]',
+      selector: 'node[type="Paper"][!selected]',
       style: {
         'background-color': '#d185c7',
         
@@ -106,7 +107,7 @@ function DemoGraph(props:any) {
       }
     },
     {
-      selector: 'node[type="Paper"][?pinned]',
+      selector: 'node[type="Paper"][?selected]',
       style: {
         'background-color': '#6b4666',
         
@@ -149,11 +150,33 @@ function DemoGraph(props:any) {
     const cy = cyRef.current;
     const numNodesToAdd = element.length;
     let numNodesAdded = 0;
-  
+
+    function handleClick(event: { target: any; }) {
+          
+      var node = event.target;
+      console.log(node._private.data.label);
+      props.handleName(node._private.data.label)
+      props.handleDrawerOpenWithState(node._private.data, 1)
+      console.log("in demo")
+      console.log(props.select)
+      if(props.select){
+        console.log("in if")
+        props.updateSelect(node._private.data.id, !node._private.data.selected)
+      }
+      if (cyRef.current) {
+        //cyRef.current.off("click", "node");
+        //cyRef.current.on("click", "node", handleClick);
+      }
+
+    // ...rest of your click handling code
+    }
+      
 
     // get the bounding box of the graph
     if (cy)
     {
+      cy.on("click", "node", handleClick);
+
       const boundingBox = cy.elements().boundingBox();
 
       // calculate the center point of the bounding box
@@ -173,36 +196,30 @@ function DemoGraph(props:any) {
     }));
 
     
-    cy.on('add', 'node', () => {
+    const handleNodeAdd = () => {
       if (numNodesAdded === numNodesToAdd) {
-        console.log("ever here")
+        console.log("ever here");
         // animate the nodes to their final positions
-        cy.layout(layoutOptions).run();  
+        cy.layout(layoutOptions).run();
         // fit the graph to the new nodes
         cy.fit();
       }
-    });
+    };
+
+    cy.on('add', 'node', handleNodeAdd);
     cy.layout(layoutOptions).run();  
     // fit the graph to the new nodes
     cy.fit();
 
+    return () => {
+      if(cy) {
+        cy.off("click", "node");
+        cy.off('add', 'node');
+      }
+    }
+
   }
   }, [element]);
-
-
-  function handleClick(event: { target: any; }) {
-          
-                  var node = event.target;
-                  console.log(node._private.data.label);
-                  props.handleName(node._private.data.label)
-                  props.handleDrawerOpenWithState(node._private.data, 1)
-                  if (cyRef.current) {
-                    cyRef.current.off("click", "node");
-                    cyRef.current.on("click", "node", handleClick);
-                  }
-  
-    // ...rest of your click handling code
-  }
 
 
 
@@ -210,7 +227,7 @@ function DemoGraph(props:any) {
               cy={(cy): void => {
                 cyRef.current = cy;
               
-                cy.on("click", "node", handleClick);
+                //cy.on("click", "node", handleClick);
 
                 
                 // Showing whole title when mouse is on the node
@@ -249,8 +266,8 @@ function DemoGraph(props:any) {
                         // a function to execute when the command is selected
                         
                         if (cyRef.current) {
-                          cyRef.current.off("click", "node");
-                          cyRef.current.on("click", "node", handleClick);
+                          //cyRef.current.off("click", "node");
+                          //cyRef.current.on("click", "node", handleClick);
                         }
                       },
                       enabled: true // whether the command is selectable

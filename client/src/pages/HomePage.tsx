@@ -265,13 +265,41 @@ function HomePage(){
       applyDateFilter(value[0], value[1], newElements)
     }
 
-    const pin = (nodeId: string) => {
-        setPinnedNodes([...pinnedNodes, nodeId])
+
+    const updateSelect = (nodeId: string, selected: boolean) => {
+      const newNodes  = elements.nodes.map((node) =>
+          node.data.id === nodeId ? { ...node, data: {...(node.data), selected: selected} } : node
+        )
+
+      const node = newNodes.find((node) => node.data.id === nodeId)
+
+      const newElements = {
+        nodes : newNodes,
+        edges: elements.edges
+      }
+ 
+      setElements(newElements)
+      applyDateFilter(value[0], value[1], newElements)
+      //handleDrawerOpenWithState(node.data, 1)
     }
 
-    const unpin = (nodeId: string) => {
-      setPinnedNodes(pinnedNodes.filter((e: string) => !(e === nodeId)))
+    const updatePin = (nodeId: string, pinStatus: boolean) => {
+      const newNodes  = elements.nodes.map((node) =>
+          node.data.id === nodeId ? { ...node, data: {...(node.data), pinned: pinStatus} } : node
+        )
+
+      const node = newNodes.find((node) => node.data.id === nodeId)
+
+      const newElements = {
+        nodes : newNodes,
+        edges: elements.edges
+      }
+ 
+      setElements(newElements)
+      applyDateFilter(value[0], value[1], newElements)
+      handleDrawerOpenWithState(node.data, 1)
     }
+
 
     useEffect(() => {}, [])
 
@@ -280,6 +308,7 @@ function HomePage(){
     const [open, setOpen] = React.useState(true);
     const [node, setNode] = React.useState({'type': ''})
     const [drawerState, setDrawerState] = React.useState(0)
+    const [select, setSelect] = React.useState(false)
 
     const applyDateFilter =  (minDate: number, maxDate : number, elements: {nodes: any[], edges: any[]}) => {
       console.log(elements)
@@ -363,6 +392,22 @@ function HomePage(){
     const handleDrawerClose = () => {
       setOpen(false);
     };
+
+    const handleSelect = () => {
+      setSelect((prevSelect) => !prevSelect)
+      console.log(select)
+      if( select === true){
+        const updatedNodes = elements.nodes.map((node) =>  { return {...node, data: {...(node.data), selected: false }}})
+        const newElements = {
+          nodes : updatedNodes,
+          edges: elements.edges
+        }
+   
+        setElements(newElements)
+        applyDateFilter(value[0], value[1], newElements)
+
+      }
+    }
     
 
     const [name, setName] = useState('start');
@@ -447,8 +492,7 @@ function valuetext(value: number) {
                 getPapers = {getPapers}
                 getAuthors= {getAuthors}
                 remove = {remove}
-                pin = {pin}
-                unpin = {unpin}/>
+                updatePin = {updatePin}/>
 
           </Drawer>
           <Main open={open}>
@@ -482,14 +526,19 @@ function valuetext(value: number) {
             </div>
             </FormControl>
             <FormControl sx={{ m: 2}} >
-              <Button variant="contained" onClick={filterAccordingToDate} >Filter</Button>
+              <Button variant="outlined" onClick={filterAccordingToDate} >Filter</Button>
+            </FormControl>
+            <FormControl sx={{ m: 2}} >
+              <Button variant="outlined" style={{ color: select ? '#0069d9' : 'grey' ,borderColor : select ? '#0069d9' : 'grey',}} onClick = {handleSelect}>Select</Button>                
             </FormControl>
             <GraphWithLayout 
               layoutName = {layoutName}  
               elements = {filteredElements} 
               handleDrawerOpen={handleDrawerOpen}
               handleDrawerOpenWithState = {handleDrawerOpenWithState} 
-              handleName = {handleName} />
+              handleName = {handleName}
+              select= {select}
+              updateSelect = {updateSelect} />
           </Main>
         </div>
       );

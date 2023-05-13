@@ -83,6 +83,7 @@ var dbControllers = {
                     publicationDate: curPaper.publicationDate,
                     doi: curPaper.doi,
                     pinned: false,
+                    selected:false,
                 },
                 position: { x: 0, y: 0 },
             };
@@ -196,6 +197,7 @@ var dbControllers = {
                             publicationDate: curPaper.publicationDate,
                             doi: curPaper.doi,
                             pinned: false,
+                            selected:false,
                         },
                         position: { x: 0, y: 0 },
                     };
@@ -337,6 +339,7 @@ var dbControllers = {
                             publicationDate: curPaper.publicationDate,
                             doi: curPaper.doi,
                             pinned: false,
+                            selected:false,
                         },
                         position: { x: 0, y: 0 },
                     };
@@ -452,7 +455,8 @@ var dbControllers = {
                             pubMedCentral: curPaper.pubMedCentral,
                             publicationDate: curPaper.publicationDate,
                             doi: curPaper.doi,
-                            pinned: false
+                            pinned: false,
+                            selected:false,
                         },
                         position: { x: 0, y: 0 },
                     };
@@ -608,6 +612,7 @@ var dbControllers = {
                             publicationDate: field.properties.publicationDate,
                             doi: field.properties.doi,
                             pinned: false,
+                            selected:false,
                         },
                         position: { x: 0, y: 0 },
                     };
@@ -701,6 +706,7 @@ var dbControllers = {
                     publicationDate: paper.properties.publicationDate,
                     doi: paper.properties.doi,
                     pinned: false,
+                    selected:false,
                 },
                 position: { x: 0, y: 0 },
             };
@@ -768,6 +774,7 @@ var dbControllers = {
                     publicationDate: paper.properties.publicationDate,
                     doi: paper.properties.doi,
                     pinned: false,
+                    selected:false,
                 },
                 position: { x: 0, y: 0 },
             };
@@ -802,6 +809,7 @@ var dbControllers = {
                         publicationDate: references[j].properties.publicationDate,
                         doi: references[j].properties.doi,
                         pinned: false,
+                        selected:false,
                     },
                     position: { x: 0, y: 0 },
                 };
@@ -874,6 +882,7 @@ var dbControllers = {
                     publicationDate: paper.properties.publicationDate,
                     doi: paper.properties.doi,
                     pinned: false,
+                    selected:false,
                 },
                 position: { x: 0, y: 0 },
             };
@@ -908,6 +917,7 @@ var dbControllers = {
                         publicationDate: referred[j].properties.publicationDate,
                         doi: referred[j].properties.doi,
                         pinned: false,
+                        selected:false,
                     },
                     position: { x: 0, y: 0 },
                 };
@@ -998,6 +1008,7 @@ var dbControllers = {
                         publicationDate: papers[j].properties.publicationDate,
                         doi: papers[j].properties.doi,
                         pinned: false,
+                        selected:false,
                     },
                     position: { x: 0, y: 0 },
                 };
