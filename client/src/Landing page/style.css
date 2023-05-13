@@ -1,0 +1,111 @@
+.landing-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .header {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .subtext {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .start-app-button {
+    background-color: turquoise;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-bottom: 2rem;
+  }
+  
+  .reviews-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  
+  .review-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  
+  .review-card {
+    background-color: lightblue;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 0.5rem;
+    width: 18rem;
+  }
+  
+  .review-stars {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .star {
+    color: turquoise;
+  }
+  
+  .review-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .review-comment {
+    font-size: 1rem;
+  }
+  
+  .give-feedback-button {
+    background-color: turquoise;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  .pdf-reports-section {
+    text-align: center;
+  }
+  
+  .pdf-reports-section h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  .pdf-reports-section ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .pdf-reports-section li {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+  
+  .pdf-reports-section li a {
+    color: turquoise;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .pdf-reports-section li a:hover {
+    color: lightblue;
+  }
+  
