@@ -212,7 +212,7 @@ function HomePage(){
 
     const getPapers = async(authorId: string) => {
       console.log(authorId)
-      const response = await axios.get(`/getPapersOfAuthor/${authorId}`);
+      const response = await axios.get(`http://localhost:80/getPapersOfAuthor/${authorId}`);
       const data = await response.data
       console.log(data)
       //addPapers(data.nodes)
@@ -222,7 +222,7 @@ function HomePage(){
 
     const getAuthors = async(paperId: string) => {
       console.log(paperId)
-      const response = await axios.get(`/getAuthorsOfPapers/${paperId}`);
+      const response = await axios.get(`http://localhost:80/getAuthorsOfPapers/${paperId}`);
       const data = await response.data
       console.log(data)
       //addPapers(data.nodes)
