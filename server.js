@@ -235,6 +235,19 @@ async function getFeedbacks(req, res) {
   }
 }
 
+async function getAllRelations(req, res){
+    var paperIds = req.body.ids;
+    var authorIds = req.body.id2s;
+    if (!paperIds || !isArray(paperIds) || !authorIds || !isArray(authorIds) ) {
+        res.status(500).json({ success: false });
+        return;
+    }
+    databaseController.getAllRelations(paperIds,authorIds).then((data) => {
+        res.json(data);
+    });
+
+}
+
 
 //Endpoints
 app.get("/search/paper/:name/", getPaper);
@@ -256,9 +269,11 @@ app.get("/paper/info/:id", getInfo)
 app.post("/feedback", sendFeedback)
 app.get("/feedback", getFeedbacks)
 
+app.put("/relations",getAllRelations);
+
 //---
 app.get("/page/getAuthor/:name/:pageNo", getAuthorWithPage);
-app.get("/page/getAuthorPageCount/:name", getAuthorPageCount)
+app.get("/page/getAuthorPageCount/:name", getAuthorPageCount);
 
 server.listen(port, function() {
     console.log("server listening on port: %d", port);

@@ -5,6 +5,36 @@ var basicQueries = require("../public/js/database/basic-queries");
 const dbService = require("../public/js/database/db-service");
 
 var dbControllers = {
+    getAllRelations: async function(paperIds,authorIds){
+        let query = basicQueries.getAllRelations();
+
+        var queryData = { paperIds: paperIds, authorIds:authorIds };
+        var data = { query: query, queryData: queryData };
+        let resp = await dbService.runQuery(data);
+
+        var arrayOfEdges = resp.records;
+        var edges = [];
+
+        for (let i = 0; i < arrayOfEdges.length; i++) {
+            var object = arrayOfEdges[i];
+            var field = object._fields[0];
+
+            var pushEdge = {
+                    data: {
+                        source: String(field.start.low),
+                        target: String(field.end.low),
+                        label: field.type,
+                    },
+                };
+
+            edges.push(pushEdge);
+        
+        }
+
+        return {edges:edges};
+
+    },
+
     getAuthorPageCount: async function(author) {
         let query = basicQueries.getAuthorPageCount();
         var queryData = { author: author };
