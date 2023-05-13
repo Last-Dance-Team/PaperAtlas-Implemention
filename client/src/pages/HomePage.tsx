@@ -87,20 +87,60 @@ function HomePage(){
     const[filteredElements, setFilteredElements] = useState<{ nodes: any[], edges: any[]}>({'nodes': [] ,'edges': []}) 
     const[pinnedNodes, setPinnedNodes] = useState<string[]>([])                                           
 
-    const callBackendAPI = async (graphType : string, ids: string[]) => {   
+    const callBackendAPI = async (graphType : string, ids: string[],bringReference: number, bringReferenced: number, distance:number ) => {
       console.log("here")
       
       const body = {
-        ids : ids
+        ids : ids,
+        distance : distance
       }
       console.log(body)
      // "proxy": "http://localhost:80",
-
+     if ( graphType === 'author')
+     {
       const response = await axios.put(`http://localhost:80/add/${graphType}`, body);
-      const data = await response.data
+      var data = await response.data
+      if (response.status !== 200) {
+        throw Error(data.message) 
+      }
+     }
+     else
+      {
+        if(bringReference == 1 && bringReferenced == 1)
+        {
+          const response = await axios.put(`http://localhost:80/add/${graphType}/dist`, body);
+          var data = await response.data
+          if (response.status !== 200) {
+            throw Error(data.message) 
+          }
+        }
+      
+      else if ( bringReference == 1 && bringReferenced == 0 )
+      {
+        const response = await axios.put(`http://localhost:80/add/${graphType}/dist/reference`, body);
+        var data = await response.data
+        if (response.status !== 200) {
+          throw Error(data.message) 
+        }
+      }
 
-      console.log(data)
-
+      else if ( bringReference == 0 && bringReferenced == 1 )
+        {
+          const response = await axios.put(`http://localhost:80/add/${graphType}/dist/referredBy`, body);
+          var data = await response.data
+          if (response.status !== 200) {
+            throw Error(data.message) 
+          }
+        }
+        else
+        {
+          const response = await axios.put(`http://localhost:80/add/${graphType}`, body);
+          var data = await response.data
+          if (response.status !== 200) {
+            throw Error(data.message) 
+          }
+        }
+    }
       const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
                                   return b})
       
@@ -109,11 +149,7 @@ function HomePage(){
       const elements = {
         'nodes': updatedNodes,
         'edges': updatedEdges
-      }
-
-      if (response.status !== 200) {
-        throw Error(data.message) 
-      }
+      } 
 
       console.log("here")
       setElements(elements)
@@ -125,19 +161,60 @@ function HomePage(){
     };
 
 
-    const callBackendAPIMerge = async (graphType : string, ids: string[]) => {   
+    const callBackendAPIMerge = async (graphType : string, ids: string[],bringReference: number, bringReferenced: number, distance:number ) => {   
       
       
       const body = {
-        ids : ids
+        ids : ids,
+        distance : distance
       }
       console.log(body)
      // "proxy": "http://localhost:80",
-
+     if ( graphType === 'author')
+     {
       const response = await axios.put(`http://localhost:80/add/${graphType}`, body);
-      const data = await response.data
+      var data = await response.data
+      if (response.status !== 200) {
+        throw Error(data.message) 
+      }
+     }
+     else
+      {
+        if(bringReference == 1 && bringReferenced == 1)
+        {
+          const response = await axios.put(`http://localhost:80/add/${graphType}/dist`, body);
+          var data = await response.data
+          if (response.status !== 200) {
+            throw Error(data.message) 
+          }
+        }
+      
+      else if ( bringReference == 1 && bringReferenced == 0 )
+      {
+        const response = await axios.put(`http://localhost:80/add/${graphType}/dist/reference`, body);
+        var data = await response.data
+        if (response.status !== 200) {
+          throw Error(data.message) 
+        }
+      }
 
-      console.log(data)
+      else if ( bringReference == 0 && bringReferenced == 1 )
+        {
+          const response = await axios.put(`http://localhost:80/add/${graphType}/dist/referredBy`, body);
+          var data = await response.data
+          if (response.status !== 200) {
+            throw Error(data.message) 
+          }
+        }
+        else
+        {
+          const response = await axios.put(`http://localhost:80/add/${graphType}`, body);
+          var data = await response.data
+          if (response.status !== 200) {
+            throw Error(data.message) 
+          }
+        }
+    }
 
       const updatedNodes = data.nodes.map((b: any) => {b.data.abbr = (b.data.label).substring(0,10) + '...'
                                   return b})
@@ -151,11 +228,6 @@ function HomePage(){
       };
                                   
 
-      if (response.status !== 200) {
-        throw Error(data.message) 
-      }
-
-      
       setElements(  mergedElements)
       setFilteredElements(mergedElements)
 

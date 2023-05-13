@@ -70,8 +70,10 @@ function DemoGraph(props:any) {
       selector: 'node[type="Author"][!selected]',
       
       style: {
-        'background-color': '#6693d6',
-        
+        'background-color': '#dddddd',
+        'background-image': `url(https://last-dance-team.github.io/PaperAtlas/person-circle.png)`, // Use the absolute file path of the image
+      'background-fit': 'cover',
+      'background-image-opacity': 1,
         
         content:'data(abbr)',
 
@@ -98,6 +100,9 @@ function DemoGraph(props:any) {
     {
       selector: 'node[type="Paper"][!selected]',
       style: {
+        'background-image': `url(https://last-dance-team.github.io/PaperAtlas/paper.png)`, // Use the absolute file path of the image
+      'background-fit': 'cover',
+      'background-image-opacity': 1,
         'background-color': '#d185c7',
         
         content:'data(abbr)',
