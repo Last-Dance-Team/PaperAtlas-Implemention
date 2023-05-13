@@ -32,8 +32,6 @@ const theme = createTheme({
 function NodeDetail(props: any){
     var node = props.node
 
-    console.log(node.pinned)
-
     const handleReference = () => {
         props.getReferences(node.id)
     }
@@ -58,16 +56,13 @@ function NodeDetail(props: any){
     }
 
     const fetchInfo = async() => {
-        console.log(props.node.id)
         const response = await axios.get(`http://localhost:80/paper/info/${props.node.id}`);
         const data = await response.data
         console.log(data)
     }
 
     useEffect(() => {
-        console.log("in use effect")
         if(props.node.type == 'Paper'){
-            console.log("in if")
             fetchInfo()
         }
     }, [props.node])

@@ -61,11 +61,12 @@ cytoscape.use(klay);
 function DemoGraph(props:any) {
 
   console.log("DEMO GRAPH")
+  console.log(props.select)
 
   const styleGraph  = [
     {
       
-      selector: 'node[type="Author"][!pinned]',
+      selector: 'node[type="Author"][!selected]',
       
       style: {
         'background-color': '#6693d6',
@@ -80,7 +81,7 @@ function DemoGraph(props:any) {
     },
     {
       
-      selector: 'node[type="Author"][?pinned]',
+      selector: 'node[type="Author"][?selected]',
       
       style: {
         'background-color': '#395277',
@@ -94,7 +95,7 @@ function DemoGraph(props:any) {
       }
     },
     {
-      selector: 'node[type="Paper"][!pinned]',
+      selector: 'node[type="Paper"][!selected]',
       style: {
         'background-color': '#d185c7',
         
@@ -105,7 +106,7 @@ function DemoGraph(props:any) {
       }
     },
     {
-      selector: 'node[type="Paper"][?pinned]',
+      selector: 'node[type="Paper"][?selected]',
       style: {
         'background-color': '#6b4666',
         
@@ -195,6 +196,12 @@ function DemoGraph(props:any) {
                   console.log(node._private.data.label);
                   props.handleName(node._private.data.label)
                   props.handleDrawerOpenWithState(node._private.data, 1)
+                  console.log("in demo")
+                  console.log(props.select)
+                  if(props.select){
+                    console.log("in if")
+                    props.updateSelect(node._private.data.id, !node._private.data.selected)
+                  }
                   if (cyRef.current) {
                     cyRef.current.off("click", "node");
                     cyRef.current.on("click", "node", handleClick);
