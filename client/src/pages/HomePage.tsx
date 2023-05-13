@@ -23,7 +23,8 @@ import Typography from '@mui/material/Typography';
 import NodeDetail from '../drawer/NodeDetail';
 import DrawerContent from '../drawer/DrawerContent';
 import Slider from '@mui/material/Slider';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGem } from '@fortawesome/free-solid-svg-icons';
 const drawerWidth = 500;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -407,7 +408,12 @@ function valuetext(value: number) {
           <CssBaseline />
           <AppBar position="fixed" open={open}>
             <Toolbar>
-              <Typography variant="h5" noWrap sx={{ flexGrow: 1 }} component="div">
+            <FontAwesomeIcon icon={faGem} size="2x" color="white" />
+
+              <Typography variant="h5" noWrap sx={{ flexGrow: 1 }} component="div"  style={{ fontFamily: 'Georgia, serif', 
+                         fontSize: '2rem', 
+                         color: '#fff' ,  paddingLeft: '16px'}}>
+                           
                 Paper Atlas
               </Typography>  
               <Typography variant="h6" noWrap sx={{ position: 'right' }} component="div">
