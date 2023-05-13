@@ -376,8 +376,8 @@ function DemoGraph(props:any) {
 
                 
 
-                cy.cxtmenu(paperToolBox);
-                cy.cxtmenu(authorToolBox);
+                //cy.cxtmenu(paperToolBox);
+                //cy.cxtmenu(authorToolBox);
                 
                
               }}
