@@ -14,7 +14,7 @@ const cola = require('cytoscape-cola');
 const dagre = require('cytoscape-dagre');
 const euler = require('cytoscape-euler');
 const klay = require('cytoscape-klay');
-
+const cose = require('cytoscape-cose-bilkent');
 const qtip = require('cytoscape-qtip');
 const cxtmenu = require('cytoscape-cxtmenu');
 
@@ -54,6 +54,7 @@ cytoscape.use(dagre);
 
 cytoscape.use(euler);
 cytoscape.use(klay);
+cytoscape.use(cose);
 
 
 
@@ -392,8 +393,8 @@ function DemoGraph(props:any) {
 
                 
 
-                cy.cxtmenu(paperToolBox);
-                cy.cxtmenu(authorToolBox);
+                //cy.cxtmenu(paperToolBox);
+                //cy.cxtmenu(authorToolBox);
                 
                
               }}
