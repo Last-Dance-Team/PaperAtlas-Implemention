@@ -1,6 +1,8 @@
 var express = require("express");
 const cors = require('cors');
 const axios = require("axios");
+const model = require("./models");
+const Feedback = model.Feedback;
 
 var app = express();
 var bodyParser = require("body-parser");
@@ -208,6 +210,32 @@ function getInfo(req, res) {
         });
 }
 
+
+async function sendFeedback(req, res) {
+  try {
+    const feedback = await Feedback.create({
+      name: req.body.name,
+      surname: req.body.surname,
+      point: req.body.point,
+      message: req.body.message,
+      mail: req.body.mail,
+    });
+    return res.status(201).json({ message: "Feedback saved successfully!" });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}
+
+async function getFeedbacks(req, res) {
+  try {
+    const feedbacks = await Feedback.findAll();
+    return res.status(200).json(feedbacks);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}
+
+
 //Endpoints
 app.get("/search/paper/:name/", getPaper);
 app.get("/search/author/:name/", getAuthor);
@@ -225,6 +253,9 @@ app.put("/add/paper/dist", getPapersWithDistanceBothDirections); // distance
 
 app.get("/paper/info/:id", getInfo)
 
+app.post("/feedback", sendFeedback)
+app.get("/feedback", getFeedbacks)
+
 //---
 app.get("/page/getAuthor/:name/:pageNo", getAuthorWithPage);
 app.get("/page/getAuthorPageCount/:name", getAuthorPageCount)
@@ -234,3 +265,4 @@ server.listen(port, function() {
 });
 
 app.use(express.static(__dirname, { dotfiles: "ignore" }));
+
