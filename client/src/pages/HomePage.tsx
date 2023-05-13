@@ -264,9 +264,6 @@ function HomePage(){
       applyDateFilter(value[0], value[1], newElements)
     }
 
-    const pin = (nodeId: string) => {
-        setPinnedNodes([...pinnedNodes, nodeId])
-    }
 
     const updateSelect = (nodeId: string, selected: boolean) => {
       const newNodes  = elements.nodes.map((node) =>
@@ -285,9 +282,23 @@ function HomePage(){
       //handleDrawerOpenWithState(node.data, 1)
     }
 
-    const unpin = (nodeId: string) => {
-      setPinnedNodes(pinnedNodes.filter((e: string) => !(e === nodeId)))
+    const updatePin = (nodeId: string, pinStatus: boolean) => {
+      const newNodes  = elements.nodes.map((node) =>
+          node.data.id === nodeId ? { ...node, data: {...(node.data), pinned: pinStatus} } : node
+        )
+
+      const node = newNodes.find((node) => node.data.id === nodeId)
+
+      const newElements = {
+        nodes : newNodes,
+        edges: elements.edges
+      }
+ 
+      setElements(newElements)
+      applyDateFilter(value[0], value[1], newElements)
+      handleDrawerOpenWithState(node.data, 1)
     }
+
 
     useEffect(() => {}, [])
 
@@ -475,8 +486,7 @@ function valuetext(value: number) {
                 getPapers = {getPapers}
                 getAuthors= {getAuthors}
                 remove = {remove}
-                pin = {pin}
-                unpin = {unpin}/>
+                updatePin = {updatePin}/>
 
           </Drawer>
           <Main open={open}>
