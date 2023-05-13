@@ -82,6 +82,7 @@ var dbControllers = {
                     pubMedCentral: curPaper.pubMedCentral,
                     publicationDate: curPaper.publicationDate,
                     doi: curPaper.doi,
+                    pinned: false,
                 },
                 position: { x: 0, y: 0 },
             };
@@ -194,6 +195,7 @@ var dbControllers = {
                             pubMedCentral: curPaper.pubMedCentral,
                             publicationDate: curPaper.publicationDate,
                             doi: curPaper.doi,
+                            pinned: false,
                         },
                         position: { x: 0, y: 0 },
                     };
@@ -334,6 +336,7 @@ var dbControllers = {
                             pubMedCentral: curPaper.pubMedCentral,
                             publicationDate: curPaper.publicationDate,
                             doi: curPaper.doi,
+                            pinned: false,
                         },
                         position: { x: 0, y: 0 },
                     };
@@ -449,6 +452,7 @@ var dbControllers = {
                             pubMedCentral: curPaper.pubMedCentral,
                             publicationDate: curPaper.publicationDate,
                             doi: curPaper.doi,
+                            pinned: false
                         },
                         position: { x: 0, y: 0 },
                     };
@@ -500,6 +504,7 @@ var dbControllers = {
                     affiliations: curProperties.affiliations,
                     homepage: curProperties.homepage,
                     hindex: curProperties.hindex.low,
+                    pinned: false,
                 },
                 position: { x: 0, y: 0 },
             };
@@ -602,6 +607,7 @@ var dbControllers = {
                             pubMedCentral: field.properties.pubMedCentral,
                             publicationDate: field.properties.publicationDate,
                             doi: field.properties.doi,
+                            pinned: false,
                         },
                         position: { x: 0, y: 0 },
                     };
@@ -660,6 +666,7 @@ var dbControllers = {
                         affiliations: authorFields[j].properties.affiliations,
                         homepage: authorFields[j].properties.homepage,
                         hindex: authorFields[j].properties.hindex.low,
+                        pinned: false,
                     },
                     position: { x: 0, y: 0 },
                 };
@@ -693,6 +700,7 @@ var dbControllers = {
                     pubMedCentral: paper.properties.pubMedCentral,
                     publicationDate: paper.properties.publicationDate,
                     doi: paper.properties.doi,
+                    pinned: false,
                 },
                 position: { x: 0, y: 0 },
             };
@@ -759,6 +767,7 @@ var dbControllers = {
                     pubMedCentral: paper.properties.pubMedCentral,
                     publicationDate: paper.properties.publicationDate,
                     doi: paper.properties.doi,
+                    pinned: false,
                 },
                 position: { x: 0, y: 0 },
             };
@@ -792,6 +801,7 @@ var dbControllers = {
                         pubMedCentral: references[j].properties.pubMedCentral,
                         publicationDate: references[j].properties.publicationDate,
                         doi: references[j].properties.doi,
+                        pinned: false,
                     },
                     position: { x: 0, y: 0 },
                 };
@@ -863,6 +873,7 @@ var dbControllers = {
                     pubMedCentral: paper.properties.pubMedCentral,
                     publicationDate: paper.properties.publicationDate,
                     doi: paper.properties.doi,
+                    pinned: false,
                 },
                 position: { x: 0, y: 0 },
             };
@@ -896,6 +907,7 @@ var dbControllers = {
                         pubMedCentral: referred[j].properties.pubMedCentral,
                         publicationDate: referred[j].properties.publicationDate,
                         doi: referred[j].properties.doi,
+                        pinned: false,
                     },
                     position: { x: 0, y: 0 },
                 };
@@ -951,6 +963,7 @@ var dbControllers = {
                     affiliations: authorFields.properties.affiliations,
                     homepage: authorFields.properties.homepage,
                     hindex: authorFields.properties.hindex.low,
+                    pinned: false,
                 },
                 position: { x: 0, y: 0 },
             };
@@ -984,6 +997,7 @@ var dbControllers = {
                         pubMedCentral: papers[j].properties.pubMedCentral,
                         publicationDate: papers[j].properties.publicationDate,
                         doi: papers[j].properties.doi,
+                        pinned: false,
                     },
                     position: { x: 0, y: 0 },
                 };

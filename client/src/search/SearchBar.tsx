@@ -7,12 +7,13 @@ import Select from '@mui/material/Select';
 import NativeSelect from '@mui/material/NativeSelect';
 import InputBase from '@mui/material/InputBase';
 import Button from '@mui/material/Button';
-import { Checkbox, Drawer, FormControlLabel, TextField } from '@mui/material';
+import { Checkbox, Drawer, FormControlLabel, IconButton, TextField, makeStyles } from '@mui/material';
 import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
-
-
-
+import MergeIcon from '@mui/icons-material/Merge';
+import StartIcon from '@mui/icons-material/Start';
+import ArticleIcon from '@mui/icons-material/Article';
+import FormHelperText from '@mui/material/FormHelperText';
 export interface paper{
   label: string, 
   id: string,
@@ -113,13 +114,13 @@ export default function SearchBar(props: any) {
         if(paper.checked){
           ids.push(paper.id)
         }})
-    if( !isMerge)
+    if( selectedButton == 2)
     {
-      props.callBackendAPI(graphType, ids)
+      props.callBackendAPI(graphType, ids,bringReference,bringReferenced,distance)
     }
     else
     {
-      props.callBackendAPIMerge(graphType, ids)
+      props.callBackendAPIMerge(graphType, ids,bringReference,bringReferenced,distance)
     }
   }
 
@@ -177,8 +178,34 @@ export default function SearchBar(props: any) {
   ) => {
     setCurrentPage(value);
   };
+
+  
+const [selectedButton, setSelectedButton] = React.useState(1);
+
+
+const handleButtonClick = (buttonNumber: React.SetStateAction<number>) => {
+  setSelectedButton(buttonNumber);
+};
+
+
+const [bringReference, setBringReference] = React.useState(0);
+
+
+const handleReferenceButtonClick = () => {
+  setBringReference((bringReference+1) % 2);
+};
+
+const [bringReferenced, setBringReferenced] = React.useState(0);
+
+
+const handleReferencedButtonClick = () => {
+  setBringReferenced((bringReferenced+1) % 2);
+};
+    
+
   
   return (
+    
     <div className= {'search-bar-body'}>
       <FormControl sx={{ m: 1, minWidth: 280 }}>
         <InputLabel id="demo-simple-select-label">Search Type</InputLabel>
@@ -204,24 +231,105 @@ export default function SearchBar(props: any) {
     </FormControl>
 
     <div hidden = {hideButtons}>
+    
+    
+    <div style={{ display: 'flex' }}>
+      <IconButton
+        onClick={() => handleButtonClick(1)}
+        style={{ color: selectedButton === 1 ? 'purple' : 'grey' ,borderColor : selectedButton === 1 ? 'purple' : 'grey',
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderRadius: '4px', // Optionally, add border radius for a rounded appearance
+        backgroundColor: 'transparent',
+        boxShadow: 'none',
+        padding: '8px',
+        margin: '10px',}}
+      >
+        <MergeIcon />
+        <span style={{ fontSize: '14px' }}>Merge to the graph</span>
+      </IconButton>
+
+      <IconButton
+        onClick={() => handleButtonClick(2)}
+        style={{ color: selectedButton === 2 ? 'purple' : 'grey',borderColor : selectedButton === 2 ? 'purple' : 'grey',
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderRadius: '4px', // Optionally, add border radius for a rounded appearance
+        backgroundColor: 'transparent',
+        boxShadow: 'none',
+        padding: '8px',
+        margin: '10px',
+      }}
+      >
+        <StartIcon />
+        <span style={{ fontSize: '14px' }} >Start a graph </span>
+      </IconButton>
+    </div>
+    {graphType !== 'author' && (
+    <div  style={{ display: 'flex' }}>
+      <IconButton
+        onClick={ handleReferenceButtonClick}
+        style={{ color: bringReference === 1 ? 'purple' : 'grey', borderColor : bringReference === 1 ? 'purple' : 'grey',
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderRadius: '4px', // Optionally, add border radius for a rounded appearance
+        backgroundColor: 'transparent',
+        boxShadow: 'none',
+        padding: '8px',
+        margin: '10px',}}
+      >
+        <ArticleIcon />
+        <span style={{ fontSize: '14px' }}>Bring references</span>
+      </IconButton>
+
+      <IconButton
+        onClick={handleReferencedButtonClick}
+        style={{ color: bringReferenced === 1 ? 'purple' : 'grey', borderColor : bringReferenced === 1 ? 'purple' : 'grey',
+        borderWidth: '1px',
+        borderStyle: 'solid',
+        borderRadius: '4px', // Optionally, add border radius for a rounded appearance
+        backgroundColor: 'transparent',
+        boxShadow: 'none',
+        padding: '8px',
+        margin: '10px',
+      }}
+      >
+        <ArticleIcon />
+        <span style={{ fontSize: '14px' }} >Bring papers that refer </span>
+      </IconButton>
+      <div style={{ display: 'flex',flexDirection: 'column' , height: '100%',
+         }}>
+      <InputLabel id="demo-simple-select-helper-label">Distance</InputLabel>
+      <Select
+          
+         
+          labelId="demo-simple-select-autowidth-label"
+          id="demo-simple-select-autowidth"
+          value={distance}
+          onChange={handleChangeDistance}
+          autoWidth
+          label="Distance"
+        >
+          <MenuItem value={0}>
+            <em>0</em>
+          </MenuItem>
+          <MenuItem value={1}>1</MenuItem>
+          <MenuItem value={2}>2</MenuItem>
+          <MenuItem value={3}>3</MenuItem>
+          <MenuItem value={4}>4</MenuItem>
+        </Select>
+        </div>
+    </div>
+    )}
+
     <br/>
-    <FormControlLabel
-          label = {"Merge"}
-          control = {<Checkbox
-            checked = {isMerge}
-            onChange = {handleCheckForMerge}
-           />}
-          labelPlacement = "end"
-    />
-    <br/>
-    <br/>
-    <FormControl sx={{ m: 2}}>
+    <FormControl sx={{ m: 1}}>
       <Button onClick={handleSelectAll} >Select All</Button>
     </FormControl>
-    <FormControl sx={{ m: 2}}>
+    <FormControl sx={{ m: 1}}>
       <Button onClick={handleSelectNone} >Select None</Button>
     </FormControl>
-    <FormControl sx={{ m: 2}} >
+    <FormControl sx={{ m: 1}} >
       <Button  variant="contained" onClick={handleAdd} >Add</Button>
     </FormControl>
     <br/>

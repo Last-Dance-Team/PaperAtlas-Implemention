@@ -65,10 +65,10 @@ function DemoGraph(props:any) {
   const styleGraph  = [
     {
       
-      selector: 'node[type="Author"]',
+      selector: 'node[type="Author"][!pinned]',
       
       style: {
-        'background-color': '#ffd000',
+        'background-color': '#6693d6',
         
         
         content:'data(abbr)',
@@ -79,9 +79,35 @@ function DemoGraph(props:any) {
       }
     },
     {
-      selector: 'node[type="Paper"]',
+      
+      selector: 'node[type="Author"][?pinned]',
+      
+      style: {
+        'background-color': '#395277',
+        
+        
+        content:'data(abbr)',
+
+        width:setSize,
+        height:setSize,
+        
+      }
+    },
+    {
+      selector: 'node[type="Paper"][!pinned]',
       style: {
         'background-color': '#d185c7',
+        
+        content:'data(abbr)',
+        
+        width:setSize,
+        height:setSize
+      }
+    },
+    {
+      selector: 'node[type="Paper"][?pinned]',
+      style: {
+        'background-color': '#6b4666',
         
         content:'data(abbr)',
         
@@ -147,7 +173,6 @@ function DemoGraph(props:any) {
 
     
     cy.on('add', 'node', () => {
-  
       if (numNodesAdded === numNodesToAdd) {
         console.log("ever here")
         // animate the nodes to their final positions
