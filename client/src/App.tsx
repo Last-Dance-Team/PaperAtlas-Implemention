@@ -14,6 +14,7 @@ import LandingPage from './Landing page/LandingPage';
 
 const App: React.FC = () => {
   return (
+    
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/home" element={<HomePage />} />
