@@ -3,6 +3,15 @@ Here we are just creating the Cypher queries
 */
 
 var basicQueries = {
+    getAllRelations: function(){
+        return `MATCH (p1:Paper)-[r1]-(p2:Paper)
+        WHERE ID(p1) IN $paperIds AND ID(p2) IN $paperIds 
+        RETURN r1
+        UNION
+        MATCH (a:Author)-[r2]->(p:Paper)
+        WHERE ID(a) IN $authorIds AND ID(p) IN $paperIds
+        RETURN  r2 as r1`;
+    },
     getPapers: function() {
         return `MATCH (n:Paper)
             WHERE ID(n) IN $paperIds 
