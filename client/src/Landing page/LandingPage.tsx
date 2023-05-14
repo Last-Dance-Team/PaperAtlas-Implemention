@@ -146,10 +146,16 @@ function LandingPage() {
           <div className="slider-container">
             <Slider {...settings}>
               {reviews.map((review, index) => (
-                <Grid key={index} item xs={11} className="card-wrapper">
+                <Grid
+                  key={index}
+                  item
+                  xs={11}
+                  className="card-wrapper"
+                  style={{ height: "300px" }}
+                >
                   <Card
                     key={index}
-                    style={{ height: "100%", width: "100%" }}
+                    style={{ height: "150px", width: "100%" }}
                     className="card"
                   >
                     <CardContent>
@@ -197,13 +203,17 @@ function LandingPage() {
           <h2>PDF Reports</h2>
           <ul>
             <li>
-              <a href="/report1.pdf">Report 1</a>
+              <a href="http://localhost:80/reports/analyse.pdf">
+                Analysis and Requirement Report
+              </a>
             </li>
             <li>
-              <a href="/report2.pdf">Report 2</a>
+              <a href="http://localhost:80/reports/design.pdf">
+                Detailed Design Report
+              </a>
             </li>
             <li>
-              <a href="/report3.pdf">Report 3</a>
+              <a href="http://localhost:80/reports/finale.pdf">Final Report</a>
             </li>
           </ul>
         </div>
