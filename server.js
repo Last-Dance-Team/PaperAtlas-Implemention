@@ -236,8 +236,8 @@ async function getFeedbacks(req, res) {
 }
 
 async function getAllRelations(req, res){
-    var paperIds = req.body.ids;
-    var authorIds = req.body.id2s;
+    var paperIds = req.body.paperIds;
+    var authorIds = req.body.authorIds;
     if (!paperIds || !isArray(paperIds) || !authorIds || !isArray(authorIds) ) {
         res.status(500).json({ success: false });
         return;

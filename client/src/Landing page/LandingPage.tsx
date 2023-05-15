@@ -1,13 +1,13 @@
 import React from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
-import { Typography } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGem } from "@fortawesome/free-solid-svg-icons";
 import Slider from "react-slick";
 import { useState } from "react";
-import { Card, CardContent, Grid } from "@material-ui/core";
+import { Card, CardContent, Grid } from "@mui/material";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -109,7 +109,7 @@ function LandingPage() {
   return (
     <div className="app-container">
       <div className="center-container">
-        <FontAwesomeIcon
+      <FontAwesomeIcon
           icon={faGem}
           size="8x"
           style={{ color: "#2ac4c9", padding: 10 }}

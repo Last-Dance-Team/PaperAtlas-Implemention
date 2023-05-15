@@ -226,6 +226,9 @@ function HomePage(){
       nodes: [...elements.nodes, ...updatedNodes],
       edges: [...elements.edges, ...updatedEdges],
       };
+
+      //console.log(mergedElements.nodes)
+      addNodes([...elements.nodes, ...updatedNodes])
                                   
 
       setElements(  mergedElements)
@@ -236,6 +239,33 @@ function HomePage(){
 
     };
 
+    const addNodes = async(nodes: any[]) => {
+      const uniquePaperIds = new Set<number>();
+      const uniqueAuthorIds = new Set<number>();
+      nodes.forEach((node) => node.data.type === 'Paper' ? uniquePaperIds.add(Number(node.data.id)) : uniqueAuthorIds.add(Number(node.data.id)));
+
+      const body = {
+        paperIds: Array.from(uniquePaperIds),
+        authorIds: Array.from(uniqueAuthorIds)
+      }
+
+      console.log(body)
+      const response = await axios.put(`http://localhost:80/relations`, body);
+      const data = await response.data 
+
+      const updatedElements = {
+        nodes: nodes,
+        edges: data.edges,
+      }
+
+      setElements( updatedElements)
+      setFilteredElements(updatedElements)
+
+      setMinDate('')
+      setMaxDate('')
+
+    }
+
 
 
 
@@ -243,7 +273,7 @@ function HomePage(){
 
     const getReferences = async(paperId: string) => {
       console.log(paperId)
-      const response = await axios.get(`/getReferences/${paperId}`);
+      const response = await axios.get(`http://localhost:80/getReferences/${paperId}`);
       const data = await response.data 
       //console.log(data)
       addPapers(data.nodes)
@@ -253,7 +283,7 @@ function HomePage(){
 
     const getReferred = async(paperId: string) => {
       console.log(paperId)
-      const response = await axios.get(`/getReferred/${paperId}`);
+      const response = await axios.get(`http://localhost:80/getReferred/${paperId}`);
       const data = await response.data
       //console.log(data)
       addPapers(data.nodes)
@@ -389,21 +419,21 @@ function HomePage(){
       var maxDateNo = Number(maxDate) //source author target paper
       maxDateNo = maxDateNo ? maxDateNo : 3000
       const newNodes = elements.nodes.filter((obj : any ) => {
-        return (obj.data.year >= minDateNo && obj.data.year <= maxDateNo) || obj.data.type !="Paper"})
+        return obj.data.pinned || obj.data.type !="Paper" || (obj.data.year >= minDateNo && obj.data.year <= maxDateNo) })
         //obj.data.type !="Paper"
         //|| pinnedNodes.some((e) => e === obj.data.id)
         //|| ( obj.data.year >= minDateNo && obj.data.year <= maxDateNo)})
         
       const newIds = newNodes.map((obj : any ) => obj.data.id);
       const finalEdges = elements.edges.filter((obj : any ) => {
-        return newIds.includes(obj.data.target) })
+        return newIds.includes(obj.data.target) && newIds.includes(obj.data.source) })
       
       
       const newAuthorIds = finalEdges.map((obj : any ) => obj.data.source);
       const finalNodes = newNodes.filter((obj : any ) => {
         return obj.data.type =="Paper" || newAuthorIds.includes(obj.data.id) })
       const filteredElements = {
-        'nodes': finalNodes,
+        'nodes': newNodes,
         'edges': finalEdges
       }
       setFilteredElements(filteredElements)
@@ -480,6 +510,43 @@ function HomePage(){
 
       }
     }
+
+    const handleDownload = () => {
+      const jsonData = JSON.stringify(elements);
+      const blob = new Blob([jsonData], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'elements.json';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    };
+
+    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>): void => {
+      const file = event.target.files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e: ProgressEvent<FileReader>): void => {
+          const fileContent = e.target?.result as string;
+          try {
+            const jsonData = JSON.parse(fileContent);
+            // Do something with the JSON data
+            console.log(jsonData);
+            setElements( jsonData)
+            setFilteredElements(jsonData)
+
+            setMinDate('')
+            setMaxDate('')
+
+          } catch (error) {
+            console.error('Error parsing JSON file:', error);
+          }
+        };
+        reader.readAsText(file);
+      }
+    };
     
 
     const [name, setName] = useState('start');
@@ -526,6 +593,7 @@ function valuetext(value: number) {
           <AppBar position="fixed" open={open}>
             <Toolbar>
             <FontAwesomeIcon icon={faGem} size="2x" color="white" />
+
 
               <Typography variant="h5" noWrap sx={{ flexGrow: 1 }} component="div"  style={{ fontFamily: 'Georgia, serif', 
                          fontSize: '2rem', 
@@ -602,6 +670,12 @@ function valuetext(value: number) {
             </FormControl>
             <FormControl sx={{ m: 2}} >
               <Button variant="outlined" style={{ color: select ? '#0069d9' : 'grey' ,borderColor : select ? '#0069d9' : 'grey',}} onClick = {handleSelect}>Select</Button>                
+            </FormControl>
+            <FormControl sx={{ m: 2}} >
+              <Button variant="outlined" onClick={handleDownload} >Download</Button>
+            </FormControl>
+            <FormControl sx={{ m: 2}} >
+              <input type="file" onChange={handleFileUpload} />
             </FormControl>
             <GraphWithLayout 
               layoutName = {layoutName}  

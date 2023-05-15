@@ -32,6 +32,8 @@ const theme = createTheme({
 function NodeDetail(props: any){
     var node = props.node
 
+    const [info, setInfo] = React.useState({abstract: '', tldr: '', url: ''})
+
     const handleReference = () => {
         props.getReferences(node.id)
     }
@@ -58,6 +60,7 @@ function NodeDetail(props: any){
     const fetchInfo = async() => {
         const response = await axios.get(`http://localhost:80/paper/info/${props.node.id}`);
         const data = await response.data
+        setInfo(data)
         console.log(data)
     }
 
@@ -81,28 +84,32 @@ function NodeDetail(props: any){
                 <> { node.pinned && (<Button sx={{  m: 0, width:50 }} variant="contained" onClick = {handleUnpin}>Unpin</Button>)  }</>       
                 <ThemeProvider theme={theme}>
                     <Box sx={{  bgcolor: 'background.paper',}}>
-                        <Box sx={{  m: 1, color: 'text.secondary' }}><strong>Title: </strong>  </Box>
-                        <Box sx={{  m: 2, color: 'text.primary', fontSize: 20, fontWeight: 'medium'}}>{node.label}  </Box>
-                        <br/>
-                        <Box sx={{  m: 1, color: 'text.secondary' }}><strong>Publication Year: </strong>  </Box>
-                        <Box sx={{  m: 2, color: 'text.primary', fontSize: 20, fontWeight: 'medium'}}>{node.year}  </Box>
-                        <br/>
-                        <Box sx={{  m: 1, color: 'text.secondary' }}><strong>DOI: </strong>  </Box>
-                        <Box sx={{  m: 2, color: 'text.primary', fontSize: 20, fontWeight: 'medium'}}>{node.doi}  </Box>
-                        <br/>
-                        <Box sx={{ m: 1, color: 'text.secondary' }}><strong>Field of Study: </strong>  </Box>
+                        <Box sx={{  m: 1, color: 'text.secondary', fontSize: 16 }}><strong>Title: </strong>  </Box>
+                        <Box sx={{  m: 2, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}>{node.label}  </Box>
+                        
+                        <Box sx={{  m: 1, color: 'text.secondary', fontSize: 16 }}><strong>Publication Year: </strong>  </Box>
+                        <Box sx={{  m: 2, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}>{node.year}  </Box>
+                        
+                        <Box sx={{  m: 1, color: 'text.secondary', fontSize: 16 }}><strong>DOI: </strong>  </Box>
+                        <Box sx={{  m: 2, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}>{node.doi}  </Box>
+                        
+                        <Box sx={{ m: 1, color: 'text.secondary', fontSize: 16 }}><strong>Field of Study: </strong>  </Box>
 
                                 {node.uniqueFieldsOfStudies.map( (a: string) =>{
-                                    return(<Box key = {a} sx={{  m: 2, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}>{a}</Box>)
+                                    return(<Box key = {a} sx={{  m: 2, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}>{'- ' + a}</Box>)
                                 })}
 
-                                <br/>
-                        <Box sx={{  m: 1, color: 'text.secondary' }}><strong>Citation Count: </strong>  </Box>
-                        <Box sx={{  m: 2, color: 'text.primary', fontSize: 20, fontWeight: 'medium'}}>{node.citationCount}  </Box>
+                                
+                        <Box sx={{  m: 1, color: 'text.secondary', fontSize: 16 }}><strong>Citation Count: </strong>  </Box>
+                        <Box sx={{  m: 2, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}>{node.citationCount}  </Box>
 
-                        <br/>
-                        <Box sx={{  m: 2, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}> <a href= {node.url}>URL to Paper</a></Box>
-                    
+                        
+                        <Box sx={{  m: 2, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}> <a href= {info.url==='' ? node.url: info.url }>URL to Paper</a></Box>
+                        
+                        <>{info.abstract === '' ? (<></>) : (<>
+                            <Box sx={{  m: 1, color: 'text.secondary', fontSize: 16 }}><strong>Abstract: </strong>  </Box>
+                            <Box sx={{  m: 1, color: 'text.primary', fontSize: 16, fontWeight: 'medium'}}>{info.abstract}  </Box></>)
+                        }</>
                         <br/>
 
                     </Box>
