@@ -14,7 +14,7 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
-import { makeStyles } from '@mui/material';
+import { makeStyles } from 'tss-react/mui';
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 
@@ -69,7 +69,7 @@ declare module "@mui/material/styles" {
 }
 
 //For feedback dialog
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles()((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
@@ -115,7 +115,7 @@ type FeedbackDialogProps = {
 };
 
 const FeedbackDialog = ({ open, onClose }: FeedbackDialogProps) => {
-  const classes = useStyles();
+  const { classes } = useStyles()
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
   const [rating, setRating] = useState(0);
@@ -196,7 +196,7 @@ function LandingPage() {
     navigate("/home");
   };
 
-  const classes = useStyles();
+  const { classes } = useStyles()
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
