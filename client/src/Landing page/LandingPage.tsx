@@ -8,7 +8,15 @@ import { faGem } from "@fortawesome/free-solid-svg-icons";
 import Slider from "react-slick";
 import { useState } from "react";
 import { Card, CardContent, Grid } from "@material-ui/core";
-
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import StarIcon from "@material-ui/icons/Star";
+import StarBorderIcon from "@material-ui/icons/StarBorder";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 interface Review {
@@ -58,9 +66,127 @@ declare module "@mui/material/styles" {
     customColor?: PaletteOptions["primary"];
   }
 }
+
+//For feedback dialog
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100vh",
+    width: "100vw",
+    position: "fixed",
+    top: 0,
+    left: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    zIndex: 999,
+  },
+  dialogTitle: {
+    textAlign: "center",
+  },
+  starIcon: {
+    fontSize: "48px",
+    display: "flex",
+    justifyContent: "center",
+  },
+  dialog: {
+    maxWidth: "500px",
+    margin: "auto",
+  },
+  feedbackForm: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "16px",
+  },
+  rating: {
+    display: "flex",
+    gap: "8px",
+  },
+  star: {
+    cursor: "pointer",
+  },
+}));
+
+type FeedbackDialogProps = {
+  open: boolean;
+  onClose: () => void;
+};
+
+const FeedbackDialog = ({ open, onClose }: FeedbackDialogProps) => {
+  const classes = useStyles();
+  const [name, setName] = useState("");
+  const [content, setContent] = useState("");
+  const [rating, setRating] = useState(0);
+
+  const handleSubmit = () => {
+    // handle form submission
+    console.log(
+      `Submitting feedback: name=${name}, content=${content}, rating=${rating}`
+    );
+    onClose();
+  };
+
+  return (
+    <Dialog
+      open={open}
+      onClose={onClose}
+      aria-labelledby="feedback-dialog-title"
+      className={classes.dialog}
+      fullWidth
+    >
+      <DialogTitle id="feedback-dialog-title" className={classes.dialogTitle}>
+        Give Feedback
+      </DialogTitle>
+      <DialogContent style={{ padding: "24px" }}>
+        <form className={classes.feedbackForm} onSubmit={handleSubmit}>
+          <TextField
+            label="Name"
+            variant="outlined"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <TextField
+            label="Feedback"
+            variant="outlined"
+            multiline
+            rows={4}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            required
+          />
+          <Typography variant="subtitle1">Rating:</Typography>
+          <div className={classes.rating}>
+            {[1, 2, 3, 4, 5].map((value) => {
+              const Icon = value <= rating ? StarIcon : StarBorderIcon;
+              return (
+                <Icon
+                  key={value}
+                  className={classes.star}
+                  onClick={() => setRating(value)}
+                />
+              );
+            })}
+          </div>
+          <Button type="submit" variant="contained" style={buttonStyle}>
+            Submit
+          </Button>
+        </form>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
 function LandingPage() {
-  const handleGiveFeedback = () => {
-    // handle give feedback button click
+  const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false);
+
+  const handleOpenFeedbackDialog = () => {
+    setFeedbackDialogOpen(true);
+  };
+
+  const handleCloseFeedbackDialog = () => {
+    setFeedbackDialogOpen(false);
   };
 
   const navigate = useNavigate();
@@ -68,6 +194,8 @@ function LandingPage() {
   const handleStartApp = () => {
     navigate("/home");
   };
+
+  const classes = useStyles();
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -195,10 +323,18 @@ function LandingPage() {
           className="give-feedback-button"
           style={buttonStyle}
           variant="contained"
-          onClick={handleGiveFeedback}
+          onClick={handleOpenFeedbackDialog}
         >
           Give feedback
         </Button>
+        {feedbackDialogOpen && (
+          <div className={classes.root}>
+            <FeedbackDialog
+              open={feedbackDialogOpen}
+              onClose={handleCloseFeedbackDialog}
+            />
+          </div>
+        )}
         <div className="pdf-reports-section">
           <h2>PDF Reports</h2>
           <ul>
