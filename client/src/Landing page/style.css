@@ -115,7 +115,24 @@
 }
 
 .slider-container {
-  margin: 0 auto;
   padding: 0 19px;
   max-width: 1200px; /* adjust as needed */
+}
+
+.card-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+.review-card {
+  background-color: #fffefe;
+  border-radius: 5px;
+  width: 50%;
+  padding: 10px;
+  margin: 10px;
+  /* Add any other custom styles as needed */
+}
+.card {
+  width: 80%;
 }

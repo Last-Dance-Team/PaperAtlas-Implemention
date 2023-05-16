@@ -1,23 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGem } from "@fortawesome/free-solid-svg-icons";
 import Slider from "react-slick";
-import { useState } from "react";
 import { Card, CardContent, Grid } from "@mui/material";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  TextField,
-} from "@mui/material";
-import { makeStyles } from 'tss-react/mui';
+import { Dialog, DialogContent, DialogTitle, TextField } from "@mui/material";
+import { makeStyles } from "tss-react/mui";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-
+import axios from "axios";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 interface Review {
@@ -26,30 +20,29 @@ interface Review {
   comment: string;
 }
 
-const reviews = [
+const reviewsStatic = [
   {
     name: "John Doe",
-    stars: 5,
-    comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    surname: "John Doe",
+    point: 5,
+    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   },
   {
     name: "Jane Smith",
-    stars: 4,
-    comment:
+    surname: "John Doe",
+    point: 4,
+    message:
       "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.",
   },
   {
     name: "Bob Johnson",
-    stars: 3,
-    comment:
+    surname: "John Doe",
+    VTTCue: 3,
+    message:
       "Vivamus vestibulum lorem eu elit aliquet, vitae faucibus odio fringilla.",
   },
-  {
-    name: "Sarah Lee",
-    stars: 5,
-    comment: "Sed at mauris et mi rutrum lobortis eget quis odio.",
-  },
 ];
+
 const buttonStyle = {
   backgroundColor: "#2ac4c9",
   color: "#FFFFFF",
@@ -114,18 +107,51 @@ type FeedbackDialogProps = {
   onClose: () => void;
 };
 
+interface Review {
+  name: string;
+  surname: string;
+  mail: string;
+  message: string;
+  point: number;
+}
+
 const FeedbackDialog = ({ open, onClose }: FeedbackDialogProps) => {
-  const { classes } = useStyles()
+  const { classes } = useStyles();
   const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [email, setEmail] = useState("");
   const [content, setContent] = useState("");
   const [rating, setRating] = useState(0);
+  console.log("opern");
 
-  const handleSubmit = () => {
-    // handle form submission
-    console.log(
-      `Submitting feedback: name=${name}, content=${content}, rating=${rating}`
-    );
-    onClose();
+  const handleSubmit = async () => {
+    // Prepare the request body
+    // event.preventDefault();
+    console.log("handling submit");
+    const body = {
+      name: name,
+      surname: surname,
+      mail: email,
+      message: content,
+      point: rating,
+    };
+    console.log("body", body);
+    try {
+      // Send the PUT request to the server
+      const response = await axios.post("http://localhost:80/feedback", body);
+      console.log(response.data); // Handle the response as needed
+
+      // Close the feedback dialog and reset the form
+      setName("");
+      setSurname("");
+      setEmail("");
+      setContent("");
+      setRating(0);
+      onClose();
+    } catch (error) {
+      console.error(error);
+      // Handle any error that occurred during the request
+    }
   };
 
   return (
@@ -143,19 +169,33 @@ const FeedbackDialog = ({ open, onClose }: FeedbackDialogProps) => {
         <form className={classes.feedbackForm} onSubmit={handleSubmit}>
           <TextField
             label="Name"
-            variant="outlined"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            required
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Surname"
+            value={surname}
+            onChange={(e) => setSurname(e.target.value)}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            fullWidth
+            margin="normal"
           />
           <TextField
             label="Feedback"
-            variant="outlined"
-            multiline
-            rows={4}
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            required
+            multiline
+            rows={4}
+            fullWidth
+            margin="normal"
           />
           <Typography variant="subtitle1">Rating:</Typography>
           <div className={classes.rating}>
@@ -180,6 +220,21 @@ const FeedbackDialog = ({ open, onClose }: FeedbackDialogProps) => {
 };
 
 function LandingPage() {
+  const [reviews, setReviews] = useState<Review[]>([]);
+
+  useEffect(() => {
+    fetchReviews();
+  }, []);
+
+  const fetchReviews = async () => {
+    try {
+      const response = await axios.get("http://localhost:80/feedback");
+      console.log("response", response.data);
+      setReviews(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const [feedbackDialogOpen, setFeedbackDialogOpen] = useState(false);
 
   const handleOpenFeedbackDialog = () => {
@@ -196,7 +251,7 @@ function LandingPage() {
     navigate("/home");
   };
 
-  const { classes } = useStyles()
+  const { classes } = useStyles();
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -204,8 +259,9 @@ function LandingPage() {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: Math.min(3, reviews.length),
     slidesToScroll: 1,
+    variableWidth: false, // Enable variable width for the slides
     responsive: [
       {
         breakpoint: 1024,
@@ -238,7 +294,7 @@ function LandingPage() {
   return (
     <div className="app-container">
       <div className="center-container">
-      <FontAwesomeIcon
+        <FontAwesomeIcon
           icon={faGem}
           size="8x"
           style={{ color: "#2ac4c9", padding: 10 }}
@@ -275,47 +331,49 @@ function LandingPage() {
           <div className="slider-container">
             <Slider {...settings}>
               {reviews.map((review, index) => (
-                <Grid
-                  key={index}
-                  item
-                  xs={11}
-                  className="card-wrapper"
-                  style={{ height: "300px" }}
-                >
-                  <Card
+                <div key={index} className="review-card">
+                  <Grid
                     key={index}
-                    style={{ height: "150px", width: "100%" }}
-                    className="card"
+                    item
+                    xs={11}
+                    className="card-wrapper"
+                    style={{ height: "200px", margin: 20 }}
                   >
-                    <CardContent>
-                      <Typography variant="h6" component="h3">
-                        {review.name}
-                      </Typography>
-                      <Typography variant="caption">
-                        {Array(review.stars)
-                          .fill("")
-                          .map((_, i) => (
-                            <span key={i} className="star">
-                              ★
-                            </span>
-                          ))}
-                      </Typography>
-                      <Typography
-                        variant="body1"
-                        style={{
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          maxHeight: "80px",
-                          WebkitLineClamp: "4",
-                          display: "-webkit-box",
-                          WebkitBoxOrient: "vertical",
-                        }}
-                      >
-                        {review.comment}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
+                    <Card
+                      key={index}
+                      style={{ height: "150px", width: "100%" }}
+                      className="card"
+                    >
+                      <CardContent>
+                        <Typography variant="h6" component="h3">
+                          {review.name} {review.surname}
+                        </Typography>
+                        <Typography variant="caption">
+                          {Array(review.point)
+                            .fill("")
+                            .map((_, i) => (
+                              <span key={i} className="star">
+                                ★
+                              </span>
+                            ))}
+                        </Typography>
+                        <Typography
+                          variant="body1"
+                          style={{
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            maxHeight: "80px",
+                            WebkitLineClamp: "4",
+                            display: "-webkit-box",
+                            WebkitBoxOrient: "vertical",
+                          }}
+                        >
+                          {review.message}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                </div>
               ))}
             </Slider>
           </div>
