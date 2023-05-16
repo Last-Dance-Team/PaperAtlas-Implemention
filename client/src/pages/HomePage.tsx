@@ -15,6 +15,7 @@ import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import { styled, useTheme } from "@mui/material/styles";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Divider from "@mui/material/Divider";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -450,7 +451,7 @@ function HomePage() {
 
   const [minDate, setMinDate] = React.useState("");
   const [maxDate, setMaxDate] = React.useState("");
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const [node, setNode] = React.useState({ type: "" });
   const [drawerState, setDrawerState] = React.useState(0);
   const [select, setSelect] = React.useState(false);
@@ -534,18 +535,22 @@ function HomePage() {
   };
 
   const handleDrawerOpen = (node: any) => {
+    console.log("opening");
     setDrawerState(0);
     setOpen(true);
     setNode(node);
   };
 
   const handleDrawerOpenWithState = (node: any, state: number) => {
+    console.log("drawer state", state);
     setDrawerState(state);
     setOpen(true);
     setNode(node);
   };
 
   const handleDrawerClose = () => {
+    console.log("closing");
+
     setOpen(false);
   };
 
@@ -665,9 +670,15 @@ function HomePage() {
             sx={{ position: "right" }}
             component="div"
           >
-            <IconButton onClick={handleDrawerOpen}>
-              <ChevronLeftIcon style={{ color: COLOR_NAMES.WHITE }} />
-            </IconButton>
+            {open ? (
+              <IconButton color="inherit" onClick={handleDrawerClose}>
+                <ChevronRightIcon />
+              </IconButton>
+            ) : (
+              <IconButton color="inherit" onClick={handleDrawerOpen}>
+                <ChevronLeftIcon />
+              </IconButton>
+            )}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -711,7 +722,7 @@ function HomePage() {
             style={{ paddingLeft: 25 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={1} md={1} lg={2} xl={1}>
+              <Grid item xs={12} sm={1} md={1} lg={3} xl={1}>
                 <FormControl>
                   <InputLabel id="demo-simple-select-label">Layout</InputLabel>
                   <Select
@@ -731,7 +742,7 @@ function HomePage() {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sm={11} md={11} lg={10} xl={11}>
+              <Grid item xs={12} sm={11} md={11} lg={9} xl={11}>
                 <FormControl>
                   <div style={styles.root}>
                     <Slider
@@ -768,6 +779,7 @@ function HomePage() {
                     style={{
                       color: COLOR_NAMES.DARK_BLUE,
                       borderColor: COLOR_NAMES.DARK_BLUE,
+                      width: "120px",
                     }}
                   >
                     Filter
@@ -781,6 +793,7 @@ function HomePage() {
                     style={{
                       color: COLOR_NAMES.BLUE,
                       borderColor: COLOR_NAMES.BLUE,
+                      width: "120px",
                     }}
                     onClick={handleSelect}
                   >
@@ -796,6 +809,7 @@ function HomePage() {
                     style={{
                       color: COLOR_NAMES.BLUE,
                       borderColor: COLOR_NAMES.BLUE,
+                      width: "120px",
                     }}
                   >
                     Download
