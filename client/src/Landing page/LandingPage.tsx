@@ -14,6 +14,7 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import axios from "axios";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { COLOR_NAMES } from "../constants/Colors";
 interface Review {
   name: string;
   stars: number;
@@ -44,7 +45,7 @@ const reviewsStatic = [
 ];
 
 const buttonStyle = {
-  backgroundColor: "#2ac4c9",
+  backgroundColor: COLOR_NAMES.LIGHT_BLUE,
   color: "#FFFFFF",
   borderRadius: "20px",
   padding: "10px 20px",
@@ -297,7 +298,7 @@ function LandingPage() {
         <FontAwesomeIcon
           icon={faGem}
           size="8x"
-          style={{ color: "#2ac4c9", padding: 10 }}
+          style={{ color: COLOR_NAMES.LIGHT_BLUE, padding: 10 }}
         />
         <Typography
           variant="h2"
