@@ -81,7 +81,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 function HomePage() {
-  console.log("Home Page");
+  //console.log("Home Page");
 
   const [layoutName, setLaYoutName] = useState(LAYOUT_NAMES.KLAY);
   const [elements, setElements] = useState<{ nodes: any[]; edges: any[] }>({
@@ -102,13 +102,11 @@ function HomePage() {
     bringReferenced: number,
     distance: number
   ) => {
-    console.log("here");
-
     const body = {
       ids: ids,
       distance: distance,
     };
-    console.log(body);
+    //console.log(body);
     // "proxy": "http://localhost:80",
     if (graphType === "author") {
       const response = await axios.put(
@@ -172,7 +170,6 @@ function HomePage() {
       edges: updatedEdges,
     };
 
-    console.log("here");
     setElements(elements);
     setFilteredElements(elements);
 
@@ -191,7 +188,7 @@ function HomePage() {
       ids: ids,
       distance: distance,
     };
-    console.log(body);
+    //console.log(body);
     // "proxy": "http://localhost:80",
     if (graphType === "author") {
       const response = await axios.put(
@@ -281,7 +278,7 @@ function HomePage() {
       authorIds: Array.from(uniqueAuthorIds),
     };
 
-    console.log(body);
+    //console.log(body);
     const response = await axios.put(`http://localhost:80/relations`, body);
     const data = await response.data;
 
@@ -298,7 +295,7 @@ function HomePage() {
   };
 
   const getReferences = async (paperId: string) => {
-    console.log(paperId);
+    //console.log(paperId);
     const response = await axios.get(
       `http://localhost:80/getReferences/${paperId}`
     );
@@ -309,7 +306,7 @@ function HomePage() {
   };
 
   const getReferred = async (paperId: string) => {
-    console.log(paperId);
+    // console.log(paperId);
     const response = await axios.get(
       `http://localhost:80/getReferred/${paperId}`
     );
@@ -535,22 +532,18 @@ function HomePage() {
   };
 
   const handleDrawerOpen = (node: any) => {
-    console.log("opening");
     setDrawerState(0);
     setOpen(true);
     setNode(node);
   };
 
   const handleDrawerOpenWithState = (node: any, state: number) => {
-    console.log("drawer state", state);
     setDrawerState(state);
     setOpen(true);
     setNode(node);
   };
 
   const handleDrawerClose = () => {
-    console.log("closing");
-
     setOpen(false);
   };
 
@@ -768,7 +761,7 @@ function HomePage() {
             md={12}
             lg={5}
             xl={6}
-            style={{ paddingTop: 25 }}
+            style={{ paddingTop: 25, paddingLeft: 20 }}
           >
             <Grid container spacing={1}>
               <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
