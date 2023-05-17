@@ -82,11 +82,19 @@ function HomePage() {
     edges: [],
   });
 
+  const [showAdditionalButtons, setShowAdditionalButtons] = useState(false);
   const [filteredElements, setFilteredElements] = useState<{
     nodes: any[];
     edges: any[];
   }>({ nodes: [], edges: [] });
   const [pinnedNodes, setPinnedNodes] = useState<string[]>([]);
+
+
+  const [selectCommon, setSelectCommon] = React.useState(0);
+
+  const handleSelectCommon = () => {
+    setSelectCommon((selectCommon+1) % 2);
+  };
 
   const callBackendAPI = async (
     graphType: string,
@@ -541,6 +549,8 @@ function HomePage() {
   };
 
   const handleSelect = () => {
+    setShowAdditionalButtons(!showAdditionalButtons);
+    handleSelectCommon();
     setSelect((prevSelect) => !prevSelect);
     console.log(select);
     if (select === true) {
@@ -712,7 +722,7 @@ function HomePage() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Grid container spacing={1}>
+        <Grid container spacing={1} >
           <Grid
             item
             xs={12}
@@ -721,9 +731,10 @@ function HomePage() {
             lg={open ? 12 : 6}
             xl={open ? 12 : 6}
             style={{ paddingLeft: 25 }}
+            
           >
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={1} md={1} lg={3} xl={1}>
+            <Grid container spacing={2}  >
+              <Grid item xs={12} sm={1} md={1} lg={3} xl={1} >
                 <FormControl>
                   <InputLabel id="demo-simple-select-label">Layout</InputLabel>
                   <Select
@@ -772,36 +783,50 @@ function HomePage() {
             style={{ paddingTop: 25, paddingLeft: 20 }}
           >
             <Grid container spacing={1}>
+              
+           
               <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
+              
                 <FormControl>
                   <Button
-                    variant="outlined"
-                    onClick={filterAccordingToDate}
+                    variant="contained"
+                    component="span"
                     style={{
-                      color: COLOR_NAMES.DARK_BLUE,
-                      borderColor: COLOR_NAMES.DARK_BLUE,
-                      width: "120px",
-                    }}
-                  >
-                    Filter
-                  </Button>
-                </FormControl>
-              </Grid>
-              <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
-                <FormControl>
-                  <Button
-                    variant="outlined"
-                    style={{
-                      color: COLOR_NAMES.BLUE,
-                      borderColor: COLOR_NAMES.BLUE,
+                      color: !selectCommon ? COLOR_NAMES.BLUE : 'white',
+                      borderColor : COLOR_NAMES.BLUE,
+                      backgroundColor : !selectCommon ? 'white' : COLOR_NAMES.BLUE,
                       width: "120px",
                     }}
                     onClick={handleSelect}
                   >
-                    Select
+                    Find Common
                   </Button>
+                  
                 </FormControl>
+                
+                
+                {showAdditionalButtons && (
+              <Grid item xs={9} sm={9} md={9} lg={9} xl={9}>
+                <div style={{ display: 'flex',flexDirection: 'row' , height: '100%',
+                  }}>
+                  <Button variant="contained" style={{ width: '120px', marginTop: '10px' }}>
+                    Bring References
+                  </Button>
+
+                  <Button variant="contained" style={{ width: '120px', marginTop: '10px' }}>
+                    Bring Referring Papers
+                  </Button>
+
+                  <Button variant="contained" style={{ width: '120px', marginTop: '10px' }}>
+                    Find Common Papers 
+                  </Button>
+                </div>
               </Grid>
+            )}
+</Grid>
+
+              
+      
               <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
                 <FormControl>
                   <Button

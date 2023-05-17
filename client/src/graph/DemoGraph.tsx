@@ -81,7 +81,9 @@ function DemoGraph(props: any) {
 
       style: {
         "background-color": "#395277",
-
+        "background-image": `url(https://last-dance-team.github.io/PaperAtlas/person-circle.png)`, // Use the absolute file path of the image
+        "background-fit": "cover",
+        "background-image-opacity": 0.2,
         content: "data(abbr)",
 
         width: setSize,
@@ -94,7 +96,7 @@ function DemoGraph(props: any) {
         "background-image": `url(https://last-dance-team.github.io/PaperAtlas/paper.png)`, // Use the absolute file path of the image
         "background-fit": "cover",
         "background-image-opacity": 1,
-        "background-color": "#d185c7",
+        //"background-color": "#d185c7",
 
         content: "data(abbr)",
 
@@ -105,8 +107,10 @@ function DemoGraph(props: any) {
     {
       selector: 'node[type="Paper"][?selected]',
       style: {
-        "background-color": "#6b4666",
-
+        "background-image": `url(https://last-dance-team.github.io/PaperAtlas/paper.png)`, // Use the absolute file path of the image
+        "background-fit": "cover",
+        "background-image-opacity": 0.2,
+        "background-color": "#d185c7",
         content: "data(abbr)",
 
         width: setSize,
