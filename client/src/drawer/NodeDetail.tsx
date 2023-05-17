@@ -302,7 +302,7 @@ function NodeDetail(props: any) {
             </Box>
             <Box
               sx={{
-                m: 2,
+                m: 1,
                 color: "text.primary",
                 fontSize: 16,
                 fontWeight: "medium",
@@ -315,7 +315,7 @@ function NodeDetail(props: any) {
             </Box>
             <Box
               sx={{
-                m: 2,
+                m: 1,
                 color: "text.primary",
                 fontSize: 16,
                 fontWeight: "medium",
