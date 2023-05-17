@@ -36,18 +36,11 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
 }>(({ theme, open }) => ({
   flexGrow: 1,
   padding: theme.spacing(3),
-  transition: theme.transitions.create("margin", {
+  transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  marginRight: -drawerWidth,
-  ...(open && {
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginRight: 0,
-  }),
+  width: open ? `calc(100% - ${drawerWidth}px)` : "100%",
 }));
 
 interface AppBarProps extends MuiAppBarProps {
@@ -702,7 +695,7 @@ function HomePage() {
           updatePin={updatePin}
         />
       </Drawer>
-      <Main open={open} style={{ marginRight: "0" }}>
+      <Main open={open}>
         <DrawerHeader />
         <Grid container spacing={1}>
           <Grid
@@ -710,8 +703,8 @@ function HomePage() {
             xs={12}
             sm={12}
             md={12}
-            lg={6}
-            xl={6}
+            lg={open ? 12 : 6}
+            xl={open ? 12 : 6}
             style={{ paddingLeft: 25 }}
           >
             <Grid container spacing={2}>
@@ -759,8 +752,8 @@ function HomePage() {
             xs={12}
             sm={12}
             md={12}
-            lg={5}
-            xl={6}
+            lg={open ? 12 : 5}
+            xl={open ? 12 : 6}
             style={{ paddingTop: 25, paddingLeft: 20 }}
           >
             <Grid container spacing={1}>
