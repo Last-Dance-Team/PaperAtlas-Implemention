@@ -90,11 +90,10 @@ function HomePage() {
   }>({ nodes: [], edges: [] });
   const [pinnedNodes, setPinnedNodes] = useState<string[]>([]);
 
-
   const [selectCommon, setSelectCommon] = React.useState(0);
 
   const handleSelectCommon = () => {
-    setSelectCommon((selectCommon+1) % 2);
+    setSelectCommon((selectCommon + 1) % 2);
   };
 
   const callBackendAPI = async (
@@ -733,7 +732,7 @@ function HomePage() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Grid container spacing={1} >
+        <Grid container spacing={1}>
           <Grid
             item
             xs={12}
@@ -742,10 +741,9 @@ function HomePage() {
             lg={open ? 12 : 6}
             xl={open ? 12 : 6}
             style={{ paddingLeft: 25 }}
-            
           >
-            <Grid container spacing={2}  >
-              <Grid item xs={12} sm={1} md={1} lg={3} xl={1} >
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={1} md={1} lg={3} xl={1}>
                 <FormControl>
                   <InputLabel id="demo-simple-select-label">Layout</InputLabel>
                   <Select
@@ -789,55 +787,82 @@ function HomePage() {
             xs={12}
             sm={12}
             md={12}
-            lg={open ? 12 : 5}
+            lg={open ? 12 : 6}
             xl={open ? 12 : 6}
             style={{ paddingTop: 25, paddingLeft: 20 }}
           >
-            <Grid container spacing={1}>
-              
-           
+            <Grid container>
               <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
-              
                 <FormControl>
                   <Button
                     variant="contained"
                     component="span"
                     style={{
-                      color: !selectCommon ? COLOR_NAMES.BLUE : 'white',
-                      borderColor : COLOR_NAMES.BLUE,
-                      backgroundColor : !selectCommon ? 'white' : COLOR_NAMES.BLUE,
+                      color: !selectCommon ? COLOR_NAMES.BLUE : "white",
+                      borderColor: COLOR_NAMES.BLUE,
+                      backgroundColor: !selectCommon
+                        ? "white"
+                        : COLOR_NAMES.BLUE,
                       width: "120px",
+                      height: "100%", // Set the height to 100%
                     }}
                     onClick={handleSelect}
                   >
                     Find Common
                   </Button>
-                  
                 </FormControl>
-                
-                
-                {showAdditionalButtons && (
-              <Grid item xs={9} sm={9} md={9} lg={9} xl={9}>
-                <div style={{ display: 'flex',flexDirection: 'row' , height: '100%',
-                  }}>
-                  <Button variant="contained" style={{ width: '120px', marginTop: '10px' }}>
-                    Bring References
-                  </Button>
-
-                  <Button variant="contained" style={{ width: '120px', marginTop: '10px' }}>
-                    Bring Referring Papers
-                  </Button>
-
-                  <Button variant="contained" style={{ width: '120px', marginTop: '10px' }}>
-                    Find Common Papers 
-                  </Button>
-                </div>
               </Grid>
-            )}
-</Grid>
 
-              
-      
+              {showAdditionalButtons && (
+                <Grid item xs={3} sm={3} md={3} lg={4} xl={6}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column", // Change row to column
+                      alignItems: "flex-start", // Align buttons to the left
+                      justifyContent: "space-between", // Align buttons in the center vertically
+                      height: "100%",
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      size="small"
+                      style={{
+                        height: "33%", // Set the height to one-third of the container height
+                        marginBottom: "3px",
+                        fontSize: "10px",
+                      }} // Use marginBottom instead of marginTop for spacing
+                    >
+                      Bring References
+                    </Button>
+
+                    <Button
+                      variant="contained"
+                      size="small"
+                      style={{
+                        height: "33%", // Set the height to one-third of the container height
+                        marginBottom: "3px",
+                        fontSize: "10px",
+                      }}
+                    >
+                      Bring Referring Papers
+                    </Button>
+
+                    <Button
+                      variant="contained"
+                      size="small"
+                      style={{
+                        height: "33%", // Set the height to one-third of the container height
+                        marginBottom: "3px",
+                        fontSize: "10px",
+                      }}
+                    >
+                      Find Common Papers
+                    </Button>
+                  </div>
+                </Grid>
+              )}
+
               <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
                 <FormControl>
                   <Button
@@ -853,7 +878,7 @@ function HomePage() {
                   </Button>
                 </FormControl>
               </Grid>
-              <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
+              <Grid item xs={3} sm={3} md={3} lg={2} xl={3}>
                 <FormControl>
                   <label htmlFor="file-upload">
                     <Button
