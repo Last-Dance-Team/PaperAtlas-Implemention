@@ -167,6 +167,17 @@ function getCommonReferences(req, res) {
     });
 }
 
+function getCommonPapersThatRefer(req, res) {
+    paperIds = req.body.ids;
+    if (!paperIds || !isArray(paperIds)) {
+        res.status(500).json({ success: false });
+        return;
+    }
+    databaseController.getCommonPapersThatRefer(paperIds).then((data) => {
+        res.json(data);
+    });
+}
+
 function getAuthorWithPage(req, res) {
     console.log("req.params.pageNo", req.params.pageNo);
 
@@ -271,7 +282,7 @@ async function getAllRelations(req, res) {
 
 }
 
-function getAuthorAuthorRelation(req, res){
+function getAuthorAuthorRelation(req, res) {
     databaseController
         .getAuthorAuthorRelation(req.params.id)
         .then((data) => {
@@ -296,6 +307,7 @@ app.put("/add/paper/dist/referredBy", getPapersWithDistanceToPapersThatReferThem
 app.put("/add/paper/dist", getPapersWithDistanceBothDirections); // distance
 app.put("/add/commonPapers", getCommonPapers);
 app.put("/add/commonReferences", getCommonReferences);
+app.put("/add/commonPapersThatRefer", getCommonPapersThatRefer);
 
 app.get("/paper/info/:id", getInfo)
 
