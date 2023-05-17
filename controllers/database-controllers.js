@@ -5,6 +5,51 @@ var basicQueries = require("../public/js/database/basic-queries");
 const dbService = require("../public/js/database/db-service");
 
 var dbControllers = {
+    getAuthorAuthorRelation: async function(authorId) {
+        let query = basicQueries.getAuthorAuthorRelation(authorId);
+        var queryData = {};
+        var data = { query: query, queryData: queryData };
+        let resp = await dbService.runQuery(data);
+
+        var authorResp = resp.records;
+        var authors = [];
+        var edges = [];
+
+        for (let j = 0; j < authorResp.length; j++) {
+            var curProperties = authorResp[j]._fields[0].properties;
+            var author = {
+                data: {
+                    type: "Author",
+                    label: curProperties.name,
+                    authorId: curProperties.authorId,
+                    id: String(authorResp[j]._fields[0].identity.low),
+                    url: curProperties.url,
+                    citationCount: curProperties.citationCount.low,
+                    aliases: curProperties.aliases,
+                    paperCount: curProperties.paperCount.low,
+                    orhids: curProperties.orhids,
+                    affiliations: curProperties.affiliations,
+                    homepage: curProperties.homepage,
+                    hindex: curProperties.hindex.low,
+                    pinned: false,
+                },
+                position: { x: 0, y: 0 },
+            };
+            authors.push(author);
+
+            var pushEdge = {
+                data: {
+                    source: authorId,
+                    target: String(authorResp[j]._fields[0].identity.low),
+                    label: "a-referenced-author-of",
+                },
+            };
+            edges.push(pushEdge)
+        }
+
+        return { authors: authors, edges: edges };
+
+    },
     getAllRelations: async function(paperIds, authorIds) {
         let query = basicQueries.getAllRelations();
 
@@ -1100,6 +1145,186 @@ var dbControllers = {
 
                 paperSet = newPaperSet;
             }
+        }
+
+        let query = basicQueries.getPapers();
+
+        var queryData = { paperIds: Array.from(paperSet) };
+        var data = { query: query, queryData: queryData };
+        let resp = await dbService.runQuery(data);
+
+        var records = resp.records;
+        var nodes = [];
+        var edges = [];
+
+        for (let j = 0; j < records.length; j++) {
+            var cur = records[j];
+            var curPaper = cur._fields[0].properties;
+
+            var pushPaperNode = {
+                data: {
+                    type: "Paper",
+                    label: curPaper.title,
+                    id: String(cur._fields[0].identity.low),
+                    paperId: curPaper.paperId.low,
+                    url: curPaper.url,
+                    citationCount: curPaper.citationCount.low,
+                    venue: curPaper.venue,
+                    journalName: curPaper.journalName,
+                    uniqueFieldsOfStudies: curPaper.uniqueFieldsOfStudies,
+                    year: curPaper.year.low,
+                    publicationTypes: curPaper.publicationTypes,
+                    acl: curPaper.acl,
+                    dblp: curPaper.dblp,
+                    journalPages: curPaper.journalPages,
+                    mag: curPaper.mag,
+                    pubmed: curPaper.pubmed,
+                    referenceCount: curPaper.referenceCount.low,
+                    arXiv: curPaper.arXiv,
+                    influentialCitaitonCount: curPaper.influentialCitaitonCount,
+                    journalVolume: curPaper.journalVolume,
+                    isOpenAccess: curPaper.isOpenAccess,
+                    pubMedCentral: curPaper.pubMedCentral,
+                    publicationDate: curPaper.publicationDate,
+                    doi: curPaper.doi,
+                    pinned: false,
+                    selected: false,
+                },
+                position: { x: 0, y: 0 },
+            };
+            nodes.push(pushPaperNode);
+
+            var curRel = cur._fields[1];
+            if (curRel) {
+                var pushEdge = {
+                    data: {
+                        source: String(curRel.start.low),
+                        target: String(curRel.end.low),
+                        label: "a-reference-of",
+                    },
+                };
+
+                edges.push(pushEdge);
+            }
+        }
+
+        return { nodes: nodes, edges: edges };
+    },
+    getCommonReferences: async function(paperIds) {
+        paperSet = new Set();
+
+        for (let i = 0; i < paperIds.length; i++) {
+            newPaperSet = new Set();
+            let id = paperIds[i];
+            let query = basicQueries.getReferencesOfPaper(id);
+            var queryData = {};
+            var data = { query: query, queryData: queryData };
+            let resp = await dbService.runQuery(data);
+            console.log("resp", resp);
+
+            //Process the data
+            if (resp.records.length > 0) {
+                var papers = resp.records[0]._fields[1];
+
+                //Adding papers to set
+                for (let j = 0; j < papers.length; j++) {
+                    if (i == 0 || paperSet.has(papers[j].identity.low)) {
+                        newPaperSet.add(papers[j].identity.low);
+                    }
+                }
+
+            }
+            paperSet = newPaperSet;
+        }
+
+        let query = basicQueries.getPapers();
+
+        var queryData = { paperIds: Array.from(paperSet) };
+        var data = { query: query, queryData: queryData };
+        let resp = await dbService.runQuery(data);
+
+        var records = resp.records;
+        var nodes = [];
+        var edges = [];
+
+        for (let j = 0; j < records.length; j++) {
+            var cur = records[j];
+            var curPaper = cur._fields[0].properties;
+
+            var pushPaperNode = {
+                data: {
+                    type: "Paper",
+                    label: curPaper.title,
+                    id: String(cur._fields[0].identity.low),
+                    paperId: curPaper.paperId.low,
+                    url: curPaper.url,
+                    citationCount: curPaper.citationCount.low,
+                    venue: curPaper.venue,
+                    journalName: curPaper.journalName,
+                    uniqueFieldsOfStudies: curPaper.uniqueFieldsOfStudies,
+                    year: curPaper.year.low,
+                    publicationTypes: curPaper.publicationTypes,
+                    acl: curPaper.acl,
+                    dblp: curPaper.dblp,
+                    journalPages: curPaper.journalPages,
+                    mag: curPaper.mag,
+                    pubmed: curPaper.pubmed,
+                    referenceCount: curPaper.referenceCount.low,
+                    arXiv: curPaper.arXiv,
+                    influentialCitaitonCount: curPaper.influentialCitaitonCount,
+                    journalVolume: curPaper.journalVolume,
+                    isOpenAccess: curPaper.isOpenAccess,
+                    pubMedCentral: curPaper.pubMedCentral,
+                    publicationDate: curPaper.publicationDate,
+                    doi: curPaper.doi,
+                    pinned: false,
+                    selected: false,
+                },
+                position: { x: 0, y: 0 },
+            };
+            nodes.push(pushPaperNode);
+
+            var curRel = cur._fields[1];
+            if (curRel) {
+                var pushEdge = {
+                    data: {
+                        source: String(curRel.start.low),
+                        target: String(curRel.end.low),
+                        label: "a-reference-of",
+                    },
+                };
+
+                edges.push(pushEdge);
+            }
+        }
+
+        return { nodes: nodes, edges: edges };
+    },
+    getCommonPapersThatRefer: async function(paperIds) {
+        paperSet = new Set();
+
+        for (let i = 0; i < paperIds.length; i++) {
+            newPaperSet = new Set();
+            let id = paperIds[i];
+            let query = basicQueries.getReferred(id);
+            var queryData = {};
+            var data = { query: query, queryData: queryData };
+            let resp = await dbService.runQuery(data);
+            console.log("resp", resp);
+
+            //Process the data
+            if (resp.records.length > 0) {
+                var papers = resp.records[0]._fields[0];
+
+                //Adding papers to set
+                for (let j = 0; j < papers.length; j++) {
+                    if (i == 0 || paperSet.has(papers[j].identity.low)) {
+                        newPaperSet.add(papers[j].identity.low);
+                    }
+                }
+            }
+
+            paperSet = newPaperSet;
         }
 
         let query = basicQueries.getPapers();
