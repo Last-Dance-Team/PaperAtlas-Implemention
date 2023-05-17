@@ -558,16 +558,21 @@ function HomePage() {
   };
 
   const handleDownload = () => {
-    const jsonData = JSON.stringify(elements);
-    const blob = new Blob([jsonData], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "elements.json";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    console.log("download elements", elements);
+    if (elements.nodes.length == 0) {
+      window.alert("No nodes in canvas!");
+    } else {
+      const jsonData = JSON.stringify(elements);
+      const blob = new Blob([jsonData], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "elements.json";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
   };
 
   const handleFileUpload = (
@@ -580,7 +585,16 @@ function HomePage() {
         const fileContent = e.target?.result as string;
         try {
           const jsonData = JSON.parse(fileContent);
+          if (elements.nodes.length > 0) {
+            const confirmOverride = window.confirm(
+              "Are you sure you want to override your current elements?"
+            );
+            if (!confirmOverride) {
+              return;
+            }
+          }
           // Do something with the JSON data
+
           console.log(jsonData);
           setElements(jsonData);
           setFilteredElements(jsonData);
@@ -589,6 +603,7 @@ function HomePage() {
           setMaxDate("");
         } catch (error) {
           console.error("Error parsing JSON file:", error);
+          window.alert("Invalid JSON file. Please upload a valid JSON file.");
         }
       };
       reader.readAsText(file);
