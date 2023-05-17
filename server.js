@@ -144,6 +144,18 @@ function getPapers(req, res) {
     });
 }
 
+function getCommonPapers(req, res) {
+    authorIds = req.body.ids;
+    if (!authorIds || !isArray(authorIds)) {
+        res.status(500).json({ success: false });
+        return;
+    }
+    databaseController.getCommonPapers(authorIds).then((data) => {
+        res.json(data);
+    });
+}
+
+
 function getAuthorWithPage(req, res) {
     console.log("req.params.pageNo", req.params.pageNo);
 
@@ -212,37 +224,37 @@ function getInfo(req, res) {
 
 
 async function sendFeedback(req, res) {
-  try {
-    const feedback = await Feedback.create({
-      name: req.body.name,
-      surname: req.body.surname,
-      point: req.body.point,
-      message: req.body.message,
-      mail: req.body.mail,
-    });
-    return res.status(201).json({ message: "Feedback saved successfully!" });
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
-  }
+    try {
+        const feedback = await Feedback.create({
+            name: req.body.name,
+            surname: req.body.surname,
+            point: req.body.point,
+            message: req.body.message,
+            mail: req.body.mail,
+        });
+        return res.status(201).json({ message: "Feedback saved successfully!" });
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
 }
 
 async function getFeedbacks(req, res) {
-  try {
-    const feedbacks = await Feedback.findAll();
-    return res.status(200).json(feedbacks);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
-  }
+    try {
+        const feedbacks = await Feedback.findAll();
+        return res.status(200).json(feedbacks);
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
 }
 
-async function getAllRelations(req, res){
+async function getAllRelations(req, res) {
     var paperIds = req.body.paperIds;
     var authorIds = req.body.authorIds;
-    if (!paperIds || !isArray(paperIds) || !authorIds || !isArray(authorIds) ) {
+    if (!paperIds || !isArray(paperIds) || !authorIds || !isArray(authorIds)) {
         res.status(500).json({ success: false });
         return;
     }
-    databaseController.getAllRelations(paperIds,authorIds).then((data) => {
+    databaseController.getAllRelations(paperIds, authorIds).then((data) => {
         res.json(data);
     });
 
@@ -263,13 +275,14 @@ app.put("/add/paper", getPapers);
 app.put("/add/paper/dist/reference", getPapersWithDistanceToTheirReferences); // distance
 app.put("/add/paper/dist/referredBy", getPapersWithDistanceToPapersThatReferThem); // distance
 app.put("/add/paper/dist", getPapersWithDistanceBothDirections); // distance
+app.put("/add/commonPapers", getCommonPapers);
 
 app.get("/paper/info/:id", getInfo)
 
 app.post("/feedback", sendFeedback)
 app.get("/feedback", getFeedbacks)
 
-app.put("/relations",getAllRelations);
+app.put("/relations", getAllRelations);
 
 //---
 app.get("/page/getAuthor/:name/:pageNo", getAuthorWithPage);
@@ -280,4 +293,3 @@ server.listen(port, function() {
 });
 
 app.use(express.static(__dirname, { dotfiles: "ignore" }));
-
