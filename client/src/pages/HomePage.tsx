@@ -28,6 +28,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGem } from "@fortawesome/free-solid-svg-icons";
 import { COLOR_NAMES } from "../constants/Colors";
 import { Grid } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 500;
 
@@ -648,27 +649,37 @@ function HomePage() {
     <div>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar style={{ backgroundColor: COLOR_NAMES.LIGHT_BLUE }}>
-          <FontAwesomeIcon icon={faGem} size="2x" color="white" />
-
-          <Typography
-            variant="h5"
-            noWrap
-            sx={{ flexGrow: 1 }}
-            component="div"
+        <Toolbar
+          style={{ backgroundColor: COLOR_NAMES.LIGHT_BLUE, display: "flex" }}
+        >
+          <Link
+            to="/"
             style={{
-              fontFamily: "Georgia, serif",
-              fontSize: "2rem",
-              color: "#fff",
-              paddingLeft: "16px",
+              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
             }}
           >
-            Paper Atlas
-          </Typography>
+            <FontAwesomeIcon icon={faGem} size="2x" color="white" />
+            <Typography
+              variant="h5"
+              noWrap
+              sx={{ flexGrow: 1 }}
+              component="div"
+              style={{
+                fontFamily: "Georgia, serif",
+                fontSize: "2rem",
+                color: "#fff",
+                paddingLeft: "16px",
+              }}
+            >
+              Paper Atlas
+            </Typography>
+          </Link>
           <Typography
             variant="h6"
             noWrap
-            sx={{ position: "right" }}
+            sx={{ marginLeft: "auto" }}
             component="div"
           >
             {open ? (
