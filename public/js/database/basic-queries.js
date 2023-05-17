@@ -3,6 +3,11 @@ Here we are just creating the Cypher queries
 */
 
 var basicQueries = {
+    getAuthorAuthorRelation: function(authorId){
+        return "MATCH (a:Author)-[d:`an-author-of`]->(p:Paper)-[e:`a-reference-of`]->(r:Paper)<-[b:`an-author-of`]-(a2:Author) "+
+        "WHERE id(a) = "+ authorId+
+        " RETURN DISTINCT a2"
+    },
     getAllRelations: function(){
         return `MATCH (p1:Paper)-[r1]-(p2:Paper)
         WHERE ID(p1) IN $paperIds AND ID(p2) IN $paperIds 

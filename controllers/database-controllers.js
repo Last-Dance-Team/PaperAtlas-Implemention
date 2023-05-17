@@ -5,6 +5,51 @@ var basicQueries = require("../public/js/database/basic-queries");
 const dbService = require("../public/js/database/db-service");
 
 var dbControllers = {
+getAuthorAuthorRelation: async function(authorId){
+        let query = basicQueries.getAuthorAuthorRelation(authorId);
+        var queryData = {};
+        var data = { query: query, queryData: queryData };
+        let resp = await dbService.runQuery(data);
+
+        var authorResp = resp.records;
+        var authors = [];
+        var edges = [];
+
+        for (let j = 0; j < authorResp.length; j++) {
+            var curProperties = authorResp[j]._fields[0].properties;
+            var author = {
+                data: {
+                    type: "Author",
+                    label: curProperties.name,
+                    authorId: curProperties.authorId,
+                    id: String(authorResp[j]._fields[0].identity.low),
+                    url: curProperties.url,
+                    citationCount: curProperties.citationCount.low,
+                    aliases: curProperties.aliases,
+                    paperCount: curProperties.paperCount.low,
+                    orhids: curProperties.orhids,
+                    affiliations: curProperties.affiliations,
+                    homepage: curProperties.homepage,
+                    hindex: curProperties.hindex.low,
+                    pinned: false,
+                },
+                position: { x: 0, y: 0 },
+            };
+            authors.push(author);
+
+            var pushEdge = {
+                    data: {
+                        source: authorId,
+                        target: String(authorResp[j]._fields[0].identity.low),
+                        label: "a-referenced-author-of",
+                    },
+                };
+            edges.push(pushEdge)
+        }
+
+        return {authors:authors,edges:edges};
+
+    },
     getAllRelations: async function(paperIds, authorIds) {
         let query = basicQueries.getAllRelations();
 

@@ -260,6 +260,14 @@ async function getAllRelations(req, res) {
 
 }
 
+function getAuthorAuthorRelation(req, res){
+    databaseController
+        .getAuthorAuthorRelation(req.params.id)
+        .then((data) => {
+            res.json(data);
+        });
+}
+
 
 //Endpoints
 app.get("/search/paper/:name/", getPaper);
@@ -283,6 +291,8 @@ app.post("/feedback", sendFeedback)
 app.get("/feedback", getFeedbacks)
 
 app.put("/relations", getAllRelations);
+
+app.get("/getAuthorAuthorRelation/:id", getAuthorAuthorRelation)
 
 //---
 app.get("/page/getAuthor/:name/:pageNo", getAuthorWithPage);
