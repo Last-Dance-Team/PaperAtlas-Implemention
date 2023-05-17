@@ -164,10 +164,15 @@ export default function SearchBar(props: any) {
         });
       });
     }
+    console.log("newList", newList);
 
+    if (newList.length == 0) {
+      window.alert("No results were found!");
+      setHideButtons(true);
+      setPapers([]);
+      return;
+    }
     setPapers(newList);
-
-    console.log(body);
   };
 
   React.useEffect(() => {}, [papers]);
@@ -216,6 +221,10 @@ export default function SearchBar(props: any) {
   const handleReferencedButtonClick = () => {
     setBringReferenced((bringReferenced + 1) % 2);
   };
+
+  const selectedCheckboxes = papers.filter((paper) => paper.checked);
+
+  const isAddButtonDisabled = selectedCheckboxes.length === 0;
 
   return (
     <div className={"search-bar-body"}>
@@ -361,7 +370,11 @@ export default function SearchBar(props: any) {
           <Button onClick={handleSelectNone}>Select None</Button>
         </FormControl>
         <FormControl sx={{ m: 1 }}>
-          <Button variant="contained" onClick={handleAdd}>
+          <Button
+            variant="contained"
+            onClick={handleAdd}
+            disabled={isAddButtonDisabled}
+          >
             Add
           </Button>
         </FormControl>
