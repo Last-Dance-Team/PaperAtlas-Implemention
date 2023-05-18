@@ -241,6 +241,11 @@ function getInfo(req, res) {
         })
         .catch(function(error) {
             console.log(error);
+            res.send({
+                abstract: "",
+                url: "",
+                tldr: ""
+            });
         });
 }
 
