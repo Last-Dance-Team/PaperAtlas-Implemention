@@ -47,7 +47,8 @@ const array_area = [
   "Political Science",
   "Medicine",
   "Biology",
-  "Environmental Science"
+  "Environmental Science",
+  "Physics"
 ];
 
 function Filter(props: any) {

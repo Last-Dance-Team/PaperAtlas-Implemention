@@ -527,7 +527,7 @@ function HomePage() {
 
     setElements(newElements);
     //applyDateFilter(value[0], value[1],newElements);
-    applyFilters(value[0], value[1], citationCount.min,citationCount.max, selectedFields,filterType,elements)
+    applyFilters(value[0], value[1], citationCount.min,citationCount.max, selectedFields,filterType,newElements)
     //handleDrawerOpenWithState(node.data, 1)
   };
 
@@ -547,7 +547,7 @@ function HomePage() {
 
     setElements(newElements);
     //applyDateFilter(value[0], value[1], newElements);
-    applyFilters(value[0], value[1], citationCount.min,citationCount.max, selectedFields,filterType,elements)
+    applyFilters(value[0], value[1], citationCount.min,citationCount.max, selectedFields,filterType,newElements)
     handleDrawerOpenWithState(node.data, 1);
   };
   const remove = (nodeId: string) => {
@@ -567,7 +567,7 @@ function HomePage() {
 
     setElements(newElements);
     //applyDateFilter(value[0], value[1], newElements);
-    applyFilters(value[0], value[1], citationCount.min,citationCount.max, selectedFields,filterType,elements)
+    applyFilters(value[0], value[1], citationCount.min,citationCount.max, selectedFields,filterType,newElements)
   };
 
   useEffect(() => {}, []);
@@ -683,6 +683,8 @@ function HomePage() {
     filterType: string, 
     elements: { nodes: any[]; edges: any[]},
     ) => {
+
+      console.log(minCitation)
       
 
       let pinnedNodes : any[] = []
@@ -709,7 +711,7 @@ function HomePage() {
         });
       }
       else if(fields.length !== 0){
-        filteredNodes = elements.nodes.filter((obj: any) => {    
+        filteredNodes = unpinnedNodes.filter((obj: any) => {    
           for (const field of fields) {
             if  ( obj.data.uniqueFieldsOfStudies.includes(field)) {
               return true; // Exclude nodes that don't have all the fields
@@ -829,7 +831,7 @@ function HomePage() {
       };
 
       setElements(newElements);
-      applyFilters(value[0], value[1], citationCount.min,citationCount.max, selectedFields,filterType,elements)
+      applyFilters(value[0], value[1], citationCount.min,citationCount.max, selectedFields,filterType,newElements)
       //applyDateFilter(value[0], value[1], newElements);
     }
   };
