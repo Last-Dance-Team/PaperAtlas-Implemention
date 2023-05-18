@@ -1302,6 +1302,30 @@ var dbControllers = {
             }
         }
 
+        for (let i = 0; i < paperIds.length; i++) {
+            let query = basicQueries.getReferencesOfPaper(paperIds[i]);
+            var queryData = {};
+            var data = { query: query, queryData: queryData };
+            let resp = await dbService.runQuery(data);
+            console.log("resp", resp);
+
+            var relations = resp.records[0]._fields[2];
+
+            for (let i = 0; i < relations.length; i++) {
+                var field = relations[i];
+                if (!paperSet.has(field.end.low))
+                    continue;
+                edge = {
+                    data: {
+                        source: String(field.start.low),
+                        target: String(field.end.low),
+                        label: field.type,
+                    },
+                };
+                edges.push(edge);
+            }
+        }
+
         return { nodes: nodes, edges: edges };
     },
     getCommonPapersThatRefer: async function(paperIds) {
@@ -1389,6 +1413,30 @@ var dbControllers = {
                 };
 
                 edges.push(pushEdge);
+            }
+        }
+
+        for (let i = 0; i < paperIds.length; i++) {
+            let query = basicQueries.getReferred(paperIds[i]);
+            var queryData = {};
+            var data = { query: query, queryData: queryData };
+            let resp = await dbService.runQuery(data);
+            console.log("resp", resp);
+
+            var relations = resp.records[0]._fields[2];
+
+            for (let i = 0; i < relations.length; i++) {
+                var field = relations[i];
+                if (!paperSet.has(field.start.low))
+                    continue;
+                edge = {
+                    data: {
+                        source: String(field.start.low),
+                        target: String(field.end.low),
+                        label: field.type,
+                    },
+                };
+                edges.push(edge);
             }
         }
 
