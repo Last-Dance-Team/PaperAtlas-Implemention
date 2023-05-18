@@ -74,11 +74,11 @@ function DrawerContent(props: any) {
         <NodeDetail {...props} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <Filter 
+        <Filter
           filterOr={props.applyFieldORFilter}
           filterAnd={props.applyFieldANDFilter}
-          filterAccordingToDate = { props.applyDateFilter}
-          elements = { props.elements}
+          elements={props.elements}
+          filterByCitationCount={props.filterByCitationCount}
         />
       </TabPanel>
     </Box>
