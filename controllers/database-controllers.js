@@ -17,6 +17,10 @@ var dbControllers = {
 
         for (let j = 0; j < authorResp.length; j++) {
             var curProperties = authorResp[j]._fields[0].properties;
+            console.log("curProperties.aliases:",curProperties.aliases);
+            if(curProperties.aliases===undefined ){
+                curProperties.aliases=[];
+            }
             var author = {
                 data: {
                     type: "Author",

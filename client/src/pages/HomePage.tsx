@@ -88,7 +88,7 @@ function HomePage() {
     nodes: any[];
     edges: any[];
   }>({ nodes: [], edges: [] });
-  const [pinnedNodes, setPinnedNodes] = useState<string[]>([]);
+  const [authorEdges, setAuthorEdges] = useState([])
 
   const [selectCommon, setSelectCommon] = React.useState(0);
 
@@ -240,189 +240,27 @@ function HomePage() {
       }
     }
 
-    const updatedNodes = data.nodes.map((b: any) => {
-      b.data.abbr = b.data.label.substring(0, 10) + "...";
-      return b;
-    });
+    //const updatedNodes = data.nodes.map((b: any) => {
+    //  b.data.abbr = b.data.label.substring(0, 10) + "...";
+    //  return b;
+    //});
 
-    const updatedEdges = data.edges.map((b: any) => {
-      b.data.abbr = b.data.label.substring(0, 10) + "...";
-      return b;
-    });
+    //const updatedEdges = data.edges.map((b: any) => {
+    //  b.data.abbr = b.data.label.substring(0, 10) + "...";
+    //  return b;
+    //});
 
-    const mergedElements = {
-      nodes: [...elements.nodes, ...updatedNodes],
-      edges: [...elements.edges, ...updatedEdges],
-    };
+    addNodes(data.nodes);
 
-    //console.log(mergedElements.nodes)
-    addNodes([...elements.nodes, ...updatedNodes]);
-
-    setElements(mergedElements);
-    setFilteredElements(mergedElements);
+    //setElements(mergedElements);
+    //setFilteredElements(mergedElements);
 
     setMinDate("");
     setMaxDate("");
-  };
-
-  const addNodes = async (nodes: any[]) => {
-    const uniquePaperIds = new Set<number>();
-    const uniqueAuthorIds = new Set<number>();
-    nodes.forEach((node) =>
-      node.data.type === "Paper"
-        ? uniquePaperIds.add(Number(node.data.id))
-        : uniqueAuthorIds.add(Number(node.data.id))
-    );
-
-    const body = {
-      paperIds: Array.from(uniquePaperIds),
-      authorIds: Array.from(uniqueAuthorIds),
-    };
-
-    //console.log(body);
-    const response = await axios.put(`http://localhost:80/relations`, body);
-    const data = await response.data;
-
-    const updatedElements = {
-      nodes: nodes,
-      edges: data.edges,
-    };
-
-    setElements(updatedElements);
-    setFilteredElements(updatedElements);
-
-    setMinDate("");
-    setMaxDate("");
-  };
-
-  const getReferences = async (paperId: string) => {
-    //console.log(paperId);
-    const response = await axios.get(
-      `http://localhost:80/getReferences/${paperId}`
-    );
-    const data = await response.data;
-    //console.log(data)
-    addPapers(data.nodes);
-    //addUniqueElements(data)
-  };
-
-  const getReferred = async (paperId: string) => {
-    // console.log(paperId);
-    const response = await axios.get(
-      `http://localhost:80/getReferred/${paperId}`
-    );
-    const data = await response.data;
-    //console.log(data)
-    addPapers(data.nodes);
-    //addUniqueElements(data)
-  };
-
-  const addPapers = async (papers: any[]) => {
-    console.log(papers);
-    console.log(elements);
-    const uniqueIds = papers
-      .filter(
-        (node: any) => !elements.nodes.some((e) => e.data.id === node.data.id)
-      )
-      .map((e) => Number(e.data.id));
-
-    const body = {
-      ids: [...elements.nodes.map((n) => Number(n.data.id)), ...uniqueIds],
-    };
-    console.log(body);
-
-    const response = await axios.put(`http://localhost:80/add/paper`, body);
-    const data = await response.data;
-    //setElements(data)
-    //console.log(data)
-    //applyDateFilter(value[0],value[1], data)
-    addUniqueElements(data);
-  };
-
-  const getPapers = async (authorId: string) => {
-    console.log(authorId);
-    const response = await axios.get(
-      `http://localhost:80/getPapersOfAuthor/${authorId}`
-    );
-    const data = await response.data;
-    console.log(data);
-    //addPapers(data.nodes)
-    addUniqueElements(data);
-  };
-
-  const getAuthors = async (paperId: string) => {
-    console.log(paperId);
-    const response = await axios.get(
-      `http://localhost:80/getAuthorsOfPapers/${paperId}`
-    );
-    const data = await response.data;
-    console.log(data);
-    //addPapers(data.nodes)
-    addUniqueElements(data);
-  };
-
-  
-
-  const handleBringReferencesOfCommon = async () => {
-
-    const selectedNodes = elements.nodes.filter(node => node.data.selected === true && node.data.type === "Paper" );
-    const selectedNodeIds = selectedNodes.map(node => node.data.id);
-    const body = {
-      ids: selectedNodeIds,
-    };
-    console.log("ids",selectedNodeIds);
-
-    const response = await axios.put(`http://localhost:80/add/commonReferences`, body);
-    const data = await response.data;
-
-
-    console.log(data);
-    //addPapers(data.nodes)
-    addUniqueElements(data);
-    
-  };
-
-
-  const handleBringPaperThatReferstoCommon = async () => {
-
-    const selectedNodes = elements.nodes.filter(node => node.data.selected === true && node.data.type === "Paper" );
-    const selectedNodeIds = selectedNodes.map(node => node.data.id);
-    const body = {
-      ids: selectedNodeIds,
-    };
-
-
-    const response = await axios.put(`http://localhost:80/add/commonPapersThatRefer`, body);
-    const data = await response.data;
-
-
-    console.log(data);
-    //addPapers(data.nodes)
-    addUniqueElements(data);
-    
-  };
-
-
-  const handleCommonPapersOfAuthors = async () => {
-
-    const selectedNodes = elements.nodes.filter(node => node.data.selected === true && node.data.type === "Author" );
-    const selectedNodeIds = selectedNodes.map(node => node.data.id);
-    const body = {
-      ids: selectedNodeIds,
-    };
-
-
-    const response = await axios.put(`http://localhost:80/add/commonPapers`, body);
-    const data = await response.data;
-
-
-    console.log(data);
-    //addPapers(data.nodes)
-    addUniqueElements(data);
-    
   };
 
   const addUniqueElements = (data: any) => {
+    
     const uniqueNodes = data.nodes.filter(
       (node: any) => !elements.nodes.some((e) => e.data.id === node.data.id)
     );
@@ -446,26 +284,219 @@ function HomePage() {
     };
 
     setElements(uniqueElements);
-    applyDateFilter(value[0], value[1]);
+    applyDateFilter(value[0], value[1], uniqueElements);
   };
 
-  const remove = (nodeId: string) => {
-    const newNodes = elements.nodes.filter(
-      (node: any) => !(node.data.id === nodeId)
+
+  const addPapers = async (papers: any[]) => {
+    console.log(papers);
+    console.log(elements);
+    const uniqueIds = papers
+      .filter(
+        (node: any) => !elements.nodes.some((e) => e.data.id === node.data.id)
+      )
+      .map((e) => Number(e.data.id));
+
+    const body = {
+      ids: [...elements.nodes.map((n) => Number(n.data.id)), ...uniqueIds],
+    };
+    console.log(body);
+
+    const response = await axios.put(`http://localhost:80/add/paper`, body);
+    const data = await response.data;
+    //setElements(data)
+    //console.log(data)
+    //applyDateFilter(value[0],value[1], data)
+    addUniqueElements(data);
+  };
+  const addNodes = async (nodes: any[]) => {
+    const uniquePaperIds = new Set<number>();
+    const uniqueAuthorIds = new Set<number>();
+
+    //const uniqueNodesMap = new Map<string, any>();
+
+    //nodes.forEach((node) =>{
+      //uniqueNodesMap.set(node.data.id, node);
+    //})
+
+    //const uniqueNodes = Array.from(uniqueNodesMap.values());
+    //console.log(uniqueNodes);
+
+    // check when nodes is empty
+
+    console.log(nodes)
+
+    const newNodes = nodes.filter(
+        (node: any) => !elements.nodes.some((e) => e.data.id === node.data.id)
+      ).map((b: any) => {
+        b.data.abbr = b.data.label.substring(0, 10) + "...";
+        return b;
+      });
+
+    const updatedNodes = [...(elements.nodes), ...newNodes]
+
+    updatedNodes.forEach((node) =>
+      node.data.type === "Paper"
+        ? uniquePaperIds.add(Number(node.data.id))
+        : uniqueAuthorIds.add(Number(node.data.id))
     );
 
-    const newEdges = elements.edges.filter(
-      (edge: any) =>
-        !(edge.data.source === nodeId || edge.data.target === nodeId)
-    );
-
-    const newElements = {
-      nodes: newNodes,
-      edges: newEdges,
+    const body = {
+      paperIds: Array.from(uniquePaperIds),
+      authorIds: Array.from(uniqueAuthorIds),
     };
 
-    setElements(newElements);
-    applyDateFilter(value[0], value[1]);
+    //console.log(body);
+    const response = await axios.put(`http://localhost:80/relations`, body);
+    const data = await response.data;
+
+    //const updatedNodes = uniqueNodes.map((b: any) => {
+    //  b.data.abbr = b.data.label.substring(0, 10) + "...";
+    //  return b;
+    //});
+
+    const updatedElements = {
+      nodes: updatedNodes,
+      edges: data.edges,
+    };
+
+    const filteredNodes = [...(filteredElements.nodes), ...(newNodes)]
+
+    const filteredEdges = data.edges.filter(
+      (edge: any) =>
+        !filteredNodes.some(
+          (e) =>
+            e.data.source === edge.data.source &&
+            e.data.target === edge.data.target
+        )
+    );
+
+    const updatedFilteredElements = {
+      nodes: filteredNodes,
+      edges: filteredEdges
+    }
+
+    setElements(updatedElements);
+    setFilteredElements(updatedFilteredElements);
+  };
+
+  const getReferences = async (paperId: string) => {
+    //console.log(paperId);
+    const response = await axios.get(
+      `http://localhost:80/getReferred/${paperId}`
+    );
+    const data = await response.data;
+
+    addNodes(data.nodes)
+    //console.log(data)
+    //addPapers(data.nodes);
+    //addUniqueElements(data)
+  };
+
+  const getReferred = async (paperId: string) => {
+    // console.log(paperId);
+    const response = await axios.get(
+      `http://localhost:80/getReferences/${paperId}`
+    );
+    const data = await response.data;
+    //console.log(data)
+    addNodes(data.nodes);
+    //addUniqueElements(data)
+  };
+
+  const getAuthors = async (paperId: string) => {
+    console.log(paperId);
+    const response = await axios.get(
+      `http://localhost:80/getAuthorsOfPapers/${paperId}`
+    );
+    const data = await response.data;
+    console.log(data);
+    addNodes(data.nodes)
+    //addUniqueElements(data);
+  };
+
+  const getPapers = async (authorId: string) => {
+    console.log(authorId);
+    const response = await axios.get(
+      `http://localhost:80/getPapersOfAuthor/${authorId}`
+    );
+    const data = await response.data;
+    console.log(data);
+    addNodes(data.nodes)
+    //addUniqueElements(data);
+  };
+
+  const getCitedAuthors = async (authorId: string) => {
+    console.log(authorId);
+    const response = await axios.get(
+      `http://localhost:80/getAuthorAuthorRelation/${authorId}`
+    );
+    const data = await response.data;
+    console.log(data);
+    //setAuthorEdges(data.edges)
+    //addNodes(data.authors)
+    //addUniqueElements(data);
+  };
+
+  
+
+  const handleBringReferencesOfCommon = async () => {
+
+    const selectedNodes = elements.nodes.filter(node => node.data.selected === true && node.data.type === "Paper" );
+    const selectedNodeIds = selectedNodes.map(node => node.data.id);
+    const body = {
+      ids: selectedNodeIds,
+    };
+    console.log("ids",selectedNodeIds);
+
+    const response = await axios.put(`http://localhost:80/add/commonReferences`, body);
+    const data = await response.data;
+
+
+    console.log(data);
+    addNodes(data.nodes)
+    //addUniqueElements(data);
+    
+  };
+
+
+  const handleBringPaperThatReferstoCommon = async () => {
+
+    const selectedNodes = elements.nodes.filter(node => node.data.selected === true && node.data.type === "Paper" );
+    const selectedNodeIds = selectedNodes.map(node => node.data.id);
+    const body = {
+      ids: selectedNodeIds,
+    };
+
+
+    const response = await axios.put(`http://localhost:80/add/commonPapersThatRefer`, body);
+    const data = await response.data;
+
+
+    console.log(data);
+    addNodes(data.nodes)
+    //addUniqueElements(data);
+    
+  };
+
+
+  const handleCommonPapersOfAuthors = async () => {
+
+    const selectedNodes = elements.nodes.filter(node => node.data.selected === true && node.data.type === "Author" );
+    const selectedNodeIds = selectedNodes.map(node => node.data.id);
+    const body = {
+      ids: selectedNodeIds,
+    };
+
+
+    const response = await axios.put(`http://localhost:80/add/commonPapers`, body);
+    const data = await response.data;
+
+
+    console.log(data);
+    addNodes(data.nodes)
+    //addUniqueElements(data);
+    
   };
 
   const updateSelect = (nodeId: string, selected: boolean) => {
@@ -483,7 +514,7 @@ function HomePage() {
     };
 
     setElements(newElements);
-    applyDateFilter(value[0], value[1]);
+    applyDateFilter(value[0], value[1],newElements);
     //handleDrawerOpenWithState(node.data, 1)
   };
 
@@ -502,8 +533,26 @@ function HomePage() {
     };
 
     setElements(newElements);
-    applyDateFilter(value[0], value[1]);
+    applyDateFilter(value[0], value[1], newElements);
     handleDrawerOpenWithState(node.data, 1);
+  };
+  const remove = (nodeId: string) => {
+    const newNodes = elements.nodes.filter(
+      (node: any) => !(node.data.id === nodeId)
+    );
+
+    const newEdges = elements.edges.filter(
+      (edge: any) =>
+        !(edge.data.source === nodeId || edge.data.target === nodeId)
+    );
+
+    const newElements = {
+      nodes: newNodes,
+      edges: newEdges,
+    };
+
+    setElements(newElements);
+    applyDateFilter(value[0], value[1], newElements);
   };
 
   useEffect(() => {}, []);
@@ -518,6 +567,7 @@ function HomePage() {
   const applyDateFilter = (
     minDate: number,
     maxDate: number,
+    elements: { nodes: any[]; edges: any[] }
   ) => {
     console.log(elements);
 
@@ -619,7 +669,7 @@ function HomePage() {
 
 
   const filterAccordingToDate = () => {
-    applyDateFilter(value[0], value[1]);
+    applyDateFilter(value[0], value[1], elements);
   };
 
   const changeDatefilter = (event: { target: { value: string } }) => {
@@ -687,7 +737,7 @@ function HomePage() {
       };
 
       setElements(newElements);
-      applyDateFilter(value[0], value[1]);
+      applyDateFilter(value[0], value[1], newElements);
     }
   };
 
@@ -851,6 +901,7 @@ function HomePage() {
           getReferred={getReferred}
           getPapers={getPapers}
           getAuthors={getAuthors}
+          getCitedAuthors = {getCitedAuthors}
           remove={remove}
           updatePin={updatePin}
         />

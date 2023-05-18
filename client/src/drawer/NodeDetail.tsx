@@ -53,6 +53,11 @@ function NodeDetail(props: any) {
   const handlePapers = () => {
     props.getPapers(node.id);
   };
+
+  const handleCiteddAuthors = () => {
+    props.getCitedAuthors(node.id);
+  };
+
   const handleRemove = () => {
     props.remove(node.id);
   };
@@ -233,6 +238,9 @@ function NodeDetail(props: any) {
         <Button sx={{ m: 0.5 }} variant="outlined" onClick={handlePapers}>
           Papers
         </Button>
+        <Button sx={{ m: 0.5 }} variant="outlined" onClick={handleCiteddAuthors}>
+          Referenced Authors
+        </Button>
         <Button sx={{ m: 0.5 }} variant="outlined" onClick={handleRemove}>
           Remove
         </Button>
@@ -275,12 +283,12 @@ function NodeDetail(props: any) {
             >
               {node.label}{" "}
             </Box>
-            <div hidden={node.aliases.length === 0}>
+            <div hidden={ !node.aliases || node.aliases.length === 0}>
               <Box sx={{ m: 1, color: "text.secondary", fontSize: 20 }}>
                 <strong>Aliases:</strong>{" "}
               </Box>
 
-              {node.aliases.map((a: string) => {
+              {(node.aliases) ? node.aliases.map((a: string) => {
                 return (
                   <Box
                     key={a}
@@ -294,7 +302,7 @@ function NodeDetail(props: any) {
                     {a}
                   </Box>
                 );
-              })}
+              }): <></>}
             </div>
 
             <Box sx={{ m: 1, color: "text.secondary", fontSize: 20 }}>
