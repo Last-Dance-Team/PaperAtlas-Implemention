@@ -60,7 +60,7 @@ function DrawerContent(props: any) {
           aria-label="basic tabs example"
         >
           <Tab label="Search" {...a11yProps(0)} />
-          <Tab label="Node Deatil" {...a11yProps(1)} />
+          <Tab label="Node Detail" {...a11yProps(1)} />
           <Tab label="Filter" {...a11yProps(2)} />
         </Tabs>
       </Box>
