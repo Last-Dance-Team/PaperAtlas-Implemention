@@ -361,6 +361,67 @@ function HomePage() {
     addUniqueElements(data);
   };
 
+  
+
+  const handleBringReferencesOfCommon = async () => {
+
+    const selectedNodes = elements.nodes.filter(node => node.data.selected === true && node.data.type === "Paper" );
+    const selectedNodeIds = selectedNodes.map(node => node.data.id);
+    const body = {
+      ids: selectedNodeIds,
+    };
+    console.log("ids",selectedNodeIds);
+
+    const response = await axios.put(`http://localhost:80/add/commonReferences`, body);
+    const data = await response.data;
+
+
+    console.log(data);
+    //addPapers(data.nodes)
+    addUniqueElements(data);
+    
+  };
+
+
+  const handleBringPaperThatReferstoCommon = async () => {
+
+    const selectedNodes = elements.nodes.filter(node => node.data.selected === true && node.data.type === "Paper" );
+    const selectedNodeIds = selectedNodes.map(node => node.data.id);
+    const body = {
+      ids: selectedNodeIds,
+    };
+
+
+    const response = await axios.put(`http://localhost:80/add/commonPapersThatRefer`, body);
+    const data = await response.data;
+
+
+    console.log(data);
+    //addPapers(data.nodes)
+    addUniqueElements(data);
+    
+  };
+
+
+  const handleCommonPapersOfAuthors = async () => {
+
+    const selectedNodes = elements.nodes.filter(node => node.data.selected === true && node.data.type === "Author" );
+    const selectedNodeIds = selectedNodes.map(node => node.data.id);
+    const body = {
+      ids: selectedNodeIds,
+    };
+
+
+    const response = await axios.put(`http://localhost:80/add/commonPapers`, body);
+    const data = await response.data;
+
+
+    console.log(data);
+    //addPapers(data.nodes)
+    addUniqueElements(data);
+    
+  };
+
   const addUniqueElements = (data: any) => {
     const uniqueNodes = data.nodes.filter(
       (node: any) => !elements.nodes.some((e) => e.data.id === node.data.id)
@@ -743,7 +804,7 @@ function HomePage() {
             style={{ paddingLeft: 25 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={1} md={1} lg={3} xl={1}>
+              <Grid item xs={12} sm={1} md={1} lg={3} xl={3}>
                 <FormControl>
                   <InputLabel id="demo-simple-select-label">Layout</InputLabel>
                   <Select
@@ -763,7 +824,7 @@ function HomePage() {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sm={11} md={11} lg={9} xl={11}>
+              <Grid item xs={12} sm={11} md={11} lg={9} xl={9}>
                 <FormControl>
                   <div style={styles.root}>
                     <Slider
@@ -814,7 +875,7 @@ function HomePage() {
               </Grid>
 
               {showAdditionalButtons && (
-                <Grid item xs={3} sm={3} md={3} lg={4} xl={6}>
+                <Grid item xs={3} sm={3} md={3} lg={4} xl={4}>
                   <div
                     style={{
                       display: "flex",
@@ -825,6 +886,7 @@ function HomePage() {
                     }}
                   >
                     <Button
+                      onClick={handleBringReferencesOfCommon}
                       variant="contained"
                       size="small"
                       style={{
@@ -837,6 +899,7 @@ function HomePage() {
                     </Button>
 
                     <Button
+                      onClick = {handleBringPaperThatReferstoCommon}
                       variant="contained"
                       size="small"
                       style={{
@@ -849,6 +912,7 @@ function HomePage() {
                     </Button>
 
                     <Button
+                    onClick = {handleCommonPapersOfAuthors}
                       variant="contained"
                       size="small"
                       style={{
@@ -878,7 +942,7 @@ function HomePage() {
                   </Button>
                 </FormControl>
               </Grid>
-              <Grid item xs={3} sm={3} md={3} lg={2} xl={3}>
+              <Grid item xs={3} sm={3} md={3} lg={2} xl={2}>
                 <FormControl>
                   <label htmlFor="file-upload">
                     <Button
