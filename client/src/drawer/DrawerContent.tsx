@@ -75,10 +75,10 @@ function DrawerContent(props: any) {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <Filter
-          filterOr={props.applyFieldORFilter}
-          filterAnd={props.applyFieldANDFilter}
-          elements={props.elements}
-          filterByCitationCount={props.filterByCitationCount}
+          filter={props.filter}
+          citationCount = {props.citationCount}
+          selectedFields = {props.selectedFields}
+          filterType= {props.filterType}
         />
       </TabPanel>
     </Box>

@@ -88,13 +88,24 @@ function HomePage() {
     nodes: any[];
     edges: any[];
   }>({ nodes: [], edges: [] });
-  const [authorEdges, setAuthorEdges] = useState([])
 
   const [selectCommon, setSelectCommon] = React.useState(0);
-
-  const handleSelectCommon = () => {
-    setSelectCommon((selectCommon + 1) % 2);
-  };
+  const [minDate, setMinDate] = React.useState("");
+  const [maxDate, setMaxDate] = React.useState("");
+  const [open, setOpen] = React.useState(false);
+  const [node, setNode] = React.useState({ type: "" });
+  const [drawerState, setDrawerState] = React.useState(0);
+  const [select, setSelect] = React.useState(false);
+  const [value, setValue] = React.useState<number[]>([1980, 2023]);
+  const [selectedFields, setSelectedFields] = useState<string[]>([]);
+  const [filterType, setFilterType] = useState("and");
+  const [citationCount, setCitationCount] = useState<{
+    min: number;
+    max: number;
+  }>({
+    min: 0,
+    max: 10000,
+  });
 
   const callBackendAPI = async (
     graphType: string,
@@ -381,25 +392,26 @@ function HomePage() {
   };
 
   const getReferences = async (paperId: string) => {
-    //console.log(paperId);
+    console.log(paperId);
     const response = await axios.get(
       `http://localhost:80/getReferred/${paperId}`
     );
     const data = await response.data;
 
+    console.log(data)
     addNodes(data.nodes)
-    //console.log(data)
+    
     //addPapers(data.nodes);
     //addUniqueElements(data)
   };
 
   const getReferred = async (paperId: string) => {
-    // console.log(paperId);
+    console.log(paperId);
     const response = await axios.get(
       `http://localhost:80/getReferences/${paperId}`
     );
     const data = await response.data;
-    //console.log(data)
+    console.log(data)
     addNodes(data.nodes);
     //addUniqueElements(data)
   };
@@ -514,7 +526,8 @@ function HomePage() {
     };
 
     setElements(newElements);
-    applyDateFilter(value[0], value[1],newElements);
+    //applyDateFilter(value[0], value[1],newElements);
+    applyFilters(value[0], value[1], citationCount.min,citationCount.max, selectedFields,filterType,elements)
     //handleDrawerOpenWithState(node.data, 1)
   };
 
@@ -533,7 +546,8 @@ function HomePage() {
     };
 
     setElements(newElements);
-    applyDateFilter(value[0], value[1], newElements);
+    //applyDateFilter(value[0], value[1], newElements);
+    applyFilters(value[0], value[1], citationCount.min,citationCount.max, selectedFields,filterType,elements)
     handleDrawerOpenWithState(node.data, 1);
   };
   const remove = (nodeId: string) => {
@@ -552,17 +566,11 @@ function HomePage() {
     };
 
     setElements(newElements);
-    applyDateFilter(value[0], value[1], newElements);
+    //applyDateFilter(value[0], value[1], newElements);
+    applyFilters(value[0], value[1], citationCount.min,citationCount.max, selectedFields,filterType,elements)
   };
 
   useEffect(() => {}, []);
-
-  const [minDate, setMinDate] = React.useState("");
-  const [maxDate, setMaxDate] = React.useState("");
-  const [open, setOpen] = React.useState(false);
-  const [node, setNode] = React.useState({ type: "" });
-  const [drawerState, setDrawerState] = React.useState(0);
-  const [select, setSelect] = React.useState(false);
 
   const applyDateFilter = (
     minDate: number,
@@ -599,6 +607,8 @@ function HomePage() {
     };
     setFilteredElements(filteredElements);
     console.log(filteredElements);
+
+    return filteredElements;
   };
 
   const applyFieldANDFilter = ( fields : string[] ) =>
@@ -664,12 +674,90 @@ function HomePage() {
     console.log(filteredElements);
   }
 
+  const applyFilters = (
+    minDate: number,
+    maxDate: number,
+    minCitation: number,
+    maxCitation: number,
+    fields : string[],
+    filterType: string, 
+    elements: { nodes: any[]; edges: any[]},
+    ) => {
+      
 
+      let pinnedNodes : any[] = []
+      let unpinnedNodes : any[] = []
+      elements.nodes.forEach( (obj) => {
+        if(obj.data.pinned ||obj.data.type != "Paper" ){
+          pinnedNodes.push(obj)
+        }
+        else if (obj.data.year >= minDate && obj.data.year <= maxDate && obj.data.citationCount >= minCitation && obj.data.citationCount <= maxCitation){
+          unpinnedNodes.push(obj)
+        }
+      })
 
+      let filteredNodes : any[] = unpinnedNodes
+
+      if (fields.length !== 0 && filterType === "and"){
+        filteredNodes = unpinnedNodes.filter((obj: any) => { 
+          for (const field of fields) {
+            if  ( !obj.data.uniqueFieldsOfStudies.includes(field)) {
+              return false; // Exclude nodes that don't have all the fields
+            }
+        }
+          return true;
+        });
+      }
+      else if(fields.length !== 0){
+        filteredNodes = elements.nodes.filter((obj: any) => {    
+          for (const field of fields) {
+            if  ( obj.data.uniqueFieldsOfStudies.includes(field)) {
+              return true; // Exclude nodes that don't have all the fields
+            }
+        }
+          return false;
+        });
+
+      }
+
+      filteredNodes = [...filteredNodes, ...pinnedNodes]
+
+      const filteredIds = filteredNodes.map((obj: any) => obj.data.id);
+      const filteredEdges = elements.edges.filter((obj: any) => {
+        return (
+          filteredIds.includes(obj.data.target) && filteredIds.includes(obj.data.source)
+        );
+      });
+        
+      const filteredElements = {
+        nodes: filteredNodes,
+        edges: filteredEdges,
+      };
+      setFilteredElements(filteredElements);
+
+  
+    
+    }
+
+  const filter = (
+    minCitation: number,
+    maxCitation: number,
+    fields : string[],
+    filterType: string, ) => {
+
+      setCitationCount({min: minCitation, max: maxCitation})
+      setSelectedFields(fields)
+      setFilterType(filterType)
+
+      console.log(fields)
+      
+      applyFilters(value[0], value[1], minCitation,maxCitation,fields,filterType,elements)
+    }
 
 
   const filterAccordingToDate = () => {
-    applyDateFilter(value[0], value[1], elements);
+    applyFilters(value[0], value[1], citationCount.min,citationCount.max, selectedFields,filterType,elements)
+    //applyDateFilter(value[0], value[1], elements);
   };
 
   const changeDatefilter = (event: { target: { value: string } }) => {
@@ -706,6 +794,10 @@ function HomePage() {
     setLaYoutName(event.target.value);
   };
 
+  const handleSelectCommon = () => {
+    setSelectCommon((selectCommon + 1) % 2);
+  };
+
   const handleDrawerOpen = (node: any) => {
     setDrawerState(0);
     setOpen(true);
@@ -737,7 +829,8 @@ function HomePage() {
       };
 
       setElements(newElements);
-      applyDateFilter(value[0], value[1], newElements);
+      applyFilters(value[0], value[1], citationCount.min,citationCount.max, selectedFields,filterType,elements)
+      //applyDateFilter(value[0], value[1], newElements);
     }
   };
 
@@ -807,11 +900,10 @@ function HomePage() {
     },
   };
 
-  const [value, setValue] = React.useState<number[]>([1980, 2023]);
-
   const handleChange = (event: Event, newValue: number | number[]) => {
-    setValue(newValue as number[]);
-    filterAccordingToDate();
+    const newOnes = newValue as number[]
+    setValue(newOnes);
+    applyFilters(newOnes[0], newOnes[1], citationCount.min,citationCount.max, selectedFields,filterType,elements)
   };
 
   const marks = [
@@ -904,6 +996,10 @@ function HomePage() {
           getCitedAuthors = {getCitedAuthors}
           remove={remove}
           updatePin={updatePin}
+          filter = {filter}
+          citationCount = {citationCount}
+          selectedFields = {selectedFields}
+          filterType= {filterType}
         />
       </Drawer>
       <Main open={open}>

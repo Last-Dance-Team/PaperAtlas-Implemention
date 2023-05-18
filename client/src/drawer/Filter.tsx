@@ -42,25 +42,25 @@ const TextFieldContainer = styled("div")({
 });
 
 const array_area = [
-  "Computer science",
+  "Computer Science",
   "Economics",
   "Political Science",
   "Medicine",
   "Biology",
+  "Environmental Science"
 ];
 
 function Filter(props: any) {
-  const [selectedFields, setSelectedFields] = useState<string[]>([]);
-  const [filterType, setFilterType] = useState("and");
+  const [selectedFields, setSelectedFields] = useState<string[]>(props.selectedFields);
+  const [filterType, setFilterType] = useState(props.filterType);
   const [citationCount, setCitationCount] = useState<{
     min: number;
     max: number;
-  }>({
-    min: 0,
-    max: 500,
-  });
+  }>(props.citationCount);
 
   const handleTagClick = (tag: string) => {
+    const fields = selectedFields.includes(tag) ? selectedFields.filter((field) => field !== tag): [...selectedFields, tag];
+    /*
     setSelectedFields((prevSelectedFields) => {
       if (prevSelectedFields.includes(tag)) {
         return prevSelectedFields.filter((field) => field !== tag);
@@ -68,20 +68,29 @@ function Filter(props: any) {
         return [...prevSelectedFields, tag];
       }
     });
+    */
+   setSelectedFields(fields)
+   props.filter(citationCount.min, citationCount.max,fields,filterType);
   };
 
   const handleFilterTypeChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setFilterType(event.target.checked ? "or" : "and");
+    const newFilterType = event.target.checked ? "or" : "and"
+    //setFilterType(event.target.checked ? "or" : "and");
+    setFilterType(newFilterType)
+    props.filter(citationCount.min, citationCount.max,selectedFields,newFilterType);
   };
 
-  const handleCitationCountChange = () => {
-    props.filterByCitationCount(citationCount.min, citationCount.max);
+  const handleCitationCountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCitationCount((prevCitationCount) => ({
+      ...prevCitationCount,
+      min: parseInt(event.target.value),
+    }))
   };
 
   const applyFilter = () => {
-    props.filterSelectedFields(selectedFields, filterType);
+    props.filter(citationCount.min, citationCount.max,selectedFields,filterType);
   };
 
   return (
@@ -128,12 +137,7 @@ function Filter(props: any) {
             type="number"
             label="Min"
             value={citationCount.min}
-            onChange={(e) =>
-              setCitationCount((prevCitationCount) => ({
-                ...prevCitationCount,
-                min: parseInt(e.target.value),
-              }))
-            }
+            onChange={handleCitationCountChange}
             size="small"
             sx={{ width: "120px" }}
           />
@@ -152,7 +156,7 @@ function Filter(props: any) {
           />
           <ButtonContainer>
             <Button
-              onClick={handleCitationCountChange}
+              onClick={applyFilter}
               variant="contained"
               color="primary"
             >
