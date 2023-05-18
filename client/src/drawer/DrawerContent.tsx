@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import NodeDetail from "./NodeDetail";
 import SearchBar from "../search/SearchBar";
+import Filter from "./Filter";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -60,6 +61,7 @@ function DrawerContent(props: any) {
         >
           <Tab label="Search" {...a11yProps(0)} />
           <Tab label="Node Deatil" {...a11yProps(1)} />
+          <Tab label="Filter" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -70,6 +72,14 @@ function DrawerContent(props: any) {
       </TabPanel>
       <TabPanel value={value} index={1}>
         <NodeDetail {...props} />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <Filter 
+          filterOr={props.applyFieldORFilter}
+          filterAnd={props.applyFieldANDFilter}
+          filterAccordingToDate = { props.applyDateFilter}
+          elements = { props.elements}
+        />
       </TabPanel>
     </Box>
   );

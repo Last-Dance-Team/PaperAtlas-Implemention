@@ -446,7 +446,7 @@ function HomePage() {
     };
 
     setElements(uniqueElements);
-    applyDateFilter(value[0], value[1], uniqueElements);
+    applyDateFilter(value[0], value[1]);
   };
 
   const remove = (nodeId: string) => {
@@ -465,7 +465,7 @@ function HomePage() {
     };
 
     setElements(newElements);
-    applyDateFilter(value[0], value[1], newElements);
+    applyDateFilter(value[0], value[1]);
   };
 
   const updateSelect = (nodeId: string, selected: boolean) => {
@@ -483,7 +483,7 @@ function HomePage() {
     };
 
     setElements(newElements);
-    applyDateFilter(value[0], value[1], newElements);
+    applyDateFilter(value[0], value[1]);
     //handleDrawerOpenWithState(node.data, 1)
   };
 
@@ -502,7 +502,7 @@ function HomePage() {
     };
 
     setElements(newElements);
-    applyDateFilter(value[0], value[1], newElements);
+    applyDateFilter(value[0], value[1]);
     handleDrawerOpenWithState(node.data, 1);
   };
 
@@ -518,7 +518,6 @@ function HomePage() {
   const applyDateFilter = (
     minDate: number,
     maxDate: number,
-    elements: { nodes: any[]; edges: any[] }
   ) => {
     console.log(elements);
 
@@ -532,10 +531,7 @@ function HomePage() {
         (obj.data.year >= minDateNo && obj.data.year <= maxDateNo)
       );
     });
-    //obj.data.type !="Paper"
-    //|| pinnedNodes.some((e) => e === obj.data.id)
-    //|| ( obj.data.year >= minDateNo && obj.data.year <= maxDateNo)})
-
+  
     const newIds = newNodes.map((obj: any) => obj.data.id);
     const finalEdges = elements.edges.filter((obj: any) => {
       return (
@@ -555,8 +551,75 @@ function HomePage() {
     console.log(filteredElements);
   };
 
+  const applyFieldANDFilter = ( fields : string[] ) =>
+  {
+    const newNodes = elements.nodes.filter((obj: any) => { 
+      if(obj.data.pinned )
+      {
+        return true;
+      }
+
+      for (const field of fields) {
+      if  ( obj.data.type === "Paper" && !obj.data.uniqueAuthorIds.includes(field)) {
+        return false; // Exclude nodes that don't have all the fields
+      }
+    }
+      return true;
+    });
+  
+    const newIds = newNodes.map((obj: any) => obj.data.id);
+    const finalEdges = elements.edges.filter((obj: any) => {
+      return (
+        newIds.includes(obj.data.target) && newIds.includes(obj.data.source)
+      );
+    });
+
+    const filteredElements = {
+      nodes: newNodes,
+      edges: finalEdges,
+    };
+    setFilteredElements(filteredElements);
+    console.log(filteredElements);
+  }
+
+
+  const applyFieldORFilter = ( fields : string[] ) =>
+  {
+    const newNodes = elements.nodes.filter((obj: any) => { 
+      if(obj.data.pinned )
+      {
+        return true;
+      }
+
+      for (const field of fields) {
+      if  ( obj.data.type === "Paper" && obj.data.uniqueAuthorIds.includes(field)) {
+        return true; // Exclude nodes that don't have all the fields
+      }
+    }
+      return false;
+    });
+  
+    const newIds = newNodes.map((obj: any) => obj.data.id);
+    const finalEdges = elements.edges.filter((obj: any) => {
+      return (
+        newIds.includes(obj.data.target) && newIds.includes(obj.data.source)
+      );
+    });
+      
+    const filteredElements = {
+      nodes: newNodes,
+      edges: finalEdges,
+    };
+    setFilteredElements(filteredElements);
+    console.log(filteredElements);
+  }
+
+
+
+
+
   const filterAccordingToDate = () => {
-    applyDateFilter(value[0], value[1], elements);
+    applyDateFilter(value[0], value[1]);
   };
 
   const changeDatefilter = (event: { target: { value: string } }) => {
@@ -624,7 +687,7 @@ function HomePage() {
       };
 
       setElements(newElements);
-      applyDateFilter(value[0], value[1], newElements);
+      applyDateFilter(value[0], value[1]);
     }
   };
 
@@ -780,6 +843,7 @@ function HomePage() {
         <DrawerContent
           node={node}
           value={drawerState}
+          elements={elements}
           callBackendAPI={callBackendAPI}
           callBackendAPIMerge={callBackendAPIMerge}
           handleDrawerClose={handleDrawerClose}
