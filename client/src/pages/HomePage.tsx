@@ -452,7 +452,7 @@ function HomePage() {
     };
     console.log("ids",selectedNodeIds);
 
-    const response = await axios.put(`http://localhost:80/add/commonReferences`, body);
+    const response = await axios.put(`http://localhost:80/add/commonPapersThatRefer`, body);
     const data = await response.data;
 
 
@@ -472,7 +472,7 @@ function HomePage() {
     };
 
 
-    const response = await axios.put(`http://localhost:80/add/commonPapersThatRefer`, body);
+    const response = await axios.put(`http://localhost:80/add/commonReferences`, body);
     const data = await response.data;
 
 
