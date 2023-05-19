@@ -42,13 +42,29 @@ const TextFieldContainer = styled("div")({
 });
 
 const array_area = [
-  "Computer Science",
-  "Economics",
-  "Political Science",
   "Medicine",
   "Biology",
+  "Agricultural And Food Sciences",
+  "Engineering",
+  "Political Science",
+  "Psychology",
+  "Materials Science",
+  "Computer Science",
+  "Mathematics",
+  "Physics",
+  "Geography",
+  "Chemistry",
+  "Art",
+  "Economics",
+  "Business",
   "Environmental Science",
-  "Physics"
+  "Geology",
+  "Linguistics",
+  "Philosophy",
+  "Sociology",
+  "Education",
+  "Law",
+  "History"
 ];
 
 function Filter(props: any) {
