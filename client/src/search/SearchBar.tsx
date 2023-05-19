@@ -13,9 +13,10 @@ import {
   FormControlLabel,
   IconButton,
   TextField,
-  makeStyles,
+  makeStyles
 } from "@mui/material";
 import axios from "axios";
+import {Box} from "@mui/system";
 import Pagination from "@mui/material/Pagination";
 import MergeIcon from "@mui/icons-material/Merge";
 import StartIcon from "@mui/icons-material/Start";
@@ -38,7 +39,7 @@ let pageNumber = 0;
 export default function SearchBar(props: any) {
   const [graphType, setGraphType] = React.useState("");
   const [searchParameter, setSearchParameter] = React.useState("");
-  const [distance, setDistance] = React.useState("");
+  const [distance, setDistance] = React.useState("0");
   const [word, setWord] = React.useState("");
   const [hideButtons, setHideButtons] = React.useState(true);
 
@@ -271,6 +272,7 @@ export default function SearchBar(props: any) {
               boxShadow: "none",
               padding: "8px",
               margin: "10px",
+              height:"45px"
             }}
           >
             <MergeIcon />
@@ -289,6 +291,7 @@ export default function SearchBar(props: any) {
               boxShadow: "none",
               padding: "8px",
               margin: "10px",
+              height:"45px"
             }}
           >
             <StartIcon />
@@ -307,12 +310,12 @@ export default function SearchBar(props: any) {
                 borderRadius: "4px", // Optionally, add border radius for a rounded appearance
                 backgroundColor: "transparent",
                 boxShadow: "none",
-                padding: "8px",
-                margin: "10px",
+                margin: "5px",
+                height:"45px"
               }}
             >
               <ArticleIcon />
-              <span style={{ fontSize: "14px" }}>Bring references</span>
+              <span style={{ fontSize: "14px" }}>References</span>
             </IconButton>
 
             <IconButton
@@ -325,12 +328,12 @@ export default function SearchBar(props: any) {
                 borderRadius: "4px", // Optionally, add border radius for a rounded appearance
                 backgroundColor: "transparent",
                 boxShadow: "none",
-                padding: "8px",
-                margin: "10px",
+                margin: "5px",
+                height:"45px"
               }}
             >
               <ArticleIcon />
-              <span style={{ fontSize: "14px" }}>Bring papers that refer </span>
+              <span style={{ fontSize: "14px" }}>Citations</span>
             </IconButton>
             <div
               style={{
@@ -339,9 +342,9 @@ export default function SearchBar(props: any) {
                 height: "100%",
               }}
             >
-              <InputLabel id="demo-simple-select-helper-label">
-                Distance
-              </InputLabel>
+              <Box sx={{ minWidth: 120, height: 10}}>
+              <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Distance</InputLabel>
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
@@ -349,15 +352,19 @@ export default function SearchBar(props: any) {
                 onChange={handleChangeDistance}
                 autoWidth
                 label="Distance"
+                style={{
+                  margin: "5px",
+                  height:"45px"
+                }}
               >
-                <MenuItem value={0}>
-                  <em>0</em>
-                </MenuItem>
+                <MenuItem value={0}>0</MenuItem>
                 <MenuItem value={1}>1</MenuItem>
                 <MenuItem value={2}>2</MenuItem>
                 <MenuItem value={3}>3</MenuItem>
                 <MenuItem value={4}>4</MenuItem>
               </Select>
+              </FormControl>
+              </Box>
             </div>
           </div>
         )}

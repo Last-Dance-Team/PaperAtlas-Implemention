@@ -104,7 +104,7 @@ function HomePage() {
     max: number;
   }>({
     min: 0,
-    max: 10000,
+    max: 100000,
   });
 
   const callBackendAPI = async (
@@ -141,7 +141,7 @@ function HomePage() {
         }
       } else if (bringReference == 1 && bringReferenced == 0) {
         const response = await axios.put(
-          `http://localhost:80/add/${graphType}/dist/reference`,
+          `http://localhost:80/add/${graphType}/dist/referredBy`,
           body
         );
         var data = await response.data;
@@ -150,7 +150,7 @@ function HomePage() {
         }
       } else if (bringReference == 0 && bringReferenced == 1) {
         const response = await axios.put(
-          `http://localhost:80/add/${graphType}/dist/referredBy`,
+          `http://localhost:80/add/${graphType}/dist/reference`,
           body
         );
         var data = await response.data;
@@ -223,7 +223,7 @@ function HomePage() {
         }
       } else if (bringReference == 1 && bringReferenced == 0) {
         const response = await axios.put(
-          `http://localhost:80/add/${graphType}/dist/reference`,
+          `http://localhost:80/add/${graphType}/dist/referredBy`,
           body
         );
         var data = await response.data;
@@ -232,7 +232,7 @@ function HomePage() {
         }
       } else if (bringReference == 0 && bringReferenced == 1) {
         const response = await axios.put(
-          `http://localhost:80/add/${graphType}/dist/referredBy`,
+          `http://localhost:80/add/${graphType}/dist/reference`,
           body
         );
         var data = await response.data;
@@ -324,25 +324,12 @@ function HomePage() {
     const uniquePaperIds = new Set<number>();
     const uniqueAuthorIds = new Set<number>();
 
-    //const uniqueNodesMap = new Map<string, any>();
-
-    //nodes.forEach((node) =>{
-      //uniqueNodesMap.set(node.data.id, node);
-    //})
-
-    //const uniqueNodes = Array.from(uniqueNodesMap.values());
-    //console.log(uniqueNodes);
-
-    // check when nodes is empty
-
-    console.log(nodes)
-
     const newNodes = nodes.filter(
         (node: any) => !elements.nodes.some((e) => e.data.id === node.data.id)
       ).map((b: any) => {
         b.data.abbr = b.data.label.substring(0, 10) + "...";
         return b;
-      });
+      })
 
     const updatedNodes = [...(elements.nodes), ...newNodes]
 
@@ -373,6 +360,8 @@ function HomePage() {
 
     const filteredNodes = [...(filteredElements.nodes), ...(newNodes)]
 
+    console.log("here")
+
     const filteredEdges = data.edges.filter(
       (edge: any) =>
         !filteredNodes.some(
@@ -388,7 +377,9 @@ function HomePage() {
     }
 
     setElements(updatedElements);
+    console.log("after elements")
     setFilteredElements(updatedFilteredElements);
+    console.log("after filtereds")
   };
 
   const getReferences = async (paperId: string) => {
@@ -551,6 +542,7 @@ function HomePage() {
     handleDrawerOpenWithState(node.data, 1);
   };
   const remove = (nodeId: string) => {
+    console.log(elements)
     const newNodes = elements.nodes.filter(
       (node: any) => !(node.data.id === nodeId)
     );
@@ -564,6 +556,8 @@ function HomePage() {
       nodes: newNodes,
       edges: newEdges,
     };
+
+    console.log(newElements)
 
     setElements(newElements);
     //applyDateFilter(value[0], value[1], newElements);
@@ -683,10 +677,7 @@ function HomePage() {
     filterType: string, 
     elements: { nodes: any[]; edges: any[]},
     ) => {
-
-      console.log(minCitation)
       
-
       let pinnedNodes : any[] = []
       let unpinnedNodes : any[] = []
       elements.nodes.forEach( (obj) => {
@@ -735,9 +726,7 @@ function HomePage() {
         nodes: filteredNodes,
         edges: filteredEdges,
       };
-      setFilteredElements(filteredElements);
-
-  
+      setFilteredElements(filteredElements);  
     
     }
 
@@ -1108,7 +1097,7 @@ function HomePage() {
                         fontSize: "10px",
                       }} // Use marginBottom instead of marginTop for spacing
                     >
-                      Bring References
+                      Common References
                     </Button>
 
                     <Button
@@ -1121,7 +1110,7 @@ function HomePage() {
                         fontSize: "10px",
                       }}
                     >
-                      Bring Referring Papers
+                      Common Citations
                     </Button>
 
                     <Button
@@ -1134,7 +1123,7 @@ function HomePage() {
                         fontSize: "10px",
                       }}
                     >
-                      Find Common Papers
+                      Common Papers of Authors
                     </Button>
                   </div>
                 </Grid>
