@@ -280,12 +280,13 @@ function DemoGraph(props: any) {
         if (numNodesAdded === numNodesToAdd) {
           console.log("ever here");
           // fit the graph to the new nodes
-          cy.layout(layoutOptionsRandom).run();
+
           if (props.isNewGraph) {
             cy.layout(layoutOptions).run();
           } else {
             // Fit the graph to the new nodes
             cy.fit();
+            cy.layout(layoutOptionsRandom).run();
           }
           cy.fit();
         }
