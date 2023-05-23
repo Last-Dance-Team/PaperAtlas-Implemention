@@ -253,7 +253,10 @@ export default function SearchBar(props: any) {
       </FormControl>
 
       <FormControl sx={{ m: 2 }}>
-        <Button variant="contained" onClick={handleSearch}>
+        <Button variant="contained" onClick={handleSearch}
+        style={{
+              backgroundColor :"#219296",
+        }}>
           Search
         </Button>
       </FormControl>

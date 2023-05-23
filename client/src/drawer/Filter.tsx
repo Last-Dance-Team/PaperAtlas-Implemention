@@ -150,7 +150,7 @@ function Filter(props: any) {
   const StyledButton = styled(Button)`
   margin: 10px;
   padding: 10px 20px;
-  background-color: #3f51b5;
+  background-color: #219296;
   color: #fff;
   border-radius: 5px;
 `;
@@ -226,7 +226,9 @@ const StyledTypography = styled(Typography)`
             sx={{ width: "120px" }}
           />
           <ButtonContainer>
-            <Button onClick={applyFilter} variant="contained" color="primary">
+            <Button onClick={applyFilter} variant="contained" color="primary" style={{
+              backgroundColor :"#219296",
+             }}>
               Apply Filter
             </Button>
           </ButtonContainer>
