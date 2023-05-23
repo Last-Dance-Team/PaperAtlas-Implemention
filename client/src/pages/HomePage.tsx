@@ -30,6 +30,7 @@ import { COLOR_NAMES } from "../constants/Colors";
 import { Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import Tooltip from "@mui/material/Tooltip";
 
@@ -941,6 +942,8 @@ function HomePage() {
     }
   };
 
+  
+
   const handleFileUpload = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
@@ -1014,6 +1017,20 @@ function HomePage() {
     },
   ];
 
+
+
+  
+    const [isHovered, setIsHovered] = useState(false);
+  
+    const handleMouseEnter = () => {
+      setIsHovered(true);
+    };
+  
+    const handleMouseLeave = () => {
+      setIsHovered(false);
+    };
+  
+    
   function valuetext(value: number) {
     return `${value}`;
   }
@@ -1058,12 +1075,33 @@ function HomePage() {
             <Tooltip
                       title={
                         <span style={{ fontSize: "13px" }}>
-                          Download
+                          Download as image
                         </span>
                       }
                       arrow
                     >
-              <FontAwesomeIcon icon={faDownload} onClick={handleDownload} />
+              <FontAwesomeIcon 
+              icon={faImage} 
+              onClick={handleDownload} 
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+                style={{ cursor: isHovered ? 'pointer' : 'auto' }}/>
+            </Tooltip>
+            <div style={{ marginLeft: "10px", marginRight: "10px" }}></div>{" "}
+            <Tooltip
+                      title={
+                        <span style={{ fontSize: "13px" }}>
+                          Download as json
+                        </span>
+                      }
+                      arrow
+                    >
+              <FontAwesomeIcon 
+              icon={faDownload} 
+              onClick={handleDownload} 
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+                style={{ cursor: isHovered ? 'pointer' : 'auto' }}/>
             </Tooltip>
             <div style={{ marginLeft: "10px", marginRight: "10px" }}></div>{" "}
             {/* Add space here */}
@@ -1077,7 +1115,10 @@ function HomePage() {
                     >
               <FormControl>
                 <label htmlFor="file-upload">
-                  <FontAwesomeIcon icon={faUpload} />
+                  <FontAwesomeIcon icon={faUpload} 
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                    style={{ cursor: isHovered ? 'pointer' : 'auto' }}/>
                 </label>
                 <input
                   type="file"
