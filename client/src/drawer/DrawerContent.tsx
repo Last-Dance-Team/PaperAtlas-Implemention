@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import NodeDetail from "./NodeDetail";
 import SearchBar from "../search/SearchBar";
 import Filter from "./Filter";
+import Common from "./Common";
 
 interface TabPanelProps {
   children?: React.ReactNode;
