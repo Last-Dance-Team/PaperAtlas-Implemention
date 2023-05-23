@@ -74,7 +74,7 @@ function DemoGraph(props: any) {
       selector: 'node[type="Author"][!selected]',
 
       style: {
-        "background-image": `url(https://last-dance-team.github.io/PaperAtlas/person-circle.png)`, // Use the absolute file path of the image
+        "background-image": `url(https://last-dance-team.github.io/PaperAtlas/person2.jpeg)`, // Use the absolute file path of the image
         "background-fit": "cover",
         "background-image-opacity": 1,
 
@@ -92,7 +92,7 @@ function DemoGraph(props: any) {
         "underlay-padding": "5px", // Padding around the underlay
         "underlay-opacity": "1", // Opacity of the underlay
         "underlay-shape": "round-rectangle", // Underlay shape
-        "background-image": `url(https://last-dance-team.github.io/PaperAtlas/person-circle.png)`, // Use the absolute file path of the image
+        "background-image": `url(https://last-dance-team.github.io/PaperAtlas/person2.jpeg)`, // Use the absolute file path of the image
         "background-fit": "cover",
         "background-image-opacity": 1,
         content: "data(abbr)",
@@ -223,6 +223,7 @@ function DemoGraph(props: any) {
     animate: true, // enable animations
     animationDuration: 1000, // set the animation duration
   };
+  const prevLayout = useRef(layout);
 
   useEffect(() => {
     const cy = cyRef.current;
@@ -240,11 +241,6 @@ function DemoGraph(props: any) {
         console.log("in if");
         props.updateSelect(node._private.data.id, !node._private.data.selected);
       }
-      if (cyRef.current) {
-        //cyRef.current.off("click", "node");
-        //cyRef.current.on("click", "node", handleClick);
-      }
-
       // ...rest of your click handling code
     }
 
@@ -276,26 +272,33 @@ function DemoGraph(props: any) {
       const handleNodeAdd = () => {
         if (numNodesAdded === numNodesToAdd) {
           console.log("ever here");
-          // animate the nodes to their final positions
-          cy.layout(layoutOptions).run();
           // fit the graph to the new nodes
           cy.fit();
         }
       };
 
       cy.on("add", "node", handleNodeAdd);
-      cy.layout(layoutOptions).run();
-      // fit the graph to the new nodes
-      cy.fit();
-
-      return () => {
-        if (cy) {
-          cy.off("click", "node");
-          cy.off("add", "node");
-        }
-      };
     }
+
+    return () => {
+      if (cy) {
+        cy.off("click", "node");
+        cy.off("add", "node");
+      }
+    };
   }, [element]);
+
+  useEffect(() => {
+    const cy = cyRef.current;
+
+    if (cy && layout.name !== prevLayout.current.name) {
+      // Apply or update the layout
+      cy.layout(layoutOptions).run();
+
+      // Update the previous layout value
+      prevLayout.current = layout;
+    }
+  }, [layout]);
 
   const cyConfig = {
     // Other configuration options...

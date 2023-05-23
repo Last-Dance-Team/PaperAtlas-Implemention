@@ -39,7 +39,7 @@ let pageNumber = 0;
 export default function SearchBar(props: any) {
   const [graphType, setGraphType] = React.useState("");
   const [searchParameter, setSearchParameter] = React.useState("");
-  const [distance, setDistance] = React.useState("0");
+  const [distance, setDistance] = React.useState("1");
   const [word, setWord] = React.useState("");
   const [hideButtons, setHideButtons] = React.useState(true);
 
@@ -211,13 +211,13 @@ export default function SearchBar(props: any) {
     setSelectedButton(buttonNumber);
   };
 
-  const [bringReference, setBringReference] = React.useState(0);
+  const [bringReference, setBringReference] = React.useState(1);
 
   const handleReferenceButtonClick = () => {
     setBringReference((bringReference + 1) % 2);
   };
 
-  const [bringReferenced, setBringReferenced] = React.useState(0);
+  const [bringReferenced, setBringReferenced] = React.useState(1);
 
   const handleReferencedButtonClick = () => {
     setBringReferenced((bringReferenced + 1) % 2);
