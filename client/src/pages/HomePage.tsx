@@ -365,8 +365,10 @@ function HomePage() {
 
     console.log("here");
 
-    const filteredEdges = data.edges.filter((edge: any) =>
-        filteredNodes.some((node: any) => node.data.id === edge.data.target) && filteredNodes.some((node:any) => node.data.id === edge.data.source)
+    const filteredEdges = data.edges.filter(
+      (edge: any) =>
+        filteredNodes.some((node: any) => node.data.id === edge.data.target) &&
+        filteredNodes.some((node: any) => node.data.id === edge.data.source)
     );
 
     const updatedFilteredElements = {
@@ -374,7 +376,7 @@ function HomePage() {
       edges: filteredEdges,
     };
 
-    console.log(updatedElements)
+    console.log(updatedElements);
 
     setElements(updatedElements);
     console.log("after elements");
@@ -531,8 +533,7 @@ function HomePage() {
   };
 
   const updatePin = (nodeId: string, pinStatus: boolean) => {
-
-    console.log("pin")
+    console.log("pin");
     const newNodes = elements.nodes.map((node) =>
       node.data.id === nodeId
         ? { ...node, data: { ...node.data, pinned: pinStatus } }
@@ -1226,7 +1227,7 @@ function HomePage() {
           getReferred={getReferred}
           getPapers={getPapers}
           getAuthors={getAuthors}
-          getCitedAuthors = {getCitedAuthors}
+          getCitedAuthors={getCitedAuthors}
           remove={remove}
           updatePin={updatePin}
         />
