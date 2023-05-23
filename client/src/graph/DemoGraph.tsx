@@ -4,6 +4,7 @@ import cytoscape, {
   EdgeSingular,
   EventObject,
   NodeSingular,
+  Position,
 } from "cytoscape";
 import CytoscapeComponent from "react-cytoscapejs";
 import contextMenus from "cytoscape-context-menus";
@@ -218,6 +219,12 @@ function DemoGraph(props: any) {
 
   const cyRef = useRef<Core | null>(null);
 
+  const layoutOptionsRandom = {
+    name: layout.name,
+    animate: true, // enable animations
+    animationDuration: 1000, // set the animation duration
+    randomize: false, // prevent positions of old nodes from changing
+  };
   const layoutOptions = {
     name: layout.name,
     animate: true, // enable animations
@@ -273,8 +280,12 @@ function DemoGraph(props: any) {
         if (numNodesAdded === numNodesToAdd) {
           console.log("ever here");
           // fit the graph to the new nodes
+          cy.layout(layoutOptionsRandom).run();
           if (props.isNewGraph) {
             cy.layout(layoutOptions).run();
+          } else {
+            // Fit the graph to the new nodes
+            cy.fit();
           }
           cy.fit();
         }
@@ -476,6 +487,7 @@ function DemoGraph(props: any) {
         //cy.cxtmenu(authorToolBox);
       }}
       elements={element}
+      layout={layoutOptions}
       style={{
         width: "100%",
         height: "75vh",
