@@ -273,6 +273,8 @@ function DemoGraph(props: any) {
         if (numNodesAdded === numNodesToAdd) {
           console.log("ever here");
           // fit the graph to the new nodes
+          cy.layout(layoutOptions).run();
+
           cy.fit();
         }
       };
@@ -291,6 +293,8 @@ function DemoGraph(props: any) {
   useEffect(() => {
     const cy = cyRef.current;
 
+    console.log("layout", layout);
+    console.log("prevLayout", prevLayout.current);
     if (cy && layout.name !== prevLayout.current.name) {
       // Apply or update the layout
       cy.layout(layoutOptions).run();
