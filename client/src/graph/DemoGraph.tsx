@@ -88,7 +88,7 @@ function DemoGraph(props: any) {
       selector: 'node[type="Author"][?selected]',
 
       style: {
-        "underlay-color": "pink", // Underlay color
+        "underlay-color": "grey", // Underlay color
         "underlay-padding": "5px", // Padding around the underlay
         "underlay-opacity": "1", // Opacity of the underlay
         "underlay-shape": "round-rectangle", // Underlay shape
@@ -117,7 +117,7 @@ function DemoGraph(props: any) {
     {
       selector: 'node[type="Paper"][?selected]',
       style: {
-        "underlay-color": "pink", // Underlay color
+        "underlay-color": "grey", // Underlay color
         "underlay-padding": "5px", // Padding around the underlay
         "underlay-opacity": "1", // Opacity of the underlay
         "underlay-shape": "round-rectangle", // Underlay shape

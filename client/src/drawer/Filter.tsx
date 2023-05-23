@@ -67,6 +67,7 @@ const array_area = [
   "History",
 ];
 
+const empty_array: string[] = [];
 function Filter(props: any) {
   const [selectedFields, setSelectedFields] = useState<string[]>(
     props.selectedFields
@@ -94,10 +95,30 @@ function Filter(props: any) {
     props.filter(citationCount.min, citationCount.max, fields, filterType);
   };
 
+  const handleSelectAll = () => {
+    setSelectedFields(array_area);
+    props.filter(
+      citationCount.min,
+      citationCount.max,
+      array_area,
+      filterType
+    );
+  };
+  
+  const handleSelectNone = () => {
+    setSelectedFields(empty_array);
+    props.filter(
+      citationCount.min,
+      citationCount.max,
+      empty_array,
+      filterType
+    );
+  };
+
   const handleFilterTypeChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const newFilterType = event.target.checked ? "or" : "and";
+    const newFilterType = event.target.checked ? "and" : "or";
     //setFilterType(event.target.checked ? "or" : "and");
     setFilterType(newFilterType);
     props.filter(
@@ -126,6 +147,17 @@ function Filter(props: any) {
     );
   };
 
+  const StyledButton = styled(Button)`
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #219296;
+  color: #fff;
+  border-radius: 5px;
+`;
+
+const StyledTypography = styled(Typography)`
+  width: 50px; /* Adjust the width as needed */
+`;
   return (
     <div>
       <Typography
@@ -147,18 +179,24 @@ function Filter(props: any) {
       </div>
       <Container>
         <StyledSwitch
-          checked={filterType === "or"}
+          checked={filterType === "and"}
           onChange={handleFilterTypeChange}
         />
         {filterType === "or" ? (
-          <Typography variant="subtitle1" color="primary" fontWeight="bold">
-            OR
-          </Typography>
+          <StyledTypography variant="subtitle1" color="primary" fontWeight="bold">
+            OR 
+          </StyledTypography>
         ) : (
-          <Typography variant="subtitle1" color="primary" fontWeight="bold">
+          <StyledTypography variant="subtitle1" color="primary" fontWeight="bold">
             AND
-          </Typography>
+          </StyledTypography>
         )}
+        
+        <StyledButton  onClick={handleSelectAll}>Select All</StyledButton >
+        
+        
+        <StyledButton  onClick={handleSelectNone}>Select None</StyledButton >
+        
       </Container>
       <Divider style={{ marginBottom: "30px", marginTop: "30px" }} />
       <Typography variant="h6" style={{ marginBottom: "20px" }}>
@@ -188,7 +226,9 @@ function Filter(props: any) {
             sx={{ width: "120px" }}
           />
           <ButtonContainer>
-            <Button onClick={applyFilter} variant="contained" color="primary">
+            <Button onClick={applyFilter} variant="contained" color="primary" style={{
+              backgroundColor :"#219296",
+             }}>
               Apply Filter
             </Button>
           </ButtonContainer>
