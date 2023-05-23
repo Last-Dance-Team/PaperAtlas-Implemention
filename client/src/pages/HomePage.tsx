@@ -839,7 +839,7 @@ function HomePage() {
   };
 
   const handleDrawerOpenWithState = (node: any, state: number) => {
-    setDrawerState(state);
+    setDrawerState(state)
     setOpen(true);
     setNode(node);
   };
@@ -1008,12 +1008,26 @@ function HomePage() {
               alignItems: "center",
             }}
           >
-            <Tooltip title="Download" arrow>
+            <Tooltip
+                      title={
+                        <span style={{ fontSize: "13px" }}>
+                          Download
+                        </span>
+                      }
+                      arrow
+                    >
               <FontAwesomeIcon icon={faDownload} onClick={handleDownload} />
             </Tooltip>
             <div style={{ marginLeft: "10px", marginRight: "10px" }}></div>{" "}
             {/* Add space here */}
-            <Tooltip title="Upload" arrow>
+            <Tooltip
+                      title={
+                        <span style={{ fontSize: "13px" }}>
+                          Upload
+                        </span>
+                      }
+                      arrow
+                    >
               <FormControl>
                 <label htmlFor="file-upload">
                   <FontAwesomeIcon icon={faUpload} />
@@ -1135,82 +1149,105 @@ function HomePage() {
             md={12}
             lg={open ? 12 : 6}
             xl={open ? 12 : 6}
-            style={{ paddingTop: 25, paddingLeft: 20 }}
+
           >
             <Grid container>
-              <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
-                <FormControl>
-                  <Button
-                    variant="contained"
-                    component="span"
-                    style={{
-                      color: !selectCommon ? COLOR_NAMES.BLUE : "white",
-                      borderColor: COLOR_NAMES.BLUE,
-                      backgroundColor: !selectCommon
-                        ? "white"
-                        : COLOR_NAMES.BLUE,
-                      width: "120px",
-                      height: "100%", // Set the height to 100%
-                    }}
-                    onClick={handleSelect}
-                  >
-                    Find Common
-                  </Button>
-                </FormControl>
-              </Grid>
+            <>
+    <Button
+    variant="contained"
+    component="span"
+    style={{
+      color: !select ? COLOR_NAMES.BLUE : "white",
+      borderColor: COLOR_NAMES.BLUE,
+      backgroundColor: !select ? COLOR_NAMES.TRANSPARENT_BLUE : COLOR_NAMES.BLUE,
+      width: "120px",
+      height: "100%",
+      margin: "10px", // Set the height to 100%
+        }}
+        onClick={handleSelect}
+     > Select</Button>
 
-              {showAdditionalButtons && (
-                <Grid item xs={3} sm={3} md={3} lg={4} xl={4}>
-                  <div
+        {select && (
+            <Grid >
+                <div
                     style={{
                       display: "flex",
-                      flexDirection: "column", // Change row to column
+                      flexDirection: "row", // Change row to column
                       alignItems: "flex-start", // Align buttons to the left
                       justifyContent: "space-between", // Align buttons in the center vertically
                       height: "100%",
+                      margin: "5px",
                     }}
-                  >
+                >
+                    <Tooltip
+                      title={
+                        <span style={{ fontSize: "14px" }}>
+                          Select only papers to find their common citations
+                        </span>
+                      }
+                      arrow
+                    >
                     <Button
                       onClick={handleBringReferencesOfCommon}
                       variant="contained"
-                      size="small"
                       style={{
-                        height: "33%", // Set the height to one-third of the container height
-                        marginBottom: "3px",
-                        fontSize: "10px",
+                        color: COLOR_NAMES.BLUE,
+                        backgroundColor: COLOR_NAMES.TRANSPARENT_BLUE,
+                        width: "150px",
+                        margin: "5px",
                       }} // Use marginBottom instead of marginTop for spacing
                     >
-                      Common References
+                      References
                     </Button>
-
+                    </Tooltip>
+                    
+                    <Tooltip
+                      title={
+                        <span style={{ fontSize: "14px" }}>
+                          Select only papers to find their common citations
+                        </span>
+                      }
+                      arrow
+                    >
                     <Button
                       onClick={handleBringPaperThatReferstoCommon}
                       variant="contained"
-                      size="small"
                       style={{
-                        height: "33%", // Set the height to one-third of the container height
-                        marginBottom: "3px",
-                        fontSize: "10px",
+                        color: COLOR_NAMES.BLUE,
+                        backgroundColor: COLOR_NAMES.TRANSPARENT_BLUE,
+                        width: "150px",
+                        margin: "5px",
                       }}
                     >
-                      Common Citations
+                      Citations
                     </Button>
+                    </Tooltip>
 
+                    <Tooltip
+                      title={
+                        <span style={{ fontSize: "13px" }}>
+                          Select only authors to find their common papers
+                        </span>
+                      }
+                      arrow
+                    >
                     <Button
                       onClick={handleCommonPapersOfAuthors}
                       variant="contained"
-                      size="small"
                       style={{
-                        height: "33%", // Set the height to one-third of the container height
-                        marginBottom: "3px",
-                        fontSize: "10px",
+                        color: COLOR_NAMES.BLUE,
+                        backgroundColor: COLOR_NAMES.TRANSPARENT_BLUE,
+                        width: "200px",
+                        margin: "5px",
                       }}
                     >
-                      Common Papers of Authors
+                      Papers of Authors
                     </Button>
-                  </div>
-                </Grid>
-              )}
+                    </Tooltip>
+                </div>
+            </Grid>)}
+
+        </>
             </Grid>
           </Grid>
         </Grid>
