@@ -29,6 +29,9 @@ import { faGem } from "@fortawesome/free-solid-svg-icons";
 import { COLOR_NAMES } from "../constants/Colors";
 import { Grid } from "@mui/material";
 import { Link } from "react-router-dom";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import Tooltip from "@mui/material/Tooltip";
 
 const drawerWidth = 500;
 
@@ -999,22 +1002,45 @@ function HomePage() {
               Paper Atlas
             </Typography>
           </Link>
-          <Typography
-            variant="h6"
-            noWrap
-            sx={{ marginLeft: "auto" }}
-            component="div"
+          <div
+            style={{
+              marginLeft: "auto",
+              display: "flex",
+              alignItems: "center",
+            }}
           >
-            {open ? (
-              <IconButton color="inherit" onClick={handleDrawerClose}>
-                <ChevronRightIcon />
-              </IconButton>
-            ) : (
-              <IconButton color="inherit" onClick={handleDrawerOpen}>
-                <ChevronLeftIcon />
-              </IconButton>
-            )}
-          </Typography>
+            <Tooltip title="Download" arrow>
+              <FontAwesomeIcon icon={faDownload} onClick={handleDownload} />
+            </Tooltip>
+            <div style={{ marginLeft: "10px", marginRight: "10px" }}></div>{" "}
+            {/* Add space here */}
+            <Tooltip title="Upload" arrow>
+              <FormControl>
+                <label htmlFor="file-upload">
+                  <FontAwesomeIcon icon={faUpload} />
+                </label>
+                <input
+                  type="file"
+                  id="file-upload"
+                  style={{ display: "none" }}
+                  onChange={handleFileUpload}
+                />
+              </FormControl>
+            </Tooltip>
+            <div style={{ marginLeft: "16px" }}>
+              <Typography variant="h6" noWrap>
+                {open ? (
+                  <IconButton color="inherit" onClick={handleDrawerClose}>
+                    <ChevronRightIcon />
+                  </IconButton>
+                ) : (
+                  <IconButton color="inherit" onClick={handleDrawerOpen}>
+                    <ChevronLeftIcon />
+                  </IconButton>
+                )}
+              </Typography>
+            </div>
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -1186,54 +1212,6 @@ function HomePage() {
                   </div>
                 </Grid>
               )}
-
-              <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
-                <FormControl>
-                  <Button
-                    variant="outlined"
-                    onClick={handleDownload}
-                    style={{
-                      color: COLOR_NAMES.BLUE,
-                      borderColor: COLOR_NAMES.BLUE,
-                      width: "120px",
-                    }}
-                  >
-                    Download
-                  </Button>
-                </FormControl>
-              </Grid>
-              <Grid item xs={3} sm={3} md={3} lg={2} xl={2}>
-                <FormControl>
-                  <label htmlFor="file-upload">
-                    <Button
-                      variant="contained"
-                      component="span"
-                      sx={{
-                        bgcolor: COLOR_NAMES.BLUE,
-                        color: "white",
-                        "&:hover": {
-                          bgcolor: COLOR_NAMES.BLUE, // Set the desired background color on hover
-                        },
-                        "&:focus": {
-                          bgcolor: COLOR_NAMES.BLUE, // Set the desired background color on focus
-                        },
-                        "& .MuiTouchRipple-root": {
-                          // Override the ripple color
-                          backgroundColor: "transparent", // Set the desired ripple color
-                        },
-                      }} // Customize the background color and text color
-                    >
-                      Upload File
-                    </Button>
-                  </label>
-                  <input
-                    type="file"
-                    id="file-upload"
-                    style={{ display: "none" }}
-                    onChange={handleFileUpload}
-                  />
-                </FormControl>
-              </Grid>
             </Grid>
           </Grid>
         </Grid>
