@@ -6,10 +6,10 @@ import cytoscape, {
   NodeSingular,
 } from "cytoscape";
 import CytoscapeComponent from "react-cytoscapejs";
-import contextMenus from 'cytoscape-context-menus';
+import contextMenus from "cytoscape-context-menus";
 import "cytoscape-context-menus/cytoscape-context-menus.css";
 import "./jquery.qtip.css";
-import "./styles.css"
+import "./styles.css";
 import jquery from "jquery";
 import ReactDOM from "react-dom";
 import { border } from "@mui/system";
@@ -74,7 +74,6 @@ function DemoGraph(props: any) {
       selector: 'node[type="Author"][!selected]',
 
       style: {
-        "background-color": "#dddddd",
         "background-image": `url(https://last-dance-team.github.io/PaperAtlas/person-circle.png)`, // Use the absolute file path of the image
         "background-fit": "cover",
         "background-image-opacity": 1,
@@ -89,10 +88,13 @@ function DemoGraph(props: any) {
       selector: 'node[type="Author"][?selected]',
 
       style: {
-        "background-color": "#395277",
+        "underlay-color": "pink", // Underlay color
+        "underlay-padding": "5px", // Padding around the underlay
+        "underlay-opacity": "1", // Opacity of the underlay
+        "underlay-shape": "round-rectangle", // Underlay shape
         "background-image": `url(https://last-dance-team.github.io/PaperAtlas/person-circle.png)`, // Use the absolute file path of the image
         "background-fit": "cover",
-        "background-image-opacity": 0.2,
+        "background-image-opacity": 1,
         content: "data(abbr)",
 
         width: setSize,
@@ -105,7 +107,6 @@ function DemoGraph(props: any) {
         "background-image": `url(https://last-dance-team.github.io/PaperAtlas/paper.png)`, // Use the absolute file path of the image
         "background-fit": "cover",
         "background-image-opacity": 1,
-        //"background-color": "#d185c7",
 
         content: "data(abbr)",
 
@@ -116,10 +117,13 @@ function DemoGraph(props: any) {
     {
       selector: 'node[type="Paper"][?selected]',
       style: {
+        "underlay-color": "pink", // Underlay color
+        "underlay-padding": "5px", // Padding around the underlay
+        "underlay-opacity": "1", // Opacity of the underlay
+        "underlay-shape": "round-rectangle", // Underlay shape
         "background-image": `url(https://last-dance-team.github.io/PaperAtlas/paper.png)`, // Use the absolute file path of the image
         "background-fit": "cover",
-        "background-image-opacity": 0.2,
-        "background-color": "#d185c7",
+        "background-image-opacity": 1,
         content: "data(abbr)",
 
         width: setSize,
@@ -141,74 +145,74 @@ function DemoGraph(props: any) {
   const contextmenuOptions = {
     evtType: "cxttap",
     menuItems: [
-    {
-      id: "refrences",
-      content: "References",
-      tooltipText: "References",
-      selector: 'node[type="Paper"]',
-      onClickFunction: (event: { target: any }) => {
-        props.getReferences(event.target._private.data.id)
+      {
+        id: "refrences",
+        content: "References",
+        tooltipText: "References",
+        selector: 'node[type="Paper"]',
+        onClickFunction: (event: { target: any }) => {
+          props.getReferences(event.target._private.data.id);
+        },
+        hasTrailingDivider: true,
       },
-      hasTrailingDivider: true
-    },
-    {
-      id: "citations",
-      content: "Citations",
-      selector: 'node[type="Paper"]',
-      onClickFunction: (event: { target: any }) => {
-        props.getReferred(event.target._private.data.id)
+      {
+        id: "citations",
+        content: "Citations",
+        selector: 'node[type="Paper"]',
+        onClickFunction: (event: { target: any }) => {
+          props.getReferred(event.target._private.data.id);
+        },
+        hasTrailingDivider: true,
       },
-      hasTrailingDivider: true
-    },
-    {
-      id: "authors",
-      content: "Authors",
-      selector: 'node[type="Paper"]',
-      onClickFunction: (event: { target: any }) => {
-        props.getAuthors(event.target._private.data.id)
+      {
+        id: "authors",
+        content: "Authors",
+        selector: 'node[type="Paper"]',
+        onClickFunction: (event: { target: any }) => {
+          props.getAuthors(event.target._private.data.id);
+        },
+        hasTrailingDivider: true,
       },
-      hasTrailingDivider: true
-    },
-    {
-      id: "papers",
-      content: "Papers",
-      selector: 'node[type="Author"]',
-      onClickFunction: (event: { target: any }) => {
-        props.getPapers(event.target._private.data.id)
+      {
+        id: "papers",
+        content: "Papers",
+        selector: 'node[type="Author"]',
+        onClickFunction: (event: { target: any }) => {
+          props.getPapers(event.target._private.data.id);
+        },
+        hasTrailingDivider: true,
       },
-      hasTrailingDivider: true
-    },
-    {
-      id: "delete",
-      content: "Delete",
-      selector: 'node',
-      onClickFunction: (event: { target: any }) => {
-        props.remove(event.target._private.data.id)
+      {
+        id: "delete",
+        content: "Delete",
+        selector: "node",
+        onClickFunction: (event: { target: any }) => {
+          props.remove(event.target._private.data.id);
+        },
+        hasTrailingDivider: true,
       },
-      hasTrailingDivider: true
-    },
-    {
-      id: "pin",
-      content: "Pin",
-      selector: 'node[type="Paper"][!pinned]',
-      onClickFunction: (event: { target: any }) => {
-        props.updatePin(event.target._private.data.id, true)
+      {
+        id: "pin",
+        content: "Pin",
+        selector: 'node[type="Paper"][!pinned]',
+        onClickFunction: (event: { target: any }) => {
+          props.updatePin(event.target._private.data.id, true);
+        },
+        hasTrailingDivider: true,
       },
-      hasTrailingDivider: true
-    },
-    {
-      id: "unpin",
-      content: "Unpin",
-      selector: 'node[type="Paper"][?pinned]',
-      onClickFunction: (event: { target: any }) => {
-        props.updatePin(event.target._private.data.id, false)
+      {
+        id: "unpin",
+        content: "Unpin",
+        selector: 'node[type="Paper"][?pinned]',
+        onClickFunction: (event: { target: any }) => {
+          props.updatePin(event.target._private.data.id, false);
+        },
+        hasTrailingDivider: true,
       },
-      hasTrailingDivider: true
-    }
-  ],
-  menuItemClasses: ["custom-menu-item", "custom-menu-item:hover"],
-  contextMenuClasses: ["custom-context-menu"]
-  }
+    ],
+    menuItemClasses: ["custom-menu-item", "custom-menu-item:hover"],
+    contextMenuClasses: ["custom-context-menu"],
+  };
   const layout = { name: props.layoutName };
   const element = CytoscapeComponent.normalizeElements(props.elements);
 
@@ -246,7 +250,7 @@ function DemoGraph(props: any) {
 
     // get the bounding box of the graph
     if (cy) {
-      cy.contextMenus(contextmenuOptions)
+      cy.contextMenus(contextmenuOptions);
       cy.on("click", "node", handleClick);
 
       const boundingBox = cy.elements().boundingBox();
