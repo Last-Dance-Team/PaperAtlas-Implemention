@@ -110,6 +110,8 @@ function HomePage() {
     max: 100000,
   });
 
+  const [isNewGraph, setIsSetNewGarph] = React.useState(true);
+
   const callBackendAPI = async (
     graphType: string,
     ids: string[],
@@ -121,6 +123,7 @@ function HomePage() {
       ids: ids,
       distance: distance,
     };
+    setIsSetNewGarph(true);
     //console.log(body);
     // "proxy": "http://localhost:80",
     if (graphType === "author") {
@@ -203,6 +206,12 @@ function HomePage() {
       ids: ids,
       distance: distance,
     };
+    if (elements.nodes.length == 0) {
+      console.log("merging to empty graph");
+      setIsSetNewGarph(true);
+    } else {
+      setIsSetNewGarph(false);
+    }
     //console.log(body);
     // "proxy": "http://localhost:80",
     if (graphType === "author") {
@@ -1230,6 +1239,7 @@ function HomePage() {
           getCitedAuthors={getCitedAuthors}
           remove={remove}
           updatePin={updatePin}
+          isNewGraph={isNewGraph}
         />
       </Main>
     </div>
