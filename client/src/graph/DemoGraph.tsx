@@ -214,6 +214,11 @@ function DemoGraph(props: any) {
     }
   }, [element]);
 
+  const cyConfig = {
+    // Other configuration options...
+    nodeDimensionsIncludeLabels: true,
+  };
+
   return (
     <CytoscapeComponent
       cy={(cy): void => {
@@ -390,6 +395,7 @@ function DemoGraph(props: any) {
       stylesheet={styleGraph}
       minZoom={0.1}
       maxZoom={10.0}
+      {...cyConfig}
     />
   );
 }
