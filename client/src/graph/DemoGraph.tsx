@@ -5,15 +5,16 @@ import cytoscape, {
   EventObject,
   NodeSingular,
 } from "cytoscape";
-//import cxtmenu from "cytoscape-cxtmenu";
-import jquery from "jquery";
 import CytoscapeComponent from "react-cytoscapejs";
+import contextMenus from 'cytoscape-context-menus';
+import "cytoscape-context-menus/cytoscape-context-menus.css";
 import "./jquery.qtip.css";
+import "./styles.css"
+import jquery from "jquery";
 import ReactDOM from "react-dom";
 import { border } from "@mui/system";
-//import cyQtip from 'cytoscape-qtip';
-import "cytoscape-context-menus";
 import { removeAllListeners } from "process";
+//import cyQtip from 'cytoscape-qtip';
 //import cxtmenu from 'cytoscape-cxtmenu';
 const cola = require("cytoscape-cola");
 const dagre = require("cytoscape-dagre");
@@ -21,7 +22,8 @@ const euler = require("cytoscape-euler");
 const klay = require("cytoscape-klay");
 const cose = require("cytoscape-cose-bilkent");
 const qtip = require("cytoscape-qtip");
-const cxtmenu = require("cytoscape-cxtmenu");
+//const contextMenus = require("cytoscape-context-menus")
+//const cxtmenu = require("cytoscape-cxtmenu");
 let fcose = require("cytoscape-fcose");
 
 //const jquery = require('jquery')
@@ -48,7 +50,12 @@ function setSize(node: cytoscape.NodeSingular) {
 
 cytoscape.use(qtip);
 
-cytoscape.use(cxtmenu);
+cytoscape.use(contextMenus);
+//if (typeof cytoscape("core", "contextMenus") === "undefined") {
+//  contextMenus(cytoscape);
+//}
+
+//contextMenus(cytoscape)
 
 cytoscape.use(cola);
 cytoscape.use(dagre);
@@ -131,6 +138,77 @@ function DemoGraph(props: any) {
     },
   ] as Array<cytoscape.Stylesheet>;
 
+  const contextmenuOptions = {
+    evtType: "cxttap",
+    menuItems: [
+    {
+      id: "refrences",
+      content: "References",
+      tooltipText: "References",
+      selector: 'node[type="Paper"]',
+      onClickFunction: (event: { target: any }) => {
+        props.getReferences(event.target._private.data.id)
+      },
+      hasTrailingDivider: true
+    },
+    {
+      id: "citations",
+      content: "Citations",
+      selector: 'node[type="Paper"]',
+      onClickFunction: (event: { target: any }) => {
+        props.getReferred(event.target._private.data.id)
+      },
+      hasTrailingDivider: true
+    },
+    {
+      id: "authors",
+      content: "Authors",
+      selector: 'node[type="Paper"]',
+      onClickFunction: (event: { target: any }) => {
+        props.getAuthors(event.target._private.data.id)
+      },
+      hasTrailingDivider: true
+    },
+    {
+      id: "papers",
+      content: "Papers",
+      selector: 'node[type="Author"]',
+      onClickFunction: (event: { target: any }) => {
+        props.getPapers(event.target._private.data.id)
+      },
+      hasTrailingDivider: true
+    },
+    {
+      id: "delete",
+      content: "Delete",
+      selector: 'node',
+      onClickFunction: (event: { target: any }) => {
+        props.remove(event.target._private.data.id)
+      },
+      hasTrailingDivider: true
+    },
+    {
+      id: "pin",
+      content: "Pin",
+      selector: 'node[type="Paper"][!pinned]',
+      onClickFunction: (event: { target: any }) => {
+        props.updatePin(event.target._private.data.id, true)
+      },
+      hasTrailingDivider: true
+    },
+    {
+      id: "unpin",
+      content: "Unpin",
+      selector: 'node[type="Paper"][?pinned]',
+      onClickFunction: (event: { target: any }) => {
+        props.updatePin(event.target._private.data.id, false)
+      },
+      hasTrailingDivider: true
+    }
+  ],
+  menuItemClasses: ["custom-menu-item", "custom-menu-item:hover"],
+  contextMenuClasses: ["custom-context-menu"]
+  }
   const layout = { name: props.layoutName };
   const element = CytoscapeComponent.normalizeElements(props.elements);
 
@@ -168,6 +246,7 @@ function DemoGraph(props: any) {
 
     // get the bounding box of the graph
     if (cy) {
+      cy.contextMenus(contextmenuOptions)
       cy.on("click", "node", handleClick);
 
       const boundingBox = cy.elements().boundingBox();
