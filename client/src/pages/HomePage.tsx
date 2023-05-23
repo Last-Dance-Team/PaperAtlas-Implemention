@@ -100,8 +100,36 @@ function HomePage() {
   const [drawerState, setDrawerState] = React.useState(0);
   const [select, setSelect] = React.useState(false);
   const [value, setValue] = React.useState<number[]>([1970, 2023]);
-  const [selectedFields, setSelectedFields] = useState<string[]>([]);
-  const [filterType, setFilterType] = useState("and");
+  const [selectedFields, setSelectedFields] = useState<string[]>([
+    "Medicine",
+    "Biology",
+    "Agricultural And Food Sciences",
+    "Engineering",
+    "Political Science",
+    "Psychology",
+    "Materials Science",
+    "Computer Science",
+    "Mathematics",
+    "Physics",
+    "Geography",
+    "Chemistry",
+    "Art",
+    "Economics",
+    "Business",
+    "Environmental Science",
+    "Geology",
+    "Linguistics",
+    "Philosophy",
+    "Sociology",
+    "Education",
+    "Law",
+    "History",
+  ]);
+
+ 
+
+  
+  const [filterType, setFilterType] = useState("or");
   const [citationCount, setCitationCount] = useState<{
     min: number;
     max: number;
@@ -722,8 +750,12 @@ function HomePage() {
 
     let filteredNodes: any[] = unpinnedNodes;
 
-    if (fields.length !== 0 && filterType === "and") {
+    if ( filterType === "and") {
       filteredNodes = unpinnedNodes.filter((obj: any) => {
+        if( fields.length === 0 )
+        {
+          return false;
+        }
         for (const field of fields) {
           if (!obj.data.uniqueFieldsOfStudies.includes(field)) {
             return false; // Exclude nodes that don't have all the fields
@@ -731,8 +763,13 @@ function HomePage() {
         }
         return true;
       });
-    } else if (fields.length !== 0) {
+    } else {
+      
       filteredNodes = unpinnedNodes.filter((obj: any) => {
+        if( fields.length === 0 )
+        {
+          return false;
+        }
         for (const field of fields) {
           if (obj.data.uniqueFieldsOfStudies.includes(field)) {
             return true; // Exclude nodes that don't have all the fields
@@ -741,7 +778,7 @@ function HomePage() {
         return false;
       });
     }
-
+    
     filteredNodes = [...filteredNodes, ...pinnedNodes];
 
     const filteredIds = filteredNodes.map((obj: any) => obj.data.id);
