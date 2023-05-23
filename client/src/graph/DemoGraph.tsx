@@ -217,6 +217,7 @@ function DemoGraph(props: any) {
   const cyConfig = {
     // Other configuration options...
     nodeDimensionsIncludeLabels: true,
+    randomize: false,
   };
 
   return (
