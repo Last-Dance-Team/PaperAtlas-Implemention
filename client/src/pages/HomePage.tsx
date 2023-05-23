@@ -77,7 +77,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 function HomePage() {
   //console.log("Home Page");
 
-  const [layoutName, setLaYoutName] = useState(LAYOUT_NAMES.KLAY);
+  const [layoutName, setLaYoutName] = useState(LAYOUT_NAMES.F_COSE);
   const [elements, setElements] = useState<{ nodes: any[]; edges: any[] }>({
     nodes: [],
     edges: [],
@@ -271,7 +271,6 @@ function HomePage() {
   };
 
   const addUniqueElements = (data: any) => {
-    
     const uniqueNodes = data.nodes.filter(
       (node: any) => !elements.nodes.some((e) => e.data.id === node.data.id)
     );
@@ -298,7 +297,6 @@ function HomePage() {
     applyDateFilter(value[0], value[1], uniqueElements);
   };
 
-
   const addPapers = async (papers: any[]) => {
     console.log(papers);
     console.log(elements);
@@ -324,14 +322,16 @@ function HomePage() {
     const uniquePaperIds = new Set<number>();
     const uniqueAuthorIds = new Set<number>();
 
-    const newNodes = nodes.filter(
+    const newNodes = nodes
+      .filter(
         (node: any) => !elements.nodes.some((e) => e.data.id === node.data.id)
-      ).map((b: any) => {
+      )
+      .map((b: any) => {
         b.data.abbr = b.data.label.substring(0, 10) + "...";
         return b;
-      })
+      });
 
-    const updatedNodes = [...(elements.nodes), ...newNodes]
+    const updatedNodes = [...elements.nodes, ...newNodes];
 
     updatedNodes.forEach((node) =>
       node.data.type === "Paper"
@@ -358,9 +358,9 @@ function HomePage() {
       edges: data.edges,
     };
 
-    const filteredNodes = [...(filteredElements.nodes), ...(newNodes)]
+    const filteredNodes = [...filteredElements.nodes, ...newNodes];
 
-    console.log("here")
+    console.log("here");
 
     const filteredEdges = data.edges.filter((edge: any) =>
         filteredNodes.some((node: any) => node.data.id === edge.data.target) && filteredNodes.some((node:any) => node.data.id === edge.data.source)
@@ -368,15 +368,15 @@ function HomePage() {
 
     const updatedFilteredElements = {
       nodes: filteredNodes,
-      edges: filteredEdges
-    }
+      edges: filteredEdges,
+    };
 
     console.log(updatedElements)
 
     setElements(updatedElements);
-    console.log("after elements")
+    console.log("after elements");
     setFilteredElements(updatedFilteredElements);
-    console.log("after filtereds")
+    console.log("after filtereds");
   };
 
   const getReferences = async (paperId: string) => {
@@ -386,9 +386,9 @@ function HomePage() {
     );
     const data = await response.data;
 
-    console.log(data)
-    addNodes(data.nodes)
-    
+    console.log(data);
+    addNodes(data.nodes);
+
     //addPapers(data.nodes);
     //addUniqueElements(data)
   };
@@ -399,7 +399,7 @@ function HomePage() {
       `http://localhost:80/getReferences/${paperId}`
     );
     const data = await response.data;
-    console.log(data)
+    console.log(data);
     addNodes(data.nodes);
     //addUniqueElements(data)
   };
@@ -411,7 +411,7 @@ function HomePage() {
     );
     const data = await response.data;
     console.log(data);
-    addNodes(data.nodes)
+    addNodes(data.nodes);
     //addUniqueElements(data);
   };
 
@@ -422,7 +422,7 @@ function HomePage() {
     );
     const data = await response.data;
     console.log(data);
-    addNodes(data.nodes)
+    addNodes(data.nodes);
     //addUniqueElements(data);
   };
 
@@ -438,65 +438,65 @@ function HomePage() {
     //addUniqueElements(data);
   };
 
-  
-
   const handleBringReferencesOfCommon = async () => {
-
-    const selectedNodes = elements.nodes.filter(node => node.data.selected === true && node.data.type === "Paper" );
-    const selectedNodeIds = selectedNodes.map(node => node.data.id);
+    const selectedNodes = elements.nodes.filter(
+      (node) => node.data.selected === true && node.data.type === "Paper"
+    );
+    const selectedNodeIds = selectedNodes.map((node) => node.data.id);
     const body = {
       ids: selectedNodeIds,
     };
-    console.log("ids",selectedNodeIds);
+    console.log("ids", selectedNodeIds);
 
-    const response = await axios.put(`http://localhost:80/add/commonPapersThatRefer`, body);
+    const response = await axios.put(
+      `http://localhost:80/add/commonPapersThatRefer`,
+      body
+    );
     const data = await response.data;
 
-
     console.log(data);
-    addNodes(data.nodes)
+    addNodes(data.nodes);
     //addUniqueElements(data);
-    
   };
-
 
   const handleBringPaperThatReferstoCommon = async () => {
-
-    const selectedNodes = elements.nodes.filter(node => node.data.selected === true && node.data.type === "Paper" );
-    const selectedNodeIds = selectedNodes.map(node => node.data.id);
+    const selectedNodes = elements.nodes.filter(
+      (node) => node.data.selected === true && node.data.type === "Paper"
+    );
+    const selectedNodeIds = selectedNodes.map((node) => node.data.id);
     const body = {
       ids: selectedNodeIds,
     };
 
-
-    const response = await axios.put(`http://localhost:80/add/commonReferences`, body);
+    const response = await axios.put(
+      `http://localhost:80/add/commonReferences`,
+      body
+    );
     const data = await response.data;
 
-
     console.log(data);
-    addNodes(data.nodes)
+    addNodes(data.nodes);
     //addUniqueElements(data);
-    
   };
 
-
   const handleCommonPapersOfAuthors = async () => {
-
-    const selectedNodes = elements.nodes.filter(node => node.data.selected === true && node.data.type === "Author" );
-    const selectedNodeIds = selectedNodes.map(node => node.data.id);
+    const selectedNodes = elements.nodes.filter(
+      (node) => node.data.selected === true && node.data.type === "Author"
+    );
+    const selectedNodeIds = selectedNodes.map((node) => node.data.id);
     const body = {
       ids: selectedNodeIds,
     };
 
-
-    const response = await axios.put(`http://localhost:80/add/commonPapers`, body);
+    const response = await axios.put(
+      `http://localhost:80/add/commonPapers`,
+      body
+    );
     const data = await response.data;
 
-
     console.log(data);
-    addNodes(data.nodes)
+    addNodes(data.nodes);
     //addUniqueElements(data);
-    
   };
 
   const updateSelect = (nodeId: string, selected: boolean) => {
@@ -515,7 +515,15 @@ function HomePage() {
 
     setElements(newElements);
     //applyDateFilter(value[0], value[1],newElements);
-    applyFilters(value[0], value[1], citationCount.min,citationCount.max, selectedFields,filterType,newElements)
+    applyFilters(
+      value[0],
+      value[1],
+      citationCount.min,
+      citationCount.max,
+      selectedFields,
+      filterType,
+      newElements
+    );
     //handleDrawerOpenWithState(node.data, 1)
   };
 
@@ -537,11 +545,19 @@ function HomePage() {
 
     setElements(newElements);
     //applyDateFilter(value[0], value[1], newElements);
-    applyFilters(value[0], value[1], citationCount.min,citationCount.max, selectedFields,filterType,newElements)
+    applyFilters(
+      value[0],
+      value[1],
+      citationCount.min,
+      citationCount.max,
+      selectedFields,
+      filterType,
+      newElements
+    );
     handleDrawerOpenWithState(node.data, 1);
   };
   const remove = (nodeId: string) => {
-    console.log(elements)
+    console.log(elements);
     const newNodes = elements.nodes.filter(
       (node: any) => !(node.data.id === nodeId)
     );
@@ -556,11 +572,19 @@ function HomePage() {
       edges: newEdges,
     };
 
-    console.log(newElements)
+    console.log(newElements);
 
     setElements(newElements);
     //applyDateFilter(value[0], value[1], newElements);
-    applyFilters(value[0], value[1], citationCount.min,citationCount.max, selectedFields,filterType,newElements)
+    applyFilters(
+      value[0],
+      value[1],
+      citationCount.min,
+      citationCount.max,
+      selectedFields,
+      filterType,
+      newElements
+    );
   };
 
   useEffect(() => {}, []);
@@ -582,7 +606,7 @@ function HomePage() {
         (obj.data.year >= minDateNo && obj.data.year <= maxDateNo)
       );
     });
-  
+
     const newIds = newNodes.map((obj: any) => obj.data.id);
     const finalEdges = elements.edges.filter((obj: any) => {
       return (
@@ -604,22 +628,23 @@ function HomePage() {
     return filteredElements;
   };
 
-  const applyFieldANDFilter = ( fields : string[] ) =>
-  {
-    const newNodes = elements.nodes.filter((obj: any) => { 
-      if(obj.data.pinned )
-      {
+  const applyFieldANDFilter = (fields: string[]) => {
+    const newNodes = elements.nodes.filter((obj: any) => {
+      if (obj.data.pinned) {
         return true;
       }
 
       for (const field of fields) {
-      if  ( obj.data.type === "Paper" && !obj.data.uniqueAuthorIds.includes(field)) {
-        return false; // Exclude nodes that don't have all the fields
+        if (
+          obj.data.type === "Paper" &&
+          !obj.data.uniqueAuthorIds.includes(field)
+        ) {
+          return false; // Exclude nodes that don't have all the fields
+        }
       }
-    }
       return true;
     });
-  
+
     const newIds = newNodes.map((obj: any) => obj.data.id);
     const finalEdges = elements.edges.filter((obj: any) => {
       return (
@@ -633,120 +658,136 @@ function HomePage() {
     };
     setFilteredElements(filteredElements);
     console.log(filteredElements);
-  }
+  };
 
-
-  const applyFieldORFilter = ( fields : string[] ) =>
-  {
-    const newNodes = elements.nodes.filter((obj: any) => { 
-      if(obj.data.pinned )
-      {
+  const applyFieldORFilter = (fields: string[]) => {
+    const newNodes = elements.nodes.filter((obj: any) => {
+      if (obj.data.pinned) {
         return true;
       }
 
       for (const field of fields) {
-      if  ( obj.data.type === "Paper" && obj.data.uniqueAuthorIds.includes(field)) {
-        return true; // Exclude nodes that don't have all the fields
+        if (
+          obj.data.type === "Paper" &&
+          obj.data.uniqueAuthorIds.includes(field)
+        ) {
+          return true; // Exclude nodes that don't have all the fields
+        }
       }
-    }
       return false;
     });
-  
+
     const newIds = newNodes.map((obj: any) => obj.data.id);
     const finalEdges = elements.edges.filter((obj: any) => {
       return (
         newIds.includes(obj.data.target) && newIds.includes(obj.data.source)
       );
     });
-      
+
     const filteredElements = {
       nodes: newNodes,
       edges: finalEdges,
     };
     setFilteredElements(filteredElements);
     console.log(filteredElements);
-  }
+  };
 
   const applyFilters = (
     minDate: number,
     maxDate: number,
     minCitation: number,
     maxCitation: number,
-    fields : string[],
-    filterType: string, 
-    elements: { nodes: any[]; edges: any[]},
-    ) => {
-      
-      let pinnedNodes : any[] = []
-      let unpinnedNodes : any[] = []
-      elements.nodes.forEach( (obj) => {
-        if(obj.data.pinned ||obj.data.type != "Paper" ){
-          pinnedNodes.push(obj)
-        }
-        else if (obj.data.year >= minDate && obj.data.year <= maxDate && obj.data.citationCount >= minCitation && obj.data.citationCount <= maxCitation){
-          unpinnedNodes.push(obj)
-        }
-      })
-
-      let filteredNodes : any[] = unpinnedNodes
-
-      if (fields.length !== 0 && filterType === "and"){
-        filteredNodes = unpinnedNodes.filter((obj: any) => { 
-          for (const field of fields) {
-            if  ( !obj.data.uniqueFieldsOfStudies.includes(field)) {
-              return false; // Exclude nodes that don't have all the fields
-            }
-        }
-          return true;
-        });
+    fields: string[],
+    filterType: string,
+    elements: { nodes: any[]; edges: any[] }
+  ) => {
+    let pinnedNodes: any[] = [];
+    let unpinnedNodes: any[] = [];
+    elements.nodes.forEach((obj) => {
+      if (obj.data.pinned || obj.data.type != "Paper") {
+        pinnedNodes.push(obj);
+      } else if (
+        obj.data.year >= minDate &&
+        obj.data.year <= maxDate &&
+        obj.data.citationCount >= minCitation &&
+        obj.data.citationCount <= maxCitation
+      ) {
+        unpinnedNodes.push(obj);
       }
-      else if(fields.length !== 0){
-        filteredNodes = unpinnedNodes.filter((obj: any) => {    
-          for (const field of fields) {
-            if  ( obj.data.uniqueFieldsOfStudies.includes(field)) {
-              return true; // Exclude nodes that don't have all the fields
-            }
+    });
+
+    let filteredNodes: any[] = unpinnedNodes;
+
+    if (fields.length !== 0 && filterType === "and") {
+      filteredNodes = unpinnedNodes.filter((obj: any) => {
+        for (const field of fields) {
+          if (!obj.data.uniqueFieldsOfStudies.includes(field)) {
+            return false; // Exclude nodes that don't have all the fields
+          }
         }
-          return false;
-        });
-
-      }
-
-      filteredNodes = [...filteredNodes, ...pinnedNodes]
-
-      const filteredIds = filteredNodes.map((obj: any) => obj.data.id);
-      const filteredEdges = elements.edges.filter((obj: any) => {
-        return (
-          filteredIds.includes(obj.data.target) && filteredIds.includes(obj.data.source)
-        );
+        return true;
       });
-        
-      const filteredElements = {
-        nodes: filteredNodes,
-        edges: filteredEdges,
-      };
-      setFilteredElements(filteredElements);  
-    
+    } else if (fields.length !== 0) {
+      filteredNodes = unpinnedNodes.filter((obj: any) => {
+        for (const field of fields) {
+          if (obj.data.uniqueFieldsOfStudies.includes(field)) {
+            return true; // Exclude nodes that don't have all the fields
+          }
+        }
+        return false;
+      });
     }
+
+    filteredNodes = [...filteredNodes, ...pinnedNodes];
+
+    const filteredIds = filteredNodes.map((obj: any) => obj.data.id);
+    const filteredEdges = elements.edges.filter((obj: any) => {
+      return (
+        filteredIds.includes(obj.data.target) &&
+        filteredIds.includes(obj.data.source)
+      );
+    });
+
+    const filteredElements = {
+      nodes: filteredNodes,
+      edges: filteredEdges,
+    };
+    setFilteredElements(filteredElements);
+  };
 
   const filter = (
     minCitation: number,
     maxCitation: number,
-    fields : string[],
-    filterType: string, ) => {
+    fields: string[],
+    filterType: string
+  ) => {
+    setCitationCount({ min: minCitation, max: maxCitation });
+    setSelectedFields(fields);
+    setFilterType(filterType);
 
-      setCitationCount({min: minCitation, max: maxCitation})
-      setSelectedFields(fields)
-      setFilterType(filterType)
+    console.log(fields);
 
-      console.log(fields)
-      
-      applyFilters(value[0], value[1], minCitation,maxCitation,fields,filterType,elements)
-    }
-
+    applyFilters(
+      value[0],
+      value[1],
+      minCitation,
+      maxCitation,
+      fields,
+      filterType,
+      elements
+    );
+  };
 
   const filterAccordingToDate = () => {
-    applyFilters(value[0], value[1], citationCount.min,citationCount.max, selectedFields,filterType,elements)
+    applyFilters(
+      value[0],
+      value[1],
+      citationCount.min,
+      citationCount.max,
+      selectedFields,
+      filterType,
+      elements
+    );
     //applyDateFilter(value[0], value[1], elements);
   };
 
@@ -819,7 +860,15 @@ function HomePage() {
       };
 
       setElements(newElements);
-      applyFilters(value[0], value[1], citationCount.min,citationCount.max, selectedFields,filterType,newElements)
+      applyFilters(
+        value[0],
+        value[1],
+        citationCount.min,
+        citationCount.max,
+        selectedFields,
+        filterType,
+        newElements
+      );
       //applyDateFilter(value[0], value[1], newElements);
     }
   };
@@ -891,9 +940,17 @@ function HomePage() {
   };
 
   const handleChange = (event: Event, newValue: number | number[]) => {
-    const newOnes = newValue as number[]
+    const newOnes = newValue as number[];
     setValue(newOnes);
-    applyFilters(newOnes[0], newOnes[1], citationCount.min,citationCount.max, selectedFields,filterType,elements)
+    applyFilters(
+      newOnes[0],
+      newOnes[1],
+      citationCount.min,
+      citationCount.max,
+      selectedFields,
+      filterType,
+      elements
+    );
   };
 
   const marks = [
@@ -983,13 +1040,13 @@ function HomePage() {
           getReferred={getReferred}
           getPapers={getPapers}
           getAuthors={getAuthors}
-          getCitedAuthors = {getCitedAuthors}
+          getCitedAuthors={getCitedAuthors}
           remove={remove}
           updatePin={updatePin}
-          filter = {filter}
-          citationCount = {citationCount}
-          selectedFields = {selectedFields}
-          filterType= {filterType}
+          filter={filter}
+          citationCount={citationCount}
+          selectedFields={selectedFields}
+          filterType={filterType}
         />
       </Drawer>
       <Main open={open}>
@@ -1019,6 +1076,7 @@ function HomePage() {
                     <MenuItem value={LAYOUT_NAMES.COSE_BILKENT}>
                       Cose Bilkent
                     </MenuItem>
+                    <MenuItem value={LAYOUT_NAMES.F_COSE}>Fcose</MenuItem>
                     <MenuItem value={LAYOUT_NAMES.DAGRE}>Dagre</MenuItem>
                     <MenuItem value={LAYOUT_NAMES.EULER}>Euler</MenuItem>
                     <MenuItem value={LAYOUT_NAMES.KLAY}>Klay</MenuItem>
@@ -1100,7 +1158,7 @@ function HomePage() {
                     </Button>
 
                     <Button
-                      onClick = {handleBringPaperThatReferstoCommon}
+                      onClick={handleBringPaperThatReferstoCommon}
                       variant="contained"
                       size="small"
                       style={{
@@ -1113,7 +1171,7 @@ function HomePage() {
                     </Button>
 
                     <Button
-                    onClick = {handleCommonPapersOfAuthors}
+                      onClick={handleCommonPapersOfAuthors}
                       variant="contained"
                       size="small"
                       style={{

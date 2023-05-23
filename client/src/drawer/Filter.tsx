@@ -64,11 +64,13 @@ const array_area = [
   "Sociology",
   "Education",
   "Law",
-  "History"
+  "History",
 ];
 
 function Filter(props: any) {
-  const [selectedFields, setSelectedFields] = useState<string[]>(props.selectedFields);
+  const [selectedFields, setSelectedFields] = useState<string[]>(
+    props.selectedFields
+  );
   const [filterType, setFilterType] = useState(props.filterType);
   const [citationCount, setCitationCount] = useState<{
     min: number;
@@ -76,7 +78,9 @@ function Filter(props: any) {
   }>(props.citationCount);
 
   const handleTagClick = (tag: string) => {
-    const fields = selectedFields.includes(tag) ? selectedFields.filter((field) => field !== tag): [...selectedFields, tag];
+    const fields = selectedFields.includes(tag)
+      ? selectedFields.filter((field) => field !== tag)
+      : [...selectedFields, tag];
     /*
     setSelectedFields((prevSelectedFields) => {
       if (prevSelectedFields.includes(tag)) {
@@ -86,28 +90,40 @@ function Filter(props: any) {
       }
     });
     */
-   setSelectedFields(fields)
-   props.filter(citationCount.min, citationCount.max,fields,filterType);
+    setSelectedFields(fields);
+    props.filter(citationCount.min, citationCount.max, fields, filterType);
   };
 
   const handleFilterTypeChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const newFilterType = event.target.checked ? "or" : "and"
+    const newFilterType = event.target.checked ? "or" : "and";
     //setFilterType(event.target.checked ? "or" : "and");
-    setFilterType(newFilterType)
-    props.filter(citationCount.min, citationCount.max,selectedFields,newFilterType);
+    setFilterType(newFilterType);
+    props.filter(
+      citationCount.min,
+      citationCount.max,
+      selectedFields,
+      newFilterType
+    );
   };
 
-  const handleCitationCountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCitationCountChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setCitationCount((prevCitationCount) => ({
       ...prevCitationCount,
       min: parseInt(event.target.value),
-    }))
+    }));
   };
 
   const applyFilter = () => {
-    props.filter(citationCount.min, citationCount.max,selectedFields,filterType);
+    props.filter(
+      citationCount.min,
+      citationCount.max,
+      selectedFields,
+      filterType
+    );
   };
 
   return (
@@ -136,11 +152,11 @@ function Filter(props: any) {
         />
         {filterType === "or" ? (
           <Typography variant="subtitle1" color="primary" fontWeight="bold">
-            Or
+            OR
           </Typography>
         ) : (
           <Typography variant="subtitle1" color="primary" fontWeight="bold">
-            And
+            AND
           </Typography>
         )}
       </Container>
@@ -172,11 +188,7 @@ function Filter(props: any) {
             sx={{ width: "120px" }}
           />
           <ButtonContainer>
-            <Button
-              onClick={applyFilter}
-              variant="contained"
-              color="primary"
-            >
+            <Button onClick={applyFilter} variant="contained" color="primary">
               Apply Filter
             </Button>
           </ButtonContainer>

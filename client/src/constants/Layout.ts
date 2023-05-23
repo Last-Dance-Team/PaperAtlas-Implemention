@@ -5,4 +5,5 @@ export const LAYOUT_NAMES = {
   DAGRE: "dagre",
   EULER: "euler",
   KLAY: "klay",
+  F_COSE: "fcose",
 };

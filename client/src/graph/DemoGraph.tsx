@@ -24,6 +24,7 @@ const cose = require("cytoscape-cose-bilkent");
 const qtip = require("cytoscape-qtip");
 //const contextMenus = require("cytoscape-context-menus")
 //const cxtmenu = require("cytoscape-cxtmenu");
+let fcose = require("cytoscape-fcose");
 
 //const jquery = require('jquery')
 // BIR ISE YARAMIYOR su an ama filtrelemeyi bu tarz yapabiliriz
@@ -62,6 +63,7 @@ cytoscape.use(dagre);
 cytoscape.use(euler);
 cytoscape.use(klay);
 cytoscape.use(cose);
+cytoscape.use(fcose);
 
 function DemoGraph(props: any) {
   console.log("DEMO GRAPH");
@@ -291,6 +293,12 @@ function DemoGraph(props: any) {
     }
   }, [element]);
 
+  const cyConfig = {
+    // Other configuration options...
+    nodeDimensionsIncludeLabels: true,
+    randomize: false,
+  };
+
   return (
     <CytoscapeComponent
       cy={(cy): void => {
@@ -467,6 +475,7 @@ function DemoGraph(props: any) {
       stylesheet={styleGraph}
       minZoom={0.1}
       maxZoom={10.0}
+      {...cyConfig}
     />
   );
 }
