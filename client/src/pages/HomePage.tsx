@@ -96,7 +96,7 @@ function HomePage() {
   const [node, setNode] = React.useState({ type: "" });
   const [drawerState, setDrawerState] = React.useState(0);
   const [select, setSelect] = React.useState(false);
-  const [value, setValue] = React.useState<number[]>([1980, 2023]);
+  const [value, setValue] = React.useState<number[]>([1970, 2023]);
   const [selectedFields, setSelectedFields] = useState<string[]>([]);
   const [filterType, setFilterType] = useState("and");
   const [citationCount, setCitationCount] = useState<{
@@ -362,19 +362,16 @@ function HomePage() {
 
     console.log("here")
 
-    const filteredEdges = data.edges.filter(
-      (edge: any) =>
-        !filteredNodes.some(
-          (e) =>
-            e.data.source === edge.data.source &&
-            e.data.target === edge.data.target
-        )
+    const filteredEdges = data.edges.filter((edge: any) =>
+        filteredNodes.some((node: any) => node.data.id === edge.data.target) && filteredNodes.some((node:any) => node.data.id === edge.data.source)
     );
 
     const updatedFilteredElements = {
       nodes: filteredNodes,
       edges: filteredEdges
     }
+
+    console.log(updatedElements)
 
     setElements(updatedElements);
     console.log("after elements")
@@ -523,6 +520,8 @@ function HomePage() {
   };
 
   const updatePin = (nodeId: string, pinStatus: boolean) => {
+
+    console.log("pin")
     const newNodes = elements.nodes.map((node) =>
       node.data.id === nodeId
         ? { ...node, data: { ...node.data, pinned: pinStatus } }
@@ -1034,7 +1033,7 @@ function HomePage() {
                       onChange={handleChange}
                       valueLabelDisplay="on"
                       getAriaValueText={valuetext}
-                      min={1980}
+                      min={1970}
                       max={2023}
                       style={{
                         color: COLOR_NAMES.LIGHT_BLUE, // Change the color here
@@ -1187,6 +1186,13 @@ function HomePage() {
           handleName={handleName}
           select={select}
           updateSelect={updateSelect}
+          getReferences={getReferences}
+          getReferred={getReferred}
+          getPapers={getPapers}
+          getAuthors={getAuthors}
+          getCitedAuthors = {getCitedAuthors}
+          remove={remove}
+          updatePin={updatePin}
         />
       </Main>
     </div>
