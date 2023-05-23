@@ -74,7 +74,7 @@ function DemoGraph(props: any) {
       selector: 'node[type="Author"][!selected]',
 
       style: {
-        "background-image": `url(https://last-dance-team.github.io/PaperAtlas/person-circle.png)`, // Use the absolute file path of the image
+        "background-image": `url(https://last-dance-team.github.io/PaperAtlas/person2.jpeg)`, // Use the absolute file path of the image
         "background-fit": "cover",
         "background-image-opacity": 1,
 
@@ -92,10 +92,9 @@ function DemoGraph(props: any) {
         "underlay-padding": "5px", // Padding around the underlay
         "underlay-opacity": "1", // Opacity of the underlay
         "underlay-shape": "round-rectangle", // Underlay shape
-        "background-image": `url(https://last-dance-team.github.io/PaperAtlas/person-circle.png)`, // Use the absolute file path of the image
+        "background-image": `url(https://last-dance-team.github.io/PaperAtlas/person2.jpeg)`, // Use the absolute file path of the image
         "background-fit": "cover",
         "background-image-opacity": 1,
-
         content: "data(abbr)",
 
         width: setSize,
