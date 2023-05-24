@@ -252,6 +252,7 @@ function DemoGraph(props: any) {
   };
   const layout = { name: props.layoutName };
   const element = CytoscapeComponent.normalizeElements(props.elements);
+  const drawerIsOpen = props.open;
 
   const cyRef = props.cyRef;
 
@@ -352,6 +353,27 @@ function DemoGraph(props: any) {
       prevLayout.current = layout;
     }
   }, [layout]);
+
+  useEffect(() => {
+    const cy = cyRef.current;
+    console.log("is it open", drawerIsOpen);
+
+    if (cy) {
+      const container = cy.container();
+      cy.resize();
+      cy.fit();
+      if (container) {
+        const containerWidth = container.clientWidth;
+        console.log("CytoscapeComponent width:", containerWidth);
+      }
+      if (drawerIsOpen) {
+        console.log("is it open resizeg");
+        cy.resize();
+        cy.fit();
+      } else {
+      }
+    }
+  }, [drawerIsOpen]);
 
   const cyConfig = {
     // Other configuration options...

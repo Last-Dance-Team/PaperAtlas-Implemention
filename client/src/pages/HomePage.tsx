@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import cytoscape, {
-  Core,
-} from "cytoscape";
+import cytoscape, { Core } from "cytoscape";
 import axios from "axios";
 import { LAYOUT_NAMES } from "../constants/Layout";
 import GraphWithLayout from "../graph/GraphWithLayout";
@@ -130,9 +128,6 @@ function HomePage() {
     "History",
   ]);
 
- 
-
-  
   const [filterType, setFilterType] = useState("or");
   const [citationCount, setCitationCount] = useState<{
     min: number;
@@ -763,10 +758,9 @@ function HomePage() {
 
     let filteredNodes: any[] = unpinnedNodes;
 
-    if ( filterType === "and") {
+    if (filterType === "and") {
       filteredNodes = unpinnedNodes.filter((obj: any) => {
-        if( fields.length === 0 )
-        {
+        if (fields.length === 0) {
           return false;
         }
         for (const field of fields) {
@@ -777,10 +771,8 @@ function HomePage() {
         return true;
       });
     } else {
-      
       filteredNodes = unpinnedNodes.filter((obj: any) => {
-        if( fields.length === 0 )
-        {
+        if (fields.length === 0) {
           return false;
         }
         for (const field of fields) {
@@ -791,7 +783,7 @@ function HomePage() {
         return false;
       });
     }
-    
+
     filteredNodes = [...filteredNodes, ...pinnedNodes];
 
     const filteredIds = filteredNodes.map((obj: any) => obj.data.id);
@@ -890,7 +882,7 @@ function HomePage() {
   };
 
   const handleDrawerOpenWithState = (node: any, state: number) => {
-    setDrawerState(state)
+    setDrawerState(state);
     setOpen(true);
     setNode(node);
   };
@@ -948,35 +940,32 @@ function HomePage() {
   const cyRef = useRef<Core | null>(null);
 
   const handleDownloadPng = () => {
-    //console.log("png")
     const cy = cyRef.current;
 
     // Generate PNG image of the graph
-    if(cy)
-    {
-    const image = cy.png({
-      output: 'blob', // Get the image as a Blob object
-      full: true, // Include the whole graph (including areas outside the viewport)
-      scale: 2, // Increase the scale for higher resolution (adjust as needed)
-    });
+    if (cy) {
+      const image = cy.png({
+        output: "blob", // Get the image as a Blob object
+        full: true, // Include the whole graph (including areas outside the viewport)
+        scale: 2, // Increase the scale for higher resolution (adjust as needed)
+      });
 
-    // Create a download link
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(image);
-    link.download = 'graph.png'; // Set the file name for download
+      // Create a download link
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(image);
+      link.download = "graph.png"; // Set the file name for download
 
-    // Append the link to the document body and trigger the download
-    document.body.appendChild(link);
-    link.click();
+      // Append the link to the document body and trigger the download
+      document.body.appendChild(link);
+      link.click();
 
-    // Clean up the temporary URL object
-    URL.revokeObjectURL(link.href);
+      // Clean up the temporary URL object
+      URL.revokeObjectURL(link.href);
 
-    // Remove the download link from the document body
-    document.body.removeChild(link);
-  }
+      // Remove the download link from the document body
+      document.body.removeChild(link);
+    }
   };
-  
 
   const handleFileUpload = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -1051,20 +1040,16 @@ function HomePage() {
     },
   ];
 
+  const [isHovered, setIsHovered] = useState(false);
 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
 
-  
-    const [isHovered, setIsHovered] = useState(false);
-  
-    const handleMouseEnter = () => {
-      setIsHovered(true);
-    };
-  
-    const handleMouseLeave = () => {
-      setIsHovered(false);
-    };
-  
-    
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   function valuetext(value: number) {
     return `${value}`;
   }
@@ -1107,52 +1092,46 @@ function HomePage() {
             }}
           >
             <Tooltip
-                      title={
-                        <span style={{ fontSize: "13px" }}>
-                          Download as image
-                        </span>
-                      }
-                      arrow
-                    >
-              <FontAwesomeIcon 
-              icon={faImage} 
-              onClick={handleDownloadPng} 
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-                style={{ cursor: isHovered ? 'pointer' : 'auto' }}/>
+              title={
+                <span style={{ fontSize: "13px" }}>Download as image</span>
+              }
+              arrow
+            >
+              <FontAwesomeIcon
+                icon={faImage}
+                onClick={handleDownloadPng}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                style={{ cursor: isHovered ? "pointer" : "auto" }}
+              />
             </Tooltip>
             <div style={{ marginLeft: "10px", marginRight: "10px" }}></div>{" "}
             <Tooltip
-                      title={
-                        <span style={{ fontSize: "13px" }}>
-                          Download as json
-                        </span>
-                      }
-                      arrow
-                    >
-              <FontAwesomeIcon 
-              icon={faDownload} 
-              onClick={handleDownload} 
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-                style={{ cursor: isHovered ? 'pointer' : 'auto' }}/>
+              title={<span style={{ fontSize: "13px" }}>Download as json</span>}
+              arrow
+            >
+              <FontAwesomeIcon
+                icon={faDownload}
+                onClick={handleDownload}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                style={{ cursor: isHovered ? "pointer" : "auto" }}
+              />
             </Tooltip>
             <div style={{ marginLeft: "10px", marginRight: "10px" }}></div>{" "}
             {/* Add space here */}
             <Tooltip
-                      title={
-                        <span style={{ fontSize: "13px" }}>
-                          Upload
-                        </span>
-                      }
-                      arrow
-                    >
+              title={<span style={{ fontSize: "13px" }}>Upload</span>}
+              arrow
+            >
               <FormControl>
                 <label htmlFor="file-upload">
-                  <FontAwesomeIcon icon={faUpload} 
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                    style={{ cursor: isHovered ? 'pointer' : 'auto' }}/>
+                  <FontAwesomeIcon
+                    icon={faUpload}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                    style={{ cursor: isHovered ? "pointer" : "auto" }}
+                  />
                 </label>
                 <input
                   type="file"
@@ -1271,105 +1250,109 @@ function HomePage() {
             md={12}
             lg={open ? 12 : 6}
             xl={open ? 12 : 6}
-
           >
             <Grid container>
-            <>
-    <Button
-    variant="contained"
-    component="span"
-    style={{
-      color: !select ? COLOR_NAMES.BLUE : "white",
-      borderColor: COLOR_NAMES.BLUE,
-      backgroundColor: !select ? COLOR_NAMES.TRANSPARENT_BLUE : COLOR_NAMES.BLUE,
-      width: "120px",
-      height: "100%",
-      margin: "10px", // Set the height to 100%
-        }}
-        onClick={handleSelect}
-     > Select</Button>
-
-        {select && (
-            <Grid >
-                <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row", // Change row to column
-                      alignItems: "flex-start", // Align buttons to the left
-                      justifyContent: "space-between", // Align buttons in the center vertically
-                      height: "100%",
-                      margin: "5px",
-                    }}
+              <>
+                <Button
+                  variant="contained"
+                  component="span"
+                  style={{
+                    color: !select ? COLOR_NAMES.BLUE : "white",
+                    borderColor: COLOR_NAMES.BLUE,
+                    backgroundColor: !select
+                      ? COLOR_NAMES.TRANSPARENT_BLUE
+                      : COLOR_NAMES.BLUE,
+                    width: "120px",
+                    height: "100%",
+                    margin: "10px", // Set the height to 100%
+                  }}
+                  onClick={handleSelect}
                 >
-                    <Tooltip
-                      title={
-                        <span style={{ fontSize: "14px" }}>
-                          Select only papers to find their common citations
-                        </span>
-                      }
-                      arrow
-                    >
-                    <Button
-                      onClick={handleBringReferencesOfCommon}
-                      variant="contained"
+                  {" "}
+                  Select
+                </Button>
+
+                {select && (
+                  <Grid>
+                    <div
                       style={{
-                        color: COLOR_NAMES.BLUE,
-                        backgroundColor: COLOR_NAMES.TRANSPARENT_BLUE,
-                        width: "150px",
-                        margin: "5px",
-                      }} // Use marginBottom instead of marginTop for spacing
-                    >
-                      References
-                    </Button>
-                    </Tooltip>
-                    
-                    <Tooltip
-                      title={
-                        <span style={{ fontSize: "14px" }}>
-                          Select only papers to find their common citations
-                        </span>
-                      }
-                      arrow
-                    >
-                    <Button
-                      onClick={handleBringPaperThatReferstoCommon}
-                      variant="contained"
-                      style={{
-                        color: COLOR_NAMES.BLUE,
-                        backgroundColor: COLOR_NAMES.TRANSPARENT_BLUE,
-                        width: "150px",
+                        display: "flex",
+                        flexDirection: "row", // Change row to column
+                        alignItems: "flex-start", // Align buttons to the left
+                        justifyContent: "space-between", // Align buttons in the center vertically
+                        height: "100%",
                         margin: "5px",
                       }}
                     >
-                      Citations
-                    </Button>
-                    </Tooltip>
+                      <Tooltip
+                        title={
+                          <span style={{ fontSize: "14px" }}>
+                            Select only papers to find their common citations
+                          </span>
+                        }
+                        arrow
+                      >
+                        <Button
+                          onClick={handleBringReferencesOfCommon}
+                          variant="contained"
+                          style={{
+                            color: COLOR_NAMES.BLUE,
+                            backgroundColor: COLOR_NAMES.TRANSPARENT_BLUE,
+                            width: "150px",
+                            margin: "5px",
+                          }} // Use marginBottom instead of marginTop for spacing
+                        >
+                          References
+                        </Button>
+                      </Tooltip>
 
-                    <Tooltip
-                      title={
-                        <span style={{ fontSize: "13px" }}>
-                          Select only authors to find their common papers
-                        </span>
-                      }
-                      arrow
-                    >
-                    <Button
-                      onClick={handleCommonPapersOfAuthors}
-                      variant="contained"
-                      style={{
-                        color: COLOR_NAMES.BLUE,
-                        backgroundColor: COLOR_NAMES.TRANSPARENT_BLUE,
-                        width: "200px",
-                        margin: "5px",
-                      }}
-                    >
-                      Papers of Authors
-                    </Button>
-                    </Tooltip>
-                </div>
-            </Grid>)}
+                      <Tooltip
+                        title={
+                          <span style={{ fontSize: "14px" }}>
+                            Select only papers to find their common citations
+                          </span>
+                        }
+                        arrow
+                      >
+                        <Button
+                          onClick={handleBringPaperThatReferstoCommon}
+                          variant="contained"
+                          style={{
+                            color: COLOR_NAMES.BLUE,
+                            backgroundColor: COLOR_NAMES.TRANSPARENT_BLUE,
+                            width: "150px",
+                            margin: "5px",
+                          }}
+                        >
+                          Citations
+                        </Button>
+                      </Tooltip>
 
-        </>
+                      <Tooltip
+                        title={
+                          <span style={{ fontSize: "13px" }}>
+                            Select only authors to find their common papers
+                          </span>
+                        }
+                        arrow
+                      >
+                        <Button
+                          onClick={handleCommonPapersOfAuthors}
+                          variant="contained"
+                          style={{
+                            color: COLOR_NAMES.BLUE,
+                            backgroundColor: COLOR_NAMES.TRANSPARENT_BLUE,
+                            width: "200px",
+                            margin: "5px",
+                          }}
+                        >
+                          Papers of Authors
+                        </Button>
+                      </Tooltip>
+                    </div>
+                  </Grid>
+                )}
+              </>
             </Grid>
           </Grid>
         </Grid>
@@ -1389,7 +1372,8 @@ function HomePage() {
           remove={remove}
           updatePin={updatePin}
           isNewGraph={isNewGraph}
-          cyRef = {cyRef}
+          open={open}
+          cyRef={cyRef}
         />
       </Main>
     </div>
