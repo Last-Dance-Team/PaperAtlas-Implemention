@@ -253,7 +253,7 @@ function DemoGraph(props: any) {
   const layout = { name: props.layoutName };
   const element = CytoscapeComponent.normalizeElements(props.elements);
 
-  const cyRef = useRef<Core | null>(null);
+  const cyRef = props.cyRef;
 
   const layoutOptionsRandom = {
     name: layout.name,
