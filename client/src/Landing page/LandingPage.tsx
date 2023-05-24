@@ -398,18 +398,23 @@ function LandingPage() {
         <div className="pdf-reports-section">
           <h2>PDF Reports</h2>
           <ul>
+          <li>
+              <a href="https://last-dance-team.github.io/PaperAtlas/T2334_Project_Specifications_Report.pdf">
+                Project Specifications Report
+              </a>
+            </li>
             <li>
-              <a href="http://localhost:80/reports/analyse.pdf">
+              <a href="https://last-dance-team.github.io/PaperAtlas/T2334_Analysis_Requirements_Report.pdf">
                 Analysis and Requirement Report
               </a>
             </li>
             <li>
-              <a href="http://localhost:80/reports/design.pdf">
+              <a href="https://last-dance-team.github.io/PaperAtlas/Detailed_Design_Report.pdf">
                 Detailed Design Report
               </a>
             </li>
             <li>
-              <a href="http://localhost:80/reports/finale.pdf">Final Report</a>
+              <a href="https://last-dance-team.github.io/PaperAtlas/T2334_FinalReport.pdf">Final Report</a>
             </li>
           </ul>
         </div>
