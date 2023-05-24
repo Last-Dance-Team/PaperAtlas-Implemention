@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import cytoscape, { Core } from "cytoscape";
 import axios from "axios";
 import { LAYOUT_NAMES } from "../constants/Layout";
 import GraphWithLayout from "../graph/GraphWithLayout";
@@ -936,6 +937,37 @@ function HomePage() {
     }
   };
 
+  const cyRef = useRef<Core | null>(null);
+
+  const handleDownloadPng = () => {
+    console.log("png");
+    const cy = cyRef.current;
+
+    // Generate PNG image of the graph
+    if (cy) {
+      const image = cy.png({
+        output: "blob", // Get the image as a Blob object
+        full: true, // Include the whole graph (including areas outside the viewport)
+        scale: 2, // Increase the scale for higher resolution (adjust as needed)
+      });
+
+      // Create a download link
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(image);
+      link.download = "graph.png"; // Set the file name for download
+
+      // Append the link to the document body and trigger the download
+      document.body.appendChild(link);
+      link.click();
+
+      // Clean up the temporary URL object
+      URL.revokeObjectURL(link.href);
+
+      // Remove the download link from the document body
+      document.body.removeChild(link);
+    }
+  };
+
   const handleFileUpload = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
@@ -1068,7 +1100,7 @@ function HomePage() {
             >
               <FontAwesomeIcon
                 icon={faImage}
-                onClick={handleDownload}
+                onClick={handleDownloadPng}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 style={{ cursor: isHovered ? "pointer" : "auto" }}
@@ -1342,6 +1374,7 @@ function HomePage() {
           updatePin={updatePin}
           isNewGraph={isNewGraph}
           open={open}
+          cyRef={cyRef}
         />
       </Main>
     </div>

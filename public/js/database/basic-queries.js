@@ -28,16 +28,16 @@ var basicQueries = {
         return "MATCH (n:Author) WHERE ID(n) IN $authorIds RETURN n";
     },
     getAuthorAndPapers: function(author) {
-        return `MATCH (a:Author) WHERE a.name CONTAINS "${author}"
-            OR any(alias IN a.aliases WHERE alias CONTAINS "${author}")
+        return `MATCH (a:Author) WHERE toLower(a.name) CONTAINS toLower("${author}")
+            OR any(alias IN a.aliases WHERE toLower(alias) CONTAINS toLower("${author}"))
             RETURN a.name, a.aliases, ID(a)
             ORDER BY a.hindex DESC, a.name`;
     },
     getPaperAndPapers: function(paper, lengthLimit) {
         return (
-            "MATCH (p:Paper) WHERE p.title CONTAINS '" +
+            "MATCH (p:Paper) WHERE toLower(p.title) CONTAINS toLower('" +
             paper +
-            "'" +
+            "')" +
             " RETURN p.title, ID(p) " +
             " ORDER BY coalesce(p.citationCount,0) DESC, p.title"
         );
