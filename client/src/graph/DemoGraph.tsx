@@ -67,8 +67,8 @@ cytoscape.use(cose);
 cytoscape.use(fcose);
 
 function DemoGraph(props: any) {
-  console.log("DEMO GRAPH");
-  console.log(props.select);
+  //console.log("DEMO GRAPH");
+  //console.log(props.select);
 
   const styleGraph = [
     
@@ -275,13 +275,13 @@ function DemoGraph(props: any) {
 
     function handleClick(event: { target: any }) {
       var node = event.target;
-      console.log(node._private.data.label);
+      //console.log(node._private.data.label);
       props.handleName(node._private.data.label);
       props.handleDrawerOpenWithState(node._private.data, 1);
-      console.log("in demo");
-      console.log(props.select);
+      //console.log("in demo");
+      //console.log(props.select);
       if (props.select) {
-        console.log("in if");
+        //console.log("in if");
         props.updateSelect(node._private.data.id, !node._private.data.selected);
       }
       // ...rest of your click handling code
@@ -314,7 +314,7 @@ function DemoGraph(props: any) {
 
       const handleNodeAdd = () => {
         if (numNodesAdded === numNodesToAdd) {
-          console.log("ever here");
+          //console.log("ever here");
           // fit the graph to the new nodes
 
           if (props.isNewGraph) {
@@ -342,8 +342,8 @@ function DemoGraph(props: any) {
   useEffect(() => {
     const cy = cyRef.current;
 
-    console.log("layout", layout);
-    console.log("prevLayout", prevLayout.current);
+    //console.log("layout", layout);
+    //console.log("prevLayout", prevLayout.current);
     if (cy && layout.name !== prevLayout.current.name) {
       // Apply or update the layout
       cy.layout(layoutOptions).run();
@@ -384,6 +384,7 @@ function DemoGraph(props: any) {
 
         // context menu
 
+        /*
         let paperToolBox = {
           selector: 'node[type="Paper"]',
           menuRadius: 80, // the outer radius (node center to the end of the menu) in pixels. It is added to the rendered size of the node. Can either be a number or function as in the example.
@@ -522,6 +523,7 @@ function DemoGraph(props: any) {
 
         //cy.cxtmenu(paperToolBox);
         //cy.cxtmenu(authorToolBox);
+        */
       }}
       elements={element}
       layout={layoutOptions}

@@ -239,7 +239,7 @@ function HomePage() {
       distance: distance,
     };
     if (elements.nodes.length == 0) {
-      console.log("merging to empty graph");
+      //console.log("merging to empty graph");
       setIsSetNewGarph(true);
     } else {
       setIsSetNewGarph(false);
@@ -342,8 +342,8 @@ function HomePage() {
   };
 
   const addPapers = async (papers: any[]) => {
-    console.log(papers);
-    console.log(elements);
+    //console.log(papers);
+    //console.log(elements);
     const uniqueIds = papers
       .filter(
         (node: any) => !elements.nodes.some((e) => e.data.id === node.data.id)
@@ -353,7 +353,7 @@ function HomePage() {
     const body = {
       ids: [...elements.nodes.map((n) => Number(n.data.id)), ...uniqueIds],
     };
-    console.log(body);
+    //console.log(body);
 
     const response = await axios.put(`http://localhost:80/add/paper`, body);
     const data = await response.data;
@@ -404,7 +404,7 @@ function HomePage() {
 
     const filteredNodes = [...filteredElements.nodes, ...newNodes];
 
-    console.log("here");
+    //console.log("here");
 
     const filteredEdges = data.edges.filter(
       (edge: any) =>
@@ -417,22 +417,22 @@ function HomePage() {
       edges: filteredEdges,
     };
 
-    console.log(updatedElements);
+    //console.log(updatedElements);
 
     setElements(updatedElements);
-    console.log("after elements");
+    //console.log("after elements");
     setFilteredElements(updatedFilteredElements);
-    console.log("after filtereds");
+    //console.log("after filtereds");
   };
 
   const getReferences = async (paperId: string) => {
-    console.log(paperId);
+    //console.log("references");
     const response = await axios.get(
       `http://localhost:80/getReferred/${paperId}`
     );
     const data = await response.data;
 
-    console.log(data);
+    //console.log(data);
     addNodes(data.nodes);
 
     //addPapers(data.nodes);
@@ -440,45 +440,45 @@ function HomePage() {
   };
 
   const getReferred = async (paperId: string) => {
-    console.log(paperId);
+    //console.log(paperId);
     const response = await axios.get(
       `http://localhost:80/getReferences/${paperId}`
     );
     const data = await response.data;
-    console.log(data);
+    //console.log(data);
     addNodes(data.nodes);
     //addUniqueElements(data)
   };
 
   const getAuthors = async (paperId: string) => {
-    console.log(paperId);
+    //console.log(paperId);
     const response = await axios.get(
       `http://localhost:80/getAuthorsOfPapers/${paperId}`
     );
     const data = await response.data;
-    console.log(data);
+    //console.log(data);
     addNodes(data.nodes);
     //addUniqueElements(data);
   };
 
   const getPapers = async (authorId: string) => {
-    console.log(authorId);
+    //console.log(authorId);
     const response = await axios.get(
       `http://localhost:80/getPapersOfAuthor/${authorId}`
     );
     const data = await response.data;
-    console.log(data);
+    //console.log(data);
     addNodes(data.nodes);
     //addUniqueElements(data);
   };
 
   const getCitedAuthors = async (authorId: string) => {
-    console.log(authorId);
+    //console.log(authorId);
     const response = await axios.get(
       `http://localhost:80/getAuthorAuthorRelation/${authorId}`
     );
     const data = await response.data;
-    console.log(data);
+    //console.log(data);
     //setAuthorEdges(data.edges)
     //addNodes(data.authors)
     //addUniqueElements(data);
@@ -492,7 +492,7 @@ function HomePage() {
     const body = {
       ids: selectedNodeIds,
     };
-    console.log("ids", selectedNodeIds);
+    //console.log("ids", selectedNodeIds);
 
     const response = await axios.put(
       `http://localhost:80/add/commonPapersThatRefer`,
@@ -500,7 +500,7 @@ function HomePage() {
     );
     const data = await response.data;
 
-    console.log(data);
+    //console.log(data);
     addNodes(data.nodes);
     //addUniqueElements(data);
   };
@@ -520,7 +520,7 @@ function HomePage() {
     );
     const data = await response.data;
 
-    console.log(data);
+    //console.log(data);
     addNodes(data.nodes);
     //addUniqueElements(data);
   };
@@ -540,7 +540,7 @@ function HomePage() {
     );
     const data = await response.data;
 
-    console.log(data);
+    //console.log(data);
     addNodes(data.nodes);
     //addUniqueElements(data);
   };
@@ -574,7 +574,7 @@ function HomePage() {
   };
 
   const updatePin = (nodeId: string, pinStatus: boolean) => {
-    console.log("pin");
+    //console.log("pin");
     const newNodes = elements.nodes.map((node) =>
       node.data.id === nodeId
         ? { ...node, data: { ...node.data, pinned: pinStatus } }
@@ -602,7 +602,7 @@ function HomePage() {
     handleDrawerOpenWithState(node.data, 1);
   };
   const remove = (nodeId: string) => {
-    console.log(elements);
+    //console.log(elements);
     const newNodes = elements.nodes.filter(
       (node: any) => !(node.data.id === nodeId)
     );
@@ -617,7 +617,7 @@ function HomePage() {
       edges: newEdges,
     };
 
-    console.log(newElements);
+    //console.log(newElements);
 
     setElements(newElements);
     //applyDateFilter(value[0], value[1], newElements);
@@ -639,7 +639,7 @@ function HomePage() {
     maxDate: number,
     elements: { nodes: any[]; edges: any[] }
   ) => {
-    console.log(elements);
+    //console.log(elements);
 
     var minDateNo = Number(minDate); //source author target paper
     var maxDateNo = Number(maxDate); //source author target paper
@@ -668,7 +668,7 @@ function HomePage() {
       edges: finalEdges,
     };
     setFilteredElements(filteredElements);
-    console.log(filteredElements);
+    //console.log(filteredElements);
 
     return filteredElements;
   };
@@ -702,7 +702,7 @@ function HomePage() {
       edges: finalEdges,
     };
     setFilteredElements(filteredElements);
-    console.log(filteredElements);
+    //console.log(filteredElements);
   };
 
   const applyFieldORFilter = (fields: string[]) => {
@@ -734,7 +734,7 @@ function HomePage() {
       edges: finalEdges,
     };
     setFilteredElements(filteredElements);
-    console.log(filteredElements);
+    //console.log(filteredElements);
   };
 
   const applyFilters = (
@@ -819,7 +819,7 @@ function HomePage() {
     setSelectedFields(fields);
     setFilterType(filterType);
 
-    console.log(fields);
+    //console.log(fields);
 
     applyFilters(
       value[0],
@@ -903,7 +903,7 @@ function HomePage() {
     setShowAdditionalButtons(!showAdditionalButtons);
     handleSelectCommon();
     setSelect((prevSelect) => !prevSelect);
-    console.log(select);
+    //console.log(select);
     if (select === true) {
       const updatedNodes = elements.nodes.map((node) => {
         return { ...node, data: { ...node.data, selected: false } };
@@ -928,7 +928,7 @@ function HomePage() {
   };
 
   const handleDownload = () => {
-    console.log("download elements", elements);
+    //console.log("download elements", elements);
     if (elements.nodes.length == 0) {
       window.alert("No nodes in canvas!");
     } else {
@@ -948,7 +948,7 @@ function HomePage() {
   const cyRef = useRef<Core | null>(null);
 
   const handleDownloadPng = () => {
-    console.log("png")
+    //console.log("png")
     const cy = cyRef.current;
 
     // Generate PNG image of the graph
@@ -998,7 +998,7 @@ function HomePage() {
           }
           // Do something with the JSON data
 
-          console.log(jsonData);
+          //console.log(jsonData);
           setElements(jsonData);
           setFilteredElements(jsonData);
 

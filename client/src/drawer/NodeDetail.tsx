@@ -74,7 +74,7 @@ function NodeDetail(props: any) {
     );
     const data = await response.data;
     setInfo(data);
-    console.log(data);
+    //console.log(data);
   };
 
   useEffect(() => {
@@ -86,42 +86,6 @@ function NodeDetail(props: any) {
   if (node.type == "Paper") {
     return (
       <div>
-        <Button sx={{ m: 0.5 }} variant="outlined" onClick={handleReference}>
-          References
-        </Button>
-        <Button sx={{ m: 0.5 }} variant="outlined" onClick={handleReferred}>
-          Citations
-        </Button>
-        <Button sx={{ m: 0.5 }} variant="outlined" onClick={handleAuthors}>
-          Authors
-        </Button>
-        <Button sx={{ m: 0.5 }} variant="outlined" onClick={handleRemove}>
-          Remove
-        </Button>
-        <>
-          {" "}
-          {!node.pinned && (
-            <Button
-              sx={{ m: 0, width: 50 }}
-              variant="outlined"
-              onClick={handlePin}
-            >
-              Pin
-            </Button>
-          )}
-        </>
-        <>
-          {" "}
-          {node.pinned && (
-            <Button
-              sx={{ m: 0, width: 50 }}
-              variant="contained"
-              onClick={handleUnpin}
-            >
-              Unpin
-            </Button>
-          )}
-        </>
         <ThemeProvider theme={theme}>
           <Box sx={{ bgcolor: "background.paper", p: 2 }}>
             <Box sx={{ mb: 1, color: "text.secondary", fontSize: 16 }}>
@@ -235,39 +199,6 @@ function NodeDetail(props: any) {
   if (node.type == "Author") {
     return (
       <div>
-        <Button sx={{ m: 0.5 }} variant="outlined" onClick={handlePapers}>
-          Papers
-        </Button>
-        <Button sx={{ m: 0.5 }} variant="outlined" onClick={handleCiteddAuthors}>
-          Referenced Authors
-        </Button>
-        <Button sx={{ m: 0.5 }} variant="outlined" onClick={handleRemove}>
-          Remove
-        </Button>
-        <>
-          {" "}
-          {!node.pinned && (
-            <Button
-              sx={{ m: 0, width: 50 }}
-              variant="outlined"
-              onClick={handlePin}
-            >
-              Pin
-            </Button>
-          )}
-        </>
-        <>
-          {" "}
-          {node.pinned && (
-            <Button
-              sx={{ m: 0, width: 50 }}
-              variant="contained"
-              onClick={handleUnpin}
-            >
-              Unpin
-            </Button>
-          )}
-        </>
         <ThemeProvider theme={theme}>
           <Box sx={{ bgcolor: "background.paper" }}>
             <Box sx={{ m: 1, color: "text.secondary", fontSize: 20 }}>

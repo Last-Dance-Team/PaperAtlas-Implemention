@@ -23,7 +23,7 @@ function GraphWithLayout(props: any) {
         setElements(elements); // update elements whenever nodes or edges change
       }, elements);
 
-      console.log("layout in GraphWithLayout", props.layoutName)
+      //console.log("layout in GraphWithLayout", props.layoutName)
     return <div style={style}>
         <DemoGraph elements= {props.elements} {...props}  layoutName= {props.layoutName}  />
       </div>;    
