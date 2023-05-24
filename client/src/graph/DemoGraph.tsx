@@ -71,8 +71,28 @@ function DemoGraph(props: any) {
   console.log(props.select);
 
   const styleGraph = [
+    
     {
-      selector: 'node[type="Author"][!selected]',
+      selector: 'node[type="Author"][!selected][?pinned]',
+
+      style: {
+        "background-image": `url(https://last-dance-team.github.io/PaperAtlas/person2.jpeg)`, // Use the absolute file path of the image
+        "background-fit": "cover",
+        "background-image-opacity": 1,
+        "background-color": "grey", 
+        "underlay-color": "red", // Underlay color
+        "underlay-padding": "5px", // Padding around the underlay
+        "underlay-opacity": "0.5", // Opacity of the underlay
+        "underlay-shape": "ellipse", // Underlay shape
+        content: "data(abbr)",
+
+        width: setSize,
+        height: setSize,
+      },
+    },
+
+    {
+      selector: 'node[type="Author"][!selected][!pinned]',
 
       style: {
         "background-image": `url(https://last-dance-team.github.io/PaperAtlas/person2.jpeg)`, // Use the absolute file path of the image
@@ -91,7 +111,7 @@ function DemoGraph(props: any) {
       style: {
         "underlay-color": "grey", // Underlay color
         "underlay-padding": "5px", // Padding around the underlay
-        "underlay-opacity": "1", // Opacity of the underlay
+        "underlay-opacity": "0.5", // Opacity of the underlay
         "underlay-shape": "round-rectangle", // Underlay shape
         "background-image": `url(https://last-dance-team.github.io/PaperAtlas/person2.jpeg)`, // Use the absolute file path of the image
         "background-fit": "cover",
@@ -103,7 +123,23 @@ function DemoGraph(props: any) {
       },
     },
     {
-      selector: 'node[type="Paper"][!selected]',
+      selector: 'node[type="Paper"][!selected][?pinned]',
+      style: {
+        "background-image": `url(https://last-dance-team.github.io/PaperAtlas/paper.png)`, // Use the absolute file path of the image
+        "background-fit": "cover",
+        "background-image-opacity": 1,
+        "underlay-color": "red", // Underlay color
+        "underlay-padding": "5px", // Padding around the underlay
+        "underlay-opacity": "0.5", // Opacity of the underlay
+        "underlay-shape": "ellipse", // Underlay shape
+        content: "data(abbr)",
+
+        width: setSize,
+        height: setSize,
+      },
+    },
+    {
+      selector: 'node[type="Paper"][!selected][!pinned]',
       style: {
         "background-image": `url(https://last-dance-team.github.io/PaperAtlas/paper.png)`, // Use the absolute file path of the image
         "background-fit": "cover",
@@ -120,7 +156,7 @@ function DemoGraph(props: any) {
       style: {
         "underlay-color": "grey", // Underlay color
         "underlay-padding": "5px", // Padding around the underlay
-        "underlay-opacity": "1", // Opacity of the underlay
+        "underlay-opacity": "0.5", // Opacity of the underlay
         "underlay-shape": "round-rectangle", // Underlay shape
         "background-image": `url(https://last-dance-team.github.io/PaperAtlas/paper.png)`, // Use the absolute file path of the image
         "background-fit": "cover",
