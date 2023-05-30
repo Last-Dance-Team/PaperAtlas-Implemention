@@ -68,7 +68,7 @@ function DemoGraph(props: any) {
   //console.log(props.select);
 
   const styleGraph = [
-    
+   
     {
       selector: 'node[type="Author"][!selected][?pinned]',
 
@@ -265,14 +265,31 @@ function DemoGraph(props: any) {
     animationDuration: 1000, // set the animation duration
   };
   const prevLayout = useRef(layout);
-
+  const [lastClickedNode, setLastClickedNode] = useState<NodeSingular | null>(null);
+  
+  
   useEffect(() => {
     const cy = cyRef.current;
     const numNodesToAdd = element.length;
     let numNodesAdded = 0;
-
+    
     function handleClick(event: { target: any }) {
       var node = event.target;
+      if (lastClickedNode) {
+        lastClickedNode.style({
+          'border-color': 'transparent',
+          'border-width': 0,
+        });
+      }
+    
+      // Add underlay to the currently clicked node
+      node.style({
+        'border-color': '#C4F275',
+        'border-width': '2px',
+        'border-style': 'solid',
+      });
+      
+      setLastClickedNode(node);
       //console.log(node._private.data.label);
       props.handleName(node._private.data.label);
       props.handleDrawerOpenWithState(node._private.data, 1);
@@ -383,6 +400,8 @@ function DemoGraph(props: any) {
       cy={(cy): void => {
         cyRef.current = cy;
 
+
+        
         //cy.on("click", "node", handleClick);
 
         // Showing whole title when mouse is on the node
@@ -557,6 +576,7 @@ function DemoGraph(props: any) {
       stylesheet={styleGraph}
       minZoom={0.1}
       maxZoom={10.0}
+      wheelSensitivity={0.5}
       {...cyConfig}
     />
   );
