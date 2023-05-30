@@ -60,9 +60,9 @@ function DrawerContent(props: any) {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="Search" {...a11yProps(0)} style={{ textTransform: 'capitalize' }}/>
-          <Tab label="Node Detail" {...a11yProps(1)} style={{ textTransform: 'capitalize' }}  />
-          <Tab label="Filter" {...a11yProps(2)}  style={{ textTransform: 'capitalize' }}/>
+          <Tab label="Search" {...a11yProps(0)} style={{ textTransform: 'lowercase' }}/>
+          <Tab label="Node Details" {...a11yProps(1)} style={{ textTransform: 'lowercase' }}  />
+          <Tab label="Filter" {...a11yProps(2)}  style={{ textTransform: 'lowercase' }}/>
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
