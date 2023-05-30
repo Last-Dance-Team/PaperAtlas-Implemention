@@ -256,6 +256,7 @@ export default function SearchBar(props: any) {
         <Button variant="contained" onClick={handleSearch}
         style={{
               backgroundColor :"#219296",
+              textTransform: 'capitalize'
         }}>
           Search
         </Button>
@@ -374,16 +375,17 @@ export default function SearchBar(props: any) {
 
         <br />
         <FormControl sx={{ m: 1 }}>
-          <Button onClick={handleSelectAll}>Select All</Button>
+          <Button onClick={handleSelectAll} style={{ textTransform: 'capitalize' }} >Select All</Button>
         </FormControl>
         <FormControl sx={{ m: 1 }}>
-          <Button onClick={handleSelectNone}>Select None</Button>
+          <Button onClick={handleSelectNone} style={{ textTransform: 'capitalize' }} >Select None</Button>
         </FormControl>
         <FormControl sx={{ m: 1 }}>
           <Button
             variant="contained"
             onClick={handleAdd}
             disabled={isAddButtonDisabled}
+            style={{ textTransform: 'capitalize' }}
           >
             Add
           </Button>

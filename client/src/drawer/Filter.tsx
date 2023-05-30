@@ -192,10 +192,10 @@ const StyledTypography = styled(Typography)`
           </StyledTypography>
         )}
         
-        <StyledButton  onClick={handleSelectAll}>Select All</StyledButton >
+        <StyledButton  onClick={handleSelectAll} style={{ textTransform: 'capitalize' }} >Select All</StyledButton >
         
         
-        <StyledButton  onClick={handleSelectNone}>Select None</StyledButton >
+        <StyledButton  onClick={handleSelectNone} style={{ textTransform: 'capitalize' }} >Select None</StyledButton >
         
       </Container>
       <Divider style={{ marginBottom: "30px", marginTop: "30px" }} />
@@ -228,6 +228,7 @@ const StyledTypography = styled(Typography)`
           <ButtonContainer>
             <Button onClick={applyFilter} variant="contained" color="primary" style={{
               backgroundColor :"#219296",
+              textTransform: 'capitalize'
              }}>
               Apply Filter
             </Button>

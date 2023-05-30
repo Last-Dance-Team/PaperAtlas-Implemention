@@ -1265,6 +1265,7 @@ function HomePage() {
                     width: "120px",
                     height: "100%",
                     margin: "10px", // Set the height to 100%
+                    textTransform: 'capitalize',
                   }}
                   onClick={handleSelect}
                 >
@@ -1300,6 +1301,7 @@ function HomePage() {
                             backgroundColor: COLOR_NAMES.TRANSPARENT_BLUE,
                             width: "150px",
                             margin: "5px",
+                            textTransform: 'capitalize',
                           }} // Use marginBottom instead of marginTop for spacing
                         >
                           References
@@ -1322,6 +1324,7 @@ function HomePage() {
                             backgroundColor: COLOR_NAMES.TRANSPARENT_BLUE,
                             width: "150px",
                             margin: "5px",
+                            textTransform: 'capitalize',
                           }}
                         >
                           Citations
@@ -1344,6 +1347,7 @@ function HomePage() {
                             backgroundColor: COLOR_NAMES.TRANSPARENT_BLUE,
                             width: "200px",
                             margin: "5px",
+                            textTransform: 'capitalize',
                           }}
                         >
                           Papers of Authors
