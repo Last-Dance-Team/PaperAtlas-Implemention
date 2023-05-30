@@ -1142,17 +1142,28 @@ function HomePage() {
               </FormControl>
             </Tooltip>
             <div style={{ marginLeft: "16px" }}>
+            
               <Typography variant="h6" noWrap>
                 {open ? (
+                  <Tooltip
+                  title={<span style={{ fontSize: "13px" }}>Close Drawer</span>}
+                  arrow
+                >
                   <IconButton color="inherit" onClick={handleDrawerClose}>
                     <ChevronRightIcon />
                   </IconButton>
+                  </Tooltip>
                 ) : (
+                  <Tooltip
+                  title={<span style={{ fontSize: "13px" }}>Open Drawer</span>}
+                  arrow >
                   <IconButton color="inherit" onClick={handleDrawerOpen}>
                     <ChevronLeftIcon />
                   </IconButton>
+                  </Tooltip>
                 )}
               </Typography>
+              
             </div>
           </div>
         </Toolbar>
@@ -1205,13 +1216,14 @@ function HomePage() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={1} md={1} lg={3} xl={3}>
                 <FormControl>
-                  <InputLabel id="demo-simple-select-label">Layout</InputLabel>
+                  <InputLabel id="demo-simple-select-label" style={{ fontSize: '20px' }} >Layout</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={layoutName}
                     label="Distance"
                     onChange={handleChangeLayout}
+                    style={{ fontSize: '14px' }}
                   >
                     <MenuItem value={LAYOUT_NAMES.COLA}>Cola</MenuItem>
                     <MenuItem value={LAYOUT_NAMES.COSE_BILKENT}>

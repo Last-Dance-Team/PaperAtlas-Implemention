@@ -88,49 +88,49 @@ function NodeDetail(props: any) {
       <div>
         <ThemeProvider theme={theme}>
           <Box sx={{ bgcolor: "background.paper", p: 2 }}>
-            <Box sx={{ mb: 1, color: "text.secondary", fontSize: 16 }}>
+            <Box sx={{ mb: 1, color: "text.secondary", fontSize: 14 }}>
               <strong>Title:</strong>
             </Box>
             <Box
               sx={{
                 mb: 2,
                 color: "text.primary",
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: "medium",
               }}
             >
               {node.label}
             </Box>
 
-            <Box sx={{ mb: 1, color: "text.secondary", fontSize: 16 }}>
+            <Box sx={{ mb: 1, color: "text.secondary", fontSize: 14 }}>
               <strong>Publication Year:</strong>
             </Box>
             <Box
               sx={{
                 mb: 2,
                 color: "text.primary",
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: "medium",
               }}
             >
               {node.year}
             </Box>
 
-            <Box sx={{ mb: 1, color: "text.secondary", fontSize: 16 }}>
+            <Box sx={{ mb: 1, color: "text.secondary", fontSize: 14 }}>
               <strong>DOI:</strong>
             </Box>
             <Box
               sx={{
                 mb: 2,
                 color: "text.primary",
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: "medium",
               }}
             >
               {node.doi}
             </Box>
 
-            <Box sx={{ mb: 1, color: "text.secondary", fontSize: 16 }}>
+            <Box sx={{ mb: 1, color: "text.secondary", fontSize: 14 }}>
               <strong>Field of Study:</strong>
             </Box>
             {node.uniqueFieldsOfStudies.map((a: string) => (
@@ -139,7 +139,7 @@ function NodeDetail(props: any) {
                 sx={{
                   mb: 2,
                   color: "text.primary",
-                  fontSize: 16,
+                  fontSize: 14,
                   fontWeight: "medium",
                   ml: 2,
                 }}
@@ -148,14 +148,14 @@ function NodeDetail(props: any) {
               </Box>
             ))}
 
-            <Box sx={{ mb: 1, color: "text.secondary", fontSize: 16 }}>
+            <Box sx={{ mb: 1, color: "text.secondary", fontSize: 14 }}>
               <strong>Citation Count:</strong>
             </Box>
             <Box
               sx={{
                 mb: 2,
                 color: "text.primary",
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: "medium",
               }}
             >
@@ -166,7 +166,7 @@ function NodeDetail(props: any) {
               sx={{
                 mb: 2,
                 color: "text.primary",
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: "medium",
               }}
             >
@@ -175,14 +175,14 @@ function NodeDetail(props: any) {
 
             {info.abstract === "" ? null : (
               <>
-                <Box sx={{ mb: 1, color: "text.secondary", fontSize: 16 }}>
+                <Box sx={{ mb: 1, color: "text.secondary", fontSize: 14 }}>
                   <strong>Abstract:</strong>
                 </Box>
                 <Box
                   sx={{
                     mb: 1,
                     color: "text.primary",
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: "medium",
                   }}
                 >
@@ -201,21 +201,21 @@ function NodeDetail(props: any) {
       <div>
         <ThemeProvider theme={theme}>
           <Box sx={{ bgcolor: "background.paper" }}>
-            <Box sx={{ m: 1, color: "text.secondary", fontSize: 20 }}>
+            <Box sx={{ m: 1, color: "text.secondary", fontSize: 18 }}>
               <strong>Name:</strong>{" "}
             </Box>
             <Box
               sx={{
                 m: 1,
                 color: "text.primary",
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: "medium",
               }}
             >
               {node.label}{" "}
             </Box>
             <div hidden={ !node.aliases || node.aliases.length === 0}>
-              <Box sx={{ m: 1, color: "text.secondary", fontSize: 20 }}>
+              <Box sx={{ m: 1, color: "text.secondary", fontSize: 18 }}>
                 <strong>Aliases:</strong>{" "}
               </Box>
 
@@ -226,7 +226,7 @@ function NodeDetail(props: any) {
                     sx={{
                       m: 1,
                       color: "text.primary",
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: "medium",
                     }}
                   >
@@ -236,27 +236,27 @@ function NodeDetail(props: any) {
               }): <></>}
             </div>
 
-            <Box sx={{ m: 1, color: "text.secondary", fontSize: 20 }}>
+            <Box sx={{ m: 1, color: "text.secondary", fontSize: 18 }}>
               <strong>Paper Count:</strong>{" "}
             </Box>
             <Box
               sx={{
                 m: 1,
                 color: "text.primary",
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: "medium",
               }}
             >
               {node.paperCount}{" "}
             </Box>
-            <Box sx={{ m: 1, color: "text.secondary", fontSize: 20 }}>
+            <Box sx={{ m: 1, color: "text.secondary", fontSize: 18 }}>
               <strong>Citation Count:</strong>{" "}
             </Box>
             <Box
               sx={{
                 m: 1,
                 color: "text.primary",
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: "medium",
               }}
             >
