@@ -39,13 +39,10 @@ function filterNodesByName(cy: cytoscape.Core, name: string) {
 
 //qtip ( Cytoscape, jquery );
 function setSize(node: cytoscape.NodeSingular) {
-  if (node.data("citationCount") == 0) {
-    return 30;
-  }
   if (node.data("type") == "Author") {
-    return 30 + Math.log(node.data("citationCount"));
+    return 2*(30 + Math.log(node.data("citationCount")))/3;
   } else {
-    return 30 + 10 * Math.log10(node.data("citationCount"));
+    return (30 + 10 * Math.log10(node.data("citationCount")))/2;
   }
 }
 
@@ -85,7 +82,7 @@ function DemoGraph(props: any) {
         "underlay-opacity": "0.5", // Opacity of the underlay
         "underlay-shape": "ellipse", // Underlay shape
         content: "data(abbr)",
-
+        'font-size': '9px',
         width: setSize,
         height: setSize,
       },
@@ -98,7 +95,7 @@ function DemoGraph(props: any) {
         "background-image": `url(https://last-dance-team.github.io/PaperAtlas/person2.jpeg)`, // Use the absolute file path of the image
         "background-fit": "cover",
         "background-image-opacity": 1,
-
+        'font-size': '9px',
         content: "data(abbr)",
 
         width: setSize,
@@ -117,7 +114,7 @@ function DemoGraph(props: any) {
         "background-fit": "cover",
         "background-image-opacity": 1,
         content: "data(abbr)",
-
+        'font-size': '9px',
         width: setSize,
         height: setSize,
       },
@@ -133,7 +130,7 @@ function DemoGraph(props: any) {
         "underlay-opacity": "0.5", // Opacity of the underlay
         "underlay-shape": "ellipse", // Underlay shape
         content: "data(abbr)",
-
+        'font-size': '9px',
         width: setSize,
         height: setSize,
       },
@@ -146,7 +143,7 @@ function DemoGraph(props: any) {
         "background-image-opacity": 1,
 
         content: "data(abbr)",
-
+        'font-size': '9px',
         width: setSize,
         height: setSize,
       },
@@ -162,7 +159,7 @@ function DemoGraph(props: any) {
         "background-fit": "cover",
         "background-image-opacity": 1,
         content: "data(abbr)",
-
+        'font-size': '9px',
         width: setSize,
         height: setSize,
       },
